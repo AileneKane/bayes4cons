@@ -1,0 +1,47 @@
+\documentclass[11pt]{article}
+\usepackage[top=1.00in, bottom=1.0in, left=1in, right=1in]{geometry}
+\renewcommand{\baselinestretch}{1.1}
+\usepackage{graphicx}
+\usepackage{natbib}
+\usepackage{amsmath}
+\usepackage{parskip}
+
+\def\labelitemi{--}
+\parindent=0pt
+
+\begin{document}
+\bibliographystyle{/Users/Lizzie/Documents/EndnoteRelated/Bibtex/styles/besjournals}
+\renewcommand{\refname}{\CHead{}}
+
+% \setlength{\parindent}{0cm}
+% \setlength{\parskip}{5pt}
+
+\section*{Overview}
+
+We propose follow simple example of Wade 2000 (with citation to it) with a climate change twise... 
+\begin{itemize}
+\item Back story for our example ... 
+\begin{itemize}
+\item Imagine you have sampled 10 populations of a species across its latitudinal range
+\item Populations are increasing at the leading edge, but declining fast at the trailing edge.
+\item However, there's different sample sizes (years of data) at each site and there happens to be much less at the most trailing edge population
+\end{itemize}
+\item What we'll do. ... 
+\begin{itemize}
+\item We'll simulate from a basic logistic growth model and add equal noise across all populations, then reduce the sample size ($n$ of years) variably but the most for the most trailing and make sure one a little up of that has LOTS of data
+\item We'll show trends lines with error and asterisks for the NHT look and each one will be paired with a posterior with 0 highlighted by a dashed line ({\bf we could also show the true slope?} Though I am not sure how to calculate that ... given the underlying model is non-linear, but we could estimate on the data without the noise added). We will make sure the $x$ axis is the same across all the posteriors so the decline is apparent. 
+\end{itemize}
+\item What this will show ... 
+\begin{itemize}
+\item The most declining population will not have a significant slope so will not be flagged for concern under NHT and p-values but will look concerning with the posterior.
+\item Instead the NHT will make the well sampled but barely declining population look most concerning. 
+\end{itemize}
+\end{itemize}
+
+
+\section*{Starter text ...}
+
+In some cases, Bayesian approaches can lead to different conclusions than Fisherian approaches, such as null hypothesis testing (Wade 2000) ...
+
+\end{document}
+
