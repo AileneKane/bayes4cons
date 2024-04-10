@@ -232,6 +232,7 @@ for (i in seq_along(r)) {
 rm(list=ls()) 
 options(stringsAsFactors = FALSE)
 
+set.seed(100)
 # iterate growth through time
 Nt <- function(r, N, t, noise_sd) {
   for (i in 1:(t - 1)) {
@@ -248,10 +249,10 @@ Nt <- function(r, N, t, noise_sd) {
   }
   N
 }
-t <- 30
-r <- c(400, 300, 200, 100, -100, -200, -300, -400)
-Nt0 <- 10000
-noise_sd <- c(1000,1500,1600,1700,1800,1900,2000,2100)
+t <- 50
+r <- c(800, 700, 600, 500, -500, -600, -700, -800)
+Nt0 <- 100000
+noise_sd <- c(10000,10000,10000,10000,10000,10000,10000,10000)
 
 populations <- list()
 
@@ -263,15 +264,15 @@ for (i in 1:length(r)) {
 
 df <- as.data.frame(populations)
 
-time<-c(1:30)
+time<-c(1:50)
 df<-cbind(df,time)
 par(mfrow = c(2, 4))
 # Plot population growth over time with noise
 
 for (i in seq_along(r)) {
-  plot(df$time, df[[i]], type = 'l', xlab = 'time', ylab = 'Population size',
-       main = paste('r =', r[i]), ylim = c(0, 20000))
-  abline(h = 10000, lty = 2, col = 'grey')
+  plot(df$time, df[[i]], xlab = 'time', ylab = 'Population size',
+       main = paste('r =', r[i]), ylim = c(0, 200000))
+  abline(h = 100000, lty = 2, col = 'grey')
 }
 
 # Sample for several populations
