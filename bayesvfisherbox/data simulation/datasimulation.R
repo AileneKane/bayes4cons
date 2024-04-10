@@ -198,3 +198,122 @@ summary(model1)$summary
 par(mfrow=c(1,1))
 plot(modified_df$time,modified_df$pop1)
 abline(a=29,b=129)
+##############################################################
+#############Linear decline without noise#####################
+##############################################################
+# housekeeping
+rm(list=ls()) 
+options(stringsAsFactors = FALSE)
+
+# iterate growth through time
+Nt <- function(r, N, t, noise_sd) {
+  for (i in 1:(t - 1)) {
+    # population at next time step is population at current time + pop growth
+    N[i + 1] <- N[i] + r
+  }
+  N
+}
+t <- 30
+r <- c(400, 300, 200, 100, -100, -200, -300, -400)
+Nt0 <- 10000
+Nt(r[i],Nt0,t,noise_sd[i])
+
+par(mfrow=c(2,4))
+for (i in seq_along(r)) {
+  plot(1:t, Nt(r[i], Nt0, t), type = 'l', xlab = 'time', ylab = 'Population size',
+       main = paste('r =', r[i]), ylim =c(0, 20000))
+  abline(h = 10000, lty = 2, col='grey')
+}
+##############################################################
+#############Linear decline with noise########################
+##############################################################
+
+# housekeeping
+rm(list=ls()) 
+options(stringsAsFactors = FALSE)
+
+# iterate growth through time
+Nt <- function(r, N, t, noise_sd) {
+  for (i in 1:(t - 1)) {
+    # population at next time step is population at current time + pop growth
+    N[i + 1] <- N[i] + r
+    # Add noise
+    noise <- rnorm(1, 0, noise_sd)
+    if (N[i + 1] + noise < 0) {
+      # If population becomes negative, set it to be zero. Population size cannot be negative.
+      N[i + 1] <- 0
+    } else {
+      N[i + 1] <- N[i + 1] + noise
+    }
+  }
+  N
+}
+t <- 30
+r <- c(400, 300, 200, 100, -100, -200, -300, -400)
+Nt0 <- 10000
+noise_sd <- c(300,400,500,600,700,800,900,1000)
+
+populations <- list()
+
+for (i in 1:length(r)) {
+  pop <- Nt(r[i], Nt0, t,noise_sd[i])
+  populations[[paste0("pop", i)]] <- pop
+}
+
+
+df <- as.data.frame(populations)
+
+time<-c(1:30)
+df<-cbind(df,time)
+par(mfrow = c(2, 4))
+# Plot population growth over time with noise
+
+for (i in seq_along(r)) {
+  plot(df$time, df[[i]], type = 'l', xlab = 'time', ylab = 'Population size',
+       main = paste('r =', r[i]), ylim = c(0, 20000))
+  abline(h = 10000, lty = 2, col = 'grey')
+}
+
+# Sample for several populations
+pop_sample <- c("pop2","pop4","pop6","pop8")
+
+modified_df <- df
+
+# Loop over each column
+for (col in pop_sample) {
+  # Get 10 random number from the current column
+  sampled_indices <- sample(1:nrow(df), size = 10, replace = FALSE)
+  
+  modified_df[, col] <- NA
+  modified_df[sampled_indices, col] <- df[sampled_indices, col]
+}
+
+#linear regression for each population
+num_pops <- 8 
+
+lm_models <- list()
+mod_summaries <- list()
+
+for (i in 1:num_pops) {
+  #Use lm() to check for significance for every population
+  lm_models[[i]] <- lm(modified_df[[paste0("pop", i)]] ~ modified_df$time)
+  mod_summaries[[i]] <- summary(lm_models[[i]])
+}
+mod_summaries
+#We could make the population declining the fast to be non-significance by introducing noise, but I might need to try better number combinations...
+
+# Create a separate plot for each column which stands for a population
+for (i in 1:num_pops) {
+  # Create a new plot for each population
+  plot(modified_df$time, modified_df[[paste0("pop", i)]], pch = 20, type = 'p', las = 1,
+       xlab = 'Time',
+       ylab = 'Population size')
+  
+  lm_model <- lm(modified_df[[paste0("pop", i)]] ~ modified_df$time)
+  abline(lm_model)
+  # Adding p-value to the plot
+  my.p <- summary(lm_model)$coefficients[2,4]
+  my.p<-format(my.p, digits = 3)
+  #mtext(my.p, side=3)
+  legend('topleft', legend = my.p, bty = 'n')
+}
