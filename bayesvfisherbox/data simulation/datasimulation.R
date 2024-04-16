@@ -213,7 +213,7 @@ Nt <- function(r, N, t, noise_sd) {
   }
   N
 }
-t <- 30
+t <- 20
 r <- c(400, 300, 200, 100, -100, -200, -300, -400)
 Nt0 <- 10000
 Nt(r[i],Nt0,t,noise_sd[i])
@@ -232,7 +232,7 @@ for (i in seq_along(r)) {
 rm(list=ls()) 
 options(stringsAsFactors = FALSE)
 
-set.seed(100)
+set.seed(121)
 # iterate growth through time
 Nt <- function(r, N, t, noise_sd) {
   for (i in 1:(t - 1)) {
@@ -249,10 +249,10 @@ Nt <- function(r, N, t, noise_sd) {
   }
   N
 }
-t <- 50
-r <- c(800, 700, 600, 500, -500, -600, -700, -800)
+t <- 20
+r <- c(2000, 1800, 1600, 1200, -1200, -1600, -1800, -2000)
 Nt0 <- 100000
-noise_sd <- c(10000,10000,10000,10000,10000,10000,10000,10000)
+noise_sd <- c(4000,5000,6000,7000,8000,9000,10000,11000)
 
 populations <- list()
 
@@ -264,7 +264,7 @@ for (i in 1:length(r)) {
 
 df <- as.data.frame(populations)
 
-time<-c(1:50)
+time<-c(1:20)
 df<-cbind(df,time)
 par(mfrow = c(2, 4))
 # Plot population growth over time with noise
@@ -274,47 +274,48 @@ for (i in seq_along(r)) {
        main = paste('r =', r[i]), ylim = c(0, 200000))
   abline(h = 100000, lty = 2, col = 'grey')
 }
-
-# Sample for several populations
-pop_sample <- c("pop2","pop4","pop6","pop8")
-
-modified_df <- df
-
-# Loop over each column
-for (col in pop_sample) {
-  # Get 10 random number from the current column
-  sampled_indices <- sample(1:nrow(df), size = 10, replace = FALSE)
-  
-  modified_df[, col] <- NA
-  modified_df[sampled_indices, col] <- df[sampled_indices, col]
-}
-
-#linear regression for each population
+# linear regression for each population
 num_pops <- 8 
 
 lm_models <- list()
 mod_summaries <- list()
-
 for (i in 1:num_pops) {
-  #Use lm() to check for significance for every population
-  lm_models[[i]] <- lm(modified_df[[paste0("pop", i)]] ~ modified_df$time)
+  # Use lm() to check for significance for every population
+  lm_models[[i]] <- lm(df[[paste0("pop", i)]] ~ df$time)
   mod_summaries[[i]] <- summary(lm_models[[i]])
 }
 mod_summaries
-#We could make the population declining the fast to be non-significance by introducing noise, but I might need to try better number combinations...
+# We could make the population declining the fast to be non-significance by introducing noise, but I might need to try better number combinations...
 
 # Create a separate plot for each column which stands for a population
 for (i in 1:num_pops) {
   # Create a new plot for each population
-  plot(modified_df$time, modified_df[[paste0("pop", i)]], pch = 20, type = 'p', las = 1,
+  plot(df$time, df[[paste0("pop", i)]], pch = 20, type = 'p', las = 1,
        xlab = 'Time',
        ylab = 'Population size')
   
-  lm_model <- lm(modified_df[[paste0("pop", i)]] ~ modified_df$time)
+  lm_model <- lm(df[[paste0("pop", i)]] ~ df$time)
   abline(lm_model)
   # Adding p-value to the plot
   my.p <- summary(lm_model)$coefficients[2,4]
   my.p<-format(my.p, digits = 3)
-  #mtext(my.p, side=3)
+  # mtext(my.p, side=3)
   legend('topleft', legend = my.p, bty = 'n')
 }
+
+# extract estimated slopes
+est <- list()
+
+for (i in 1:num_pops) {
+  lm_model[[i]] <- lm(df[[paste0("pop", i)]] ~ df$time)
+  est[[paste0("pop", i)]] <- summary(lm_model[[i]])$coefficients[2, 1]
+}
+est <- t(as.data.frame(est))
+colnames(est)[1]<-"estimates"
+est<-cbind(est,r)
+est<-as.data.frame(est)
+
+# plot true slope vs. lm estimated slope
+par(mfrow = c(1, 1))
+plot(est$estimates,est$r)
+abline(a=0,b=1)
