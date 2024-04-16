@@ -312,10 +312,12 @@ for (i in 1:num_pops) {
 }
 est <- t(as.data.frame(est))
 colnames(est)[1]<-"estimates"
-est<-cbind(est,r)
+population = c("pop1","pop2","pop3","pop4","pop5","pop6","pop7","pop8")
+est<-cbind(est,r,population)
 est<-as.data.frame(est)
 
 # plot true slope vs. lm estimated slope
 par(mfrow = c(1, 1))
 plot(est$estimates,est$r)
+text(est$estimates, est$r, labels=population, cex= 1)
 abline(a=0,b=1)
