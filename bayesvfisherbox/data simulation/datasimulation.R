@@ -321,3 +321,60 @@ par(mfrow = c(1, 1))
 plot(est$estimates,est$r)
 text(est$estimates, est$r, labels=population, cex= 1)
 abline(a=0,b=1)
+
+##############################################################
+#############18 April 2024 linear model with noise############
+##############################################################
+# housekeeping
+rm(list=ls()) 
+options(stringsAsFactors = FALSE)
+
+simulate_population <- function(a, b, t, noise_sd) {
+  y <- numeric(t)
+  time <- 1:t
+  for (i in time ) {
+    # population at next time step is population at current time + pop growth
+    y[i] <- a*i + b
+    # y is the population of certain time
+    # a is the increasing/decreasing rate
+    # b is the starting population size
+    # x is the time
+    # Add noise
+    noise <- rnorm(1, 0, noise_sd)
+    if (y[i] + noise < 0) {
+      # If population becomes negative, set it to be zero. Population size cannot be negative.
+      y[i] <- 0
+    } else {
+      y[i] <- y[i] + noise
+    }
+    # Fit a linear model to the simulated data
+    model <- lm(y ~ time)
+    # Extract the estimated slope (coefficient of time)
+    estimated_slope <- coef(model)["time"]
+    # Get estimated slope - true slope
+    slope_difference <- estimated_slope - a
+    }
+  list(
+    populations = y,
+    slope = estimated_slope,
+    slope_difference = slope_difference
+  )
+}
+
+
+
+t <- 10
+a <- c(2000, 1800, 1600, 1200, -1200, -1600, -1800, -2000)
+b <- 100000
+noise_sd <- 4000
+
+populations <- list()
+
+for (i in 1:length(a)) {
+  result <- simulate_population(a[i], b, t, noise_sd)
+  populations[[paste0("pop", i)]] <- list(result$populations,
+                                          result$slope,
+                                          result$slope_difference
+  )
+}
+print(populations)
