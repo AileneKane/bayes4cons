@@ -50,7 +50,7 @@
 %\SweaveOpts{concordance=FALSE}
 \SweaveOpts{concordance=TRUE}
 
-\bibliographystyle{../../Bibliography/bibstyles/amnat.bst}
+\bibliographystyle{bibstyles/amnat.bst}
 \title{Benefits of Bayesian Modelling For Conservation} 
 \author[1,a]{A.K. Ettinger}
 \author[2]{H. Eyster}
@@ -99,7 +99,7 @@
 
 \par Conservation science in the 21st century seeks to address the dual crises of  climate change and rapid biodiversity loss. These are urgent problems that require action.
 \begin{enumerate}
-\item Accelerating loss of biodiversity, nature and benefits (Brondizio, Settele, J., Díaz, Ngo, 2019; Ripple et al., 2017; Tittensor et al., 2014). 
+\item Accelerating loss of biodiversity, nature and benefits \citep{brondizio2019assessing} Ripple et al., 2017; Tittensor et al., 2014. 
 \item Conserving biodiversity is at the heart of the Convention on Biological Diversity's (CBD) Aichi targets (UNEP CBD 2010) and of Sustainable Development Goal 15 (General Assembly of the United Nations 2015).
 \item Williams et al 2019 https://conbio.onlinelibrary.wiley.com/doi/full/10.1111/conl.12720
 \end{enumerate}
@@ -147,6 +147,8 @@ Many conservation/environmental problems require integrating multiple datasets, 
 \section* {Future Vision}
 \section* {Box 1: Defining Bayesian Analysis}
 \section* {Box 2: Resources to Get Started}
+\bibliography{conslib.bib}
+\section* {Figures}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{document}
