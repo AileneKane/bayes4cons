@@ -1,0 +1,156 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%STARt PREAMBLE
+\documentclass{article}
+
+%Required: You must have these
+\usepackage{Sweave}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{hyperref}
+\usepackage{natbib}
+\usepackage{pdflscape}
+\usepackage{array}
+\usepackage{authblk}
+\usepackage{gensymb}
+
+
+%\usepackage[backend=bibtex]{biblatex}
+%Strongly recommended
+ %put your figures in one place
+%\SweaveOpts{prefix.string=figures/, eps=FALSE} 
+%you'll want these for pretty captioning
+\usepackage[small]{caption}
+
+\setkeys{Gin}{width=0.8\textwidth} %make the figs 50 perc textwidth
+\setlength{\captionmargin}{30pt}
+\setlength{\abovecaptionskip}{10pt}
+\setlength{\belowcaptionskip}{10pt}
+% manual for caption http://www.dd.chalmers.se/latex/Docs/PDF/caption.pdf
+
+%Optional: I like to muck with my margins and spacing in ways that LaTeX frowns on
+%Here's how to do that
+\topmargin -1.5cm  
+\oddsidemargin -0.04cm 
+\evensidemargin -0.04cm % same as oddsidemargin but for left-hand pages
+\textwidth 16.59cm
+\textheight 21.94cm 
+%\pagestyle{empty}  % Uncomment if don't want page numbers
+\parskip 7.2pt   % sets spacing between paragraphs
+%\renewcommand{\baselinestretch}{1.5} 	% Uncomment for 1.5 spacing between lines
+\parindent 0pt% sets leading space for paragraphs
+\usepackage{setspace}
+%\doublespacing
+\renewcommand{\baselinestretch}{1.8}
+\usepackage{lineno}
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%END PREAMBLE 
+
+%Start of the document
+\begin{document}
+
+%\SweaveOpts{concordance=FALSE}
+\input{bayes4cons_doc-concordance}
+
+\bibliographystyle{bibstyles/amnat.bst}
+\title{Benefits of Bayesian Modelling For Conservation} 
+\author[1,a]{A.K. Ettinger}
+\author[2]{H. Eyster}
+\author[3]{D. Loughnan}
+\author[3]{X. Wang}
+\author[3]{E.M. Wolkovich}
+\author[3]{M. Auger-Methe}
+\author[4]{R. Zenil-Ferguson}
+\author[5]{V. Leos Barajas}
+\author[6]{Others from the workshop?}
+
+\affil[1]{The Nature Conservancy,Seattle, Washington, USA}
+\affil[2]{TNC}
+\affil[3]{UBC}
+\affil[4]{UKY}
+\affil[5]{University of Toronto}
+
+
+\affil[a]{Corresponding author; email: ailene.ettinger@tnc.org; mailing address: 74 Wall Street. Seattle, WA 98121, USA }
+
+\date{\today}
+\maketitle 
+\textbf{Author contributions}: All authors conceived of this manuscript, which began at a Bayesian Generative Modelling Symposium at University of British Columbia in 2024, and all authors contributed to manuscript revisions.
+
+\textbf{Data Accessibility} 
+
+\textbf{Running title} 
+
+\textbf{Key words} 
+
+
+\textbf{Paper type} Review or Perspective in Frontiers in Ecology and the Environment, Conservation Biology, Conservation Letters, or Conservation Science and Practice
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\linenumbers
+
+\section*{Abstract} 
+
+
+\newpage
+\section* {INTRODUCTION:The challenges and needs of conservation science are well-suited for Bayesian data analysis}
+
+\par Conservation science in the 21st century seeks to address the dual crises of  climate change and rapid biodiversity loss. These are urgent problems that require action.
+\begin{enumerate}
+\item Accelerating loss of biodiversity, nature and benefits \citep{brondizio2019assessing} Ripple et al., 2017; Tittensor et al., 2014. 
+\item Conserving biodiversity is at the heart of the Convention on Biological Diversity's (CBD) Aichi targets (UNEP CBD 2010) and of Sustainable Development Goal 15 (General Assembly of the United Nations 2015).
+\item Williams et al 2019 https://conbio.onlinelibrary.wiley.com/doi/full/10.1111/conl.12720
+\end{enumerate}
+\par Though action is urgently needed, effective biodiversity conservation and durable climate change solutions rely on evidence to make decisions. 
+\begin{enumerate}
+\item “best available science” often required by  policy
+\item part of science process, though often “ideal” data are not available
+\item synthesizing multiple data sources  and incomplete datasets may be required 
+\end{enumerate}
+
+
+\par A critical part of building the evidence base is transparency and reproducibility in science. 
+\begin{enumerate}
+\item This includes being transparent and clear about uncertainty
+\item Communicating/quantifying uncertainty about climate change mitigation (e.g., principles of Natural Climate Solutions, Ellis 2023, IPCC requires uncertainty (Chap 3 from 2006))
+
+\end{enumerate}
+
+\par Bayesian data analysis provides a framework and approaches that align well with these needs of conservation biology.
+\begin{enumerate}
+
+\item Moving beyond null-hypothesis testing 
+\item Propagation of uncertainty
+\item Priors as a way to synthesize “best available science”
+T\item hough some fields within conservation biology and natural resource management have adopted Bayesian methods (wildlife mark and recapture models/occupancy models, fisheries) these approaches generally  are not widely used in conservation science
+\item consider adding- easier now to do it! computer power plus tools
+\end{enumerate}
+
+\par We  aim to help accelerate adoption of Bayesian data analytical approaches in conservation science because we believe these approaches offer features that are well-suited to the field and could enhance progress, with more  widespread adoption. We describe the benefits of using Bayesian methods for conservation science questions, describe what is required to use these methods, provide example code relevant to current conservation problems, and share resources and a glossary that we hope will make Bayesian tools more approachable to those who have not used them before.
+
+\section* {Benefits for Conservation}
+Conservation questions can be complex, sometimes requiring analyses for which frequentist statistics are unable to compute the associated uncertainties (Bolker et al., 2009; Bates, 2006).  Fortunately, Bayesian methods contain the flexibility to tackle this complexity. 
+Often conservation scientists might be interested in deciding whether an alternative management practice produces the same result as a current management practice. But frequentist statistics cannot provide such evidence; it can only provide evidence against a null hypothesis (Gallistel, 2009). But Bayesian analysis can provide evidence to support a null hypothesis, e.g., that the alternative and current management practices produce similar results (Gallistel, 2009). 
+Conservationists are often particularly interested in species with small populations, since these are often the ones most at risk of extinction, or ones that are poorly understood (Stinchcomb et al., 2002). Frequentist statistics rely on asymptotic behavior, which makes it difficult for these methods to draw useful conclusions from small sample sizes (McNeish, 2016). Bayesian methods, however, do not have this same reliance, and so are better able to accommodate small sample sizes (McNeish, 2016). However, these methods still require care when working with small sample sizes, because priors matter much more; yet this is also an opportunity to include the full gamut of prior knowledge from many sources that may not typically be included in quantitative analyses (McNeish, 2016). 
+Frequentist statistics produce metrics like confidence intervals and p-values, which have very specific interpretations (Fornacon-Wood, 2021). However, these metrics are often misinterpreted. Bayesian statistics, in contrast, produces credible intervals, for which the intuitive interpretation matches the technical definition, yielding much more easily interpretable results, particularly for non-statistician colleagues and decision-makers (Fornacon-Wood, 2021). 
+Conservation often requires making easily-interpretable wildlife status categories to inform decision making (Brooks, 2008). For example, conservation might be prioritized for species declining ‘’rapidly’’ versus ‘’moderately.’’ These discrete categories require information about when a species’ population has passed a particular threshold (Brooks, 2008).  Bayesian models make it assess the evidence for whether a species has surpassed a given threshold (Brooks, 2008). 
+Conservation evidence comes in many forms, including from quantitative studies, community knowledge, expert knowledge, traditional ecological knowledge, and others. Effective conservation decisions require integrating these types of information (Stern Humphries, 2022). Bayesian methods enable two fruitful avenues for such inclusion. First, information can be amalgamated into Bayesian Belief Networks (Marcot et al., 2001, Newton et al., 2007). Second, extant information can be used to inform prior distributions (O’Leary et al., 2008). These Bayesian methods are particularly useful because they not only include a range of informating types, but also include associated uncertainty (Stern Humphries, 2022). 
+Ecosystems are dynamic and often yield unexpected behaviors (Gross, 2013;Levin et al., 2012). Adaptive management is designed for just such systems that may respond unexpectedly to interventions (Holling, 1978). Yet frequentist statistical frameworks rarely provide information necessary to inform adaptive management  (Prato, 2005).  Specifically, frequentist statistics incapacity to compare support for a variety of hypotheses (including a ‘null’ hypothesis) prevents this method from informing what interventions will most likely bring about conservation gains (Prato, 2005). 
+Many conservation/environmental problems require integrating multiple datasets, multiple sources of uncertainty, or multiple modeling steps.  Bayesian approaches enable straightforward propagation of  uncertainty (Draper, 1995; Gilbert et al., 2023; Eyster et al., 2022, Saunders et al., 2019)) 
+
+
+\section* {Why now?}
+\section* {Case Studies}
+
+\section* {Future Vision}
+\section* {Box 1: Defining Bayesian Analysis}
+\section* {Box 2: Resources to Get Started}
+\bibliography{conslib.bib}
+\section* {Figures}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
