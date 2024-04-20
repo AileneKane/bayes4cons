@@ -109,4 +109,25 @@ for (i in 1:length(a)) {
 }
 
 dfout
-# Could work, I might re-run without the -1800 and +1800 slopes (so 6 populations) and plot out the results
+# Could work, I might re-run after adjusting some of the populations we want, and plot out the results:
+set.seed(1546)
+a <- c(-2000, -1600, -1400,  600, 1400 , 1600,  2000)
+t <- 10
+b <- seq(40000, 101000, by=10000)
+noise_sd <- rev(seq(from=3000, to=7000, by=400))
+
+par(mfrow=c(1,7))
+for(i in 1:length(a)){
+  y <- numeric(t)
+  time <- 1:t
+  y <- a[i]*time + b[i] + rnorm(t, 0, noise_sd[i])
+  plot(y~time, main=coef(summary(lm(y ~ time)))[2,4])
+  abline(lm(y~time))
+}
+# We should check out some of the other options to see what looks best before finalizing the seed. 
+# I suspect we could find better options. 
+# Perhaps as a next step someone could try all the seeds x noise suggestions 
+# using my noise steps above (lines 99-101) but plotting the points as I do just above, 
+# But improve the figures (reduce digits on p values and also add estimated slope to plot) 
+# push all plots and then we could pick!
+
