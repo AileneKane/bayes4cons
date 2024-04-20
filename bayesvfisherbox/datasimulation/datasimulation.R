@@ -334,7 +334,8 @@ simulate_population <- function(a, b, t, noise_sd) {
   time <- 1:t
   for (i in time ) {
     # population at next time step is population at current time + pop growth
-    y[i] <- a*i + b
+    y[i] <- a*i + b # EMW: Here, we add b at every time step is not the same as an intercept in linear regression
+    # EMW cont: it's also no longer 'the starting population size' so I think this is part of the problem
     # y is the population of certain time
     # a is the increasing/decreasing rate
     # b is the starting population size
@@ -352,7 +353,7 @@ simulate_population <- function(a, b, t, noise_sd) {
     # Extract the estimated slope (coefficient of time)
     estimated_slope <- coef(model)["time"]
     # Get estimated slope - true slope
-    slope_difference <- estimated_slope - a
+    slope_difference <- estimated_slope - a # EMW: ratio likely better
     }
   list(
     populations = y,
@@ -378,3 +379,23 @@ for (i in 1:length(a)) {
   )
 }
 print(populations)
+
+# Comments from Lizzie
+
+# 1. 
+# In general we rarely write code that erases the workspace in the middle (sort of endless new code).
+# Instead we would push the code and then as we update it, we would delete old code we don't need.
+# Here it was tricky as we're exploring. I would have probably either:
+# (a) kept this file and deleted what was in it mostly (as I did for my file) OR
+# (b) wrote a new file for the linear work and then evenually delete the older file when happy with new file  
+
+# 2. 
+# Always BUILD you code ... and have a set of logical tests you run to make sure it works. 
+# I am not sure what happened here, but I am not sure this f(x) ever worked because 
+# When I tried to test that the estimated and given slope matched (with 0 noise) via  plot, they did not.
+# When building a f(x) you either need to usually start with one working piece, get the basics to work, then build the f(x) from it. 
+# And either way, you need more tests of it. 
+# Here though, I know we are trying to get this done FAST so I understand if you ran out of time...
+# but better to one piece that is correct and not done. 
+# You may know all of this, but a good reminder either way!
+
