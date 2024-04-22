@@ -52,7 +52,8 @@ for (i in 1:length(a)) {
   }
 }
 
-dfout$pvalsig <- ifelse(dfout$pval>0.5, 2, 0)
+# set p-value thresholds to 0, 1, 2 where 2 is > 0.15, 1 is 0.05 to 0.15 and and 0 is <0.05 
+dfout$pvalsig <- ifelse(dfout$pval>0.15, 2, 0)
 dfout$pvalsig[which(dfout$pval>0.05 & dfout$pval<0.15)] <- 1
 library(ggplot2)
 ggplot(dfout, aes(x=givenslope, y=estslope, color=as.factor(pvalsig)))+
