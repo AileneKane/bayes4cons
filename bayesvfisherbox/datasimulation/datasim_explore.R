@@ -96,10 +96,13 @@ for(seedz in c(333:3999)){
 # We'll definitely need to DECREASE the noise with population size (assuming northern, increasing populations are increasing)
 # But now we can probably get what we want ...
 # For example, try ....
-set.seed(1546)
+
+# Save all plots in a pdf file
+pdf(file= "seeds.pdf")
+set.seed(3786)
 t <- 10
 b <- 100000
-noise_sd <- rev(seq(from=3400, to=7000, by=400))
+noise_sd <- rev(seq(from=3000, to=8600, by=400))
 
 dfout <- data.frame(givenslope=numeric(), noise=numeric(), estslope=numeric(), pval=numeric())
 
@@ -111,19 +114,32 @@ for (i in 1:length(a)) {
 
 dfout
 # Could work, I might re-run after adjusting some of the populations we want, and plot out the results:
-set.seed(1546)
+set.seed(3786)
 a <- c(-2000, -1600, -1400,  600, 1400 , 1600,  2000)
 t <- 10
 b <- seq(40000, 101000, by=10000)
-noise_sd <- rev(seq(from=3000, to=7000, by=400))
+noise_sd <- rev(seq(from=3000, to=8600, by=400))
 
-par(mfrow=c(1,7))
+#par(mfrow=c(1,7))
+#for(i in 1:length(a)){
+#  y <- numeric(t)
+#  time <- 1:t
+#  y <- a[i]*time + b[i] + rnorm(t, 0, noise_sd[i])
+#  plot(y~time, main=coef(summary(lm(y ~ time)))[2,4])
+#  abline(lm(y~time))
+#}
+
+par(mfrow=c(3,3))
 for(i in 1:length(a)){
   y <- numeric(t)
   time <- 1:t
   y <- a[i]*time + b[i] + rnorm(t, 0, noise_sd[i])
-  plot(y~time, main=coef(summary(lm(y ~ time)))[2,4])
-  abline(lm(y~time))
+  lm_model <- lm(y ~ time)
+  p_value <- coef(summary(lm_model))[2,4]
+  rounded_p_value <- round(p_value, 4)
+  slope <- coef(lm_model)[2]
+  plot(y ~ time, main = paste("Seed:", 3786, "Noise:", noise_sd[i], "\np-value:", rounded_p_value, "\nEstimated Slope:", round(slope, 2)))
+  abline(lm_model)
 }
 # We should check out some of the other options to see what looks best before finalizing the seed. 
 # I suspect we could find better options. 
@@ -131,4 +147,3 @@ for(i in 1:length(a)){
 # using my noise steps above (lines 99-101) but plotting the points as I do just above, 
 # But improve the figures (reduce digits on p values and also add estimated slope to plot) 
 # push all plots and then we could pick!
-
