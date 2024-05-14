@@ -1,5 +1,10 @@
-\begin{thebibliography}{18}
+\begin{thebibliography}{25}
 \providecommand{\natexlab}[1]{#1}
+
+\bibitem[{Assembly(2015)}]{assembly2015resolution}
+Assembly, G. 2015.
+\newblock Resolution adopted by the general assembly on 11 september 2015.
+\newblock New York: United Nations .
 
 \bibitem[{Bates(2006)}]{bates2006r}
 Bates, D. 2006.
@@ -56,6 +61,13 @@ Gilbert, N.~A., H.~N. Eyster, and E.~F. Zipkin. 2023.
 \newblock Propagating uncertainty in ecological models to understand causation.
 \newblock Frontiers in Ecology and the Environment 21.
 
+\bibitem[{Griscom et~al.(2017)Griscom, Adams, Ellis, Houghton, Lomax, Miteva,
+  Schlesinger, Shoch, Siikam{\"a}ki, Smith et~al.}]{griscom2017natural}
+Griscom, B.~W., J.~Adams, P.~W. Ellis, R.~A. Houghton, G.~Lomax, D.~A. Miteva,
+  W.~H. Schlesinger, D.~Shoch, J.~V. Siikam{\"a}ki, P.~Smith, et~al. 2017.
+\newblock Natural climate solutions.
+\newblock Proceedings of the National Academy of Sciences 114:11645--11650.
+
 \bibitem[{Gross(2013)}]{Gross2013}
 Gross, M. 2013.
 \newblock The social-ecological co-constitution of nature through ecological
@@ -87,6 +99,12 @@ Marcot, B.~G., R.~S. Holthausen, M.~G. Raphael, M.~M. Rowland, and M.~J.
   impact statement.
 \newblock Forest ecology and management 153:29--42.
 
+\bibitem[{McNeish(2016)}]{mcneish2016using}
+McNeish, D. 2016.
+\newblock On using bayesian methods to address small sample problems.
+\newblock Structural Equation Modeling: A Multidisciplinary Journal
+  23:750--773.
+
 \bibitem[{Newton et~al.(2007)Newton, Stewart, Diaz, Golicher, and
   Pullin}]{newton2007bayesian}
 Newton, A., G.~Stewart, A.~Diaz, D.~Golicher, and A.~Pullin. 2007.
@@ -106,6 +124,14 @@ Prato, T. 2005.
 \newblock Bayesian adaptive management of ecosystems.
 \newblock Ecological Modelling 183:147--156.
 
+\bibitem[{Ripple et~al.(2017)Ripple, Wolf, Newsome, Hoffmann, Wirsing, and
+  McCauley}]{ripple2017extinction}
+Ripple, W.~J., C.~Wolf, T.~M. Newsome, M.~Hoffmann, A.~J. Wirsing, and D.~J.
+  McCauley. 2017.
+\newblock Extinction risk is most acute for the world's largest and smallest
+  vertebrates.
+\newblock Proceedings of the National Academy of Sciences 114:10678--10683.
+
 \bibitem[{Saunders et~al.(2019)Saunders, Farr, Wright, Bahlai, Ribeiro,
   Rossman, Sussman, Arnold, and Zipkin}]{Saunders2019}
 Saunders, S.~P., M.~T. Farr, A.~D. Wright, C.~A. Bahlai, J.~W. Ribeiro,
@@ -119,9 +145,33 @@ Stern, E.~R., and M.~M. Humphries. 2022.
   quantitative wildlife analyses: A systematic review.
 \newblock Biological Conservation 266:109444.
 
+\bibitem[{Stinchcombe et~al.(2002)Stinchcombe, Moyle, Hudgens, Bloch,
+  Chinnadurai, and Morris}]{stinchcombe2002influence}
+Stinchcombe, J., L.~C. Moyle, B.~R. Hudgens, P.~L. Bloch, S.~Chinnadurai, and
+  W.~F. Morris. 2002.
+\newblock The influence of the academic conservation biology literature on
+  endangered species recovery planning.
+\newblock Conservation Ecology 6.
+
+\bibitem[{Tittensor et~al.(2014)Tittensor, Walpole, Hill, Boyce, Britten,
+  Burgess, Butchart, Leadley, Regan, Alkemade et~al.}]{tittensor2014mid}
+Tittensor, D.~P., M.~Walpole, S.~L. Hill, D.~G. Boyce, G.~L. Britten, N.~D.
+  Burgess, S.~H. Butchart, P.~W. Leadley, E.~C. Regan, R.~Alkemade, et~al.
+  2014.
+\newblock A mid-term analysis of progress toward international biodiversity
+  targets.
+\newblock Science 346:241--244.
+
 \bibitem[{Wade(2000)}]{wade2000bayesian}
 Wade, P.~R. 2000.
 \newblock Bayesian methods in conservation biology.
 \newblock Conservation biology 14:1308--1316.
+
+\bibitem[{Williams et~al.(2020)Williams, Balmford, and
+  Wilcove}]{williams2020past}
+Williams, D.~R., A.~Balmford, and D.~S. Wilcove. 2020.
+\newblock The past and future role of conservation science in saving
+  biodiversity.
+\newblock Conservation Letters 13:e12720.
 
 \end{thebibliography}
