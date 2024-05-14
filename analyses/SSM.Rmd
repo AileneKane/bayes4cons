@@ -31,7 +31,7 @@ Simulate simple univariate linear state-space model with normal distributions
 ```{r}
 # Create a vector that will keep track of the states
 # It's of length T + 1 (+1 for t=0)
-TT <- 200
+TT <- 20 #0
 z <- numeric(TT + 1)
 
 # Standard deviation of the process variation
@@ -174,10 +174,10 @@ mcmc_areas(m.informed.post,
 ```
 
 ```{r}
-data.frame(sdo = c(sdo, median(sdo.est.vague), median(sdo.est.informed)), 
+data.frame(sdo = c(sdo, mean(sdo.est.vague), mean(sdo.est.informed)), 
            sdo.025 = c(NA, quantile(sdo.est.vague, probs = 0.025), quantile(sdo.est.informed, probs = 0.025)),
            sdo.975 = c(NA, quantile(sdo.est.vague, probs = 0.975), quantile(sdo.est.informed, probs = 0.975)),
-           sdp = c(sdp, median(sdp.est.vague), median(sdp.est.informed)),
+           sdp = c(sdp, mean(sdp.est.vague), mean(sdp.est.informed)),
            sdp.025 = c(NA, quantile(sdp.est.vague, probs = 0.025), quantile(sdp.est.informed, probs = 0.025)),
            sdp.975 = c(NA, quantile(sdp.est.vague, probs = 0.975), quantile(sdp.est.informed, probs = 0.975)))
 

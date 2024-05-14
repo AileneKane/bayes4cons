@@ -15,7 +15,7 @@ parameters {
 /*----------------------- Model --------------------------*/
 model {
   // Prior distributions
-  sdo ~ normal(0, 10); // Half-normal since real<lower=0> above and mean 0 - Vague
+  sdo ~ unif(0, 20);#normal(0, 10); // Half-normal since real<lower=0> above and mean 0 - Vague
   sdp ~ normal(0, 10); // Half-normal since real<lower=0> above and mean 0 - Vague
   // Distribution for the first state
   z[1] ~ normal(z0, sdp);
