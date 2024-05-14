@@ -3,7 +3,7 @@
 # Bayesian for Conservation paper                   #
 # started by Ailene Ettinger                        #
 # ailene.ettinger@tnc.org                           #
-# March 2024
+# started March 2024
 #####################################################
 
 # housekeeping
