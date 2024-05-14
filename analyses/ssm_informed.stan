@@ -15,7 +15,7 @@ parameters {
 /*----------------------- Model --------------------------*/
 model {
   // Prior distributions
-  sdo ~ normal(1, 1); // Truncated-normal since real<lower=0> above and mean 1 - vague
+  sdo ~ normal(1.8, 0.5); // Truncated-normal since real<lower=0> above and mean 1 - vague
   sdp ~ normal(0, 10); // Half-normal since real<lower=0> above - still vague
   // Distribution for the first state
   z[1] ~ normal(z0, sdp);

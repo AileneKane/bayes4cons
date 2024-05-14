@@ -71,8 +71,9 @@ The prior we are using in this case is
 
 ```{r}
 # Quick plot of priors
-x <- seq(0, 200, by=0.1)
+x <- seq(0, 20, by=0.1)
 plot(dnorm(x, 0, 10) ~ x, ty="l")
+abline(v=sdo)
 ```
 
 Fit model
@@ -82,7 +83,11 @@ m.vague <- stan(file = "ssm_vague.stan",
                 data = dataStan,
                 chains = 3, iter = 30000)
 
+```
 
+Look at traceplot
+
+```{r}
 # Traceplot for sdp
 traceplot(m.vague, pars="sdp", inc_warmup = TRUE)
 ```
@@ -93,14 +98,26 @@ Quick look
 print(m.vague, max = 50)
 ```
 
+Extract info
+
+```{r}
+# Posterior
+m.vague.post <- as.matrix(m.vague)
+sdo.est.vague <- m.vague.post[,"sdo"]
+sdp.est.vague <- m.vague.post[,"sdp"]
+```
+
+
+
 ## Fit model with informed priors
 
 The prior we are using in this case is
 
 ```{r}
 # Quick plot of priors
-x <- seq(0, 200, by=0.1)
-plot(dnorm(x, 1, 1) ~ x, ty="l")
+x <- seq(0, 20, by=0.01)
+plot(dnorm(x, 1.8, 0.5) ~ x, ty="l")
+abline(v=sdo)
 ```
 
 Fit model
@@ -109,8 +126,11 @@ Fit model
 m.informed <- stan(file = "ssm_informed.stan",
                 data = dataStan,
                 chains = 3, iter = 30000)
+```
 
+Look at traceplot
 
+```{r}
 # Traceplot for sdp
 traceplot(m.informed, pars="sdp", inc_warmup = TRUE)
 ```
@@ -121,16 +141,19 @@ Quick look
 print(m.vague, max = 50)
 ```
 
-# Compare models
-
+Extract info
 
 ```{r}
-sdo.est.vague <- rstan::extract(m.vague, pars=c("sdo"))[[1]]
-sdp.est.vague <- rstan::extract(m.vague, pars=c("sdp"))[[1]]
+m.informed.post <- as.matrix(m.informed)
+sdo.est.informed <- m.informed.post[,"sdo"]
+sdp.est.informed <- m.informed.post[,"sdp"]
 
-# Posterior
+```
 
-m.vague.post <- as.matrix(m.vague)
+# Compare models
+
+Plot posterior
+```{r}
 plot_title <- ggtitle("Posterior distributions",
                       "with medians and 80% intervals")
 mcmc_areas(m.vague.post,
@@ -140,21 +163,6 @@ mcmc_areas(m.vague.post,
   geom_vline(aes(xintercept = sdo), col="hotpink")
 
 
-
-
-sdo.est.informed <- rstan::extract(m.informed, pars=c("sdo"))[[1]]
-sdp.est.informed <- rstan::extract(m.informed, pars=c("sdp"))[[1]]
-
-data.frame(sdo = c(sdo, median(sdo.est.vague), median(sdo.est.informed)), 
-           sdo.025 = c(NA, quantile(sdo.est.vague, probs = 0.025), quantile(sdo.est.informed, probs = 0.025)),
-           sdo.975 = c(NA, quantile(sdo.est.vague, probs = 0.975), quantile(sdo.est.informed, probs = 0.975)),
-           sdp = c(sdp, median(sdp.est.vague), median(sdp.est.informed)),
-           sdp.025 = c(NA, quantile(sdp.est.vague, probs = 0.025), quantile(sdp.est.informed, probs = 0.025)),
-           sdp.975 = c(NA, quantile(sdp.est.vague, probs = 0.975), quantile(sdp.est.informed, probs = 0.975)))
-
-# Posterior
-
-m.informed.post <- as.matrix(m.informed)
 plot_title <- ggtitle("Posterior distributions",
                       "with medians and 80% intervals")
 mcmc_areas(m.informed.post,
@@ -162,4 +170,15 @@ mcmc_areas(m.informed.post,
            prob = 0.8) + plot_title +
   geom_vline(aes(xintercept = sdp), col="hotpink") +
   geom_vline(aes(xintercept = sdo), col="hotpink")
+
+```
+
+```{r}
+data.frame(sdo = c(sdo, median(sdo.est.vague), median(sdo.est.informed)), 
+           sdo.025 = c(NA, quantile(sdo.est.vague, probs = 0.025), quantile(sdo.est.informed, probs = 0.025)),
+           sdo.975 = c(NA, quantile(sdo.est.vague, probs = 0.975), quantile(sdo.est.informed, probs = 0.975)),
+           sdp = c(sdp, median(sdp.est.vague), median(sdp.est.informed)),
+           sdp.025 = c(NA, quantile(sdp.est.vague, probs = 0.025), quantile(sdp.est.informed, probs = 0.025)),
+           sdp.975 = c(NA, quantile(sdp.est.vague, probs = 0.975), quantile(sdp.est.informed, probs = 0.975)))
+
 ```
