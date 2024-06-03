@@ -82,7 +82,7 @@ slopes <- sum[grep("b\\[", rownames(sum)), "mean"]
 
 post <- rstan::extract(mdlPop)
 popID <- unique(output$pop)
-colors <- c("#CC6677", "cyan4", "purple4", "goldenrod", "darkgreen","sienna", "navy")
+colors <- c("#593d9cff","#a65c85ff", "#de7065ff", "#f68f46ff", "#f7cb44ff")
 
 
 pdf("bayesvfisherbox/figures/nhtBox.pdf", height = 12, width = 6)
@@ -103,7 +103,7 @@ plot(pred ~ year, data = temp,
   cex.lab = 1.5, xaxt="n", yaxt="n" )
 axis(side = 1, at = seq(-10,10, by = 1), cex.axis =1)
 axis(side = 2, at = seq(-1000000,1000000, by = 5000), cex.axis =1)
-
+text(3, 121000, "Northern most population")
 #abline(a = intercept[5], b = slopes[5], col = colors[5], lwd = 1.5)
 abline(lm(pred ~ year, temp), lty = 4, col = colors[5], lwd = 1.5)
 
@@ -136,6 +136,7 @@ plot(pred ~ year, data = temp,
   xlab = "Year",
   main = paste("p-value =", round(lm3$coefficients[2,4],2), sep = " "),
   cex.lab = 1.5, xaxt="n", yaxt="n" )
+text(2.5, 81000, "Middle population")
 axis(side = 1, at = seq(-10,10, by = 1), cex.axis =1)
 axis(side = 2, at = seq(-1000000,1000000, by = 5000), cex.axis =1)
 
@@ -160,12 +161,13 @@ plot(pred ~ year, data = temp,
   frame.plot = F,
   col = colors[1], 
   pch = 19, 
-  #ylim = c(0, 140000),
+  ylim = c(0, 46000),
   cex = 1.25, 
   ylab = "Abundance", 
   xlab = "Year",
   main = paste("p-value =", round(lm1$coefficients[2,4],2), sep = " "),
   cex.lab = 1.5, xaxt="n", yaxt="n" )
+text(3, 45000, "Southern most population")
 axis(side = 1, at = seq(-10,10, by = 1), cex.axis =1)
 axis(side = 2, at = seq(-1000000,1000000, by = 5000), cex.axis =1)
 #abline(a = intercept[1], b = slopes[1], col = colors[1], lwd = 1.5)
@@ -199,8 +201,16 @@ hist(post$b[,i], add = T, col = colors[i] )
 axis(side = 1, at = seq(-3000,3000, by = 1000), cex.axis =1)
 axis(side = 2, at = seq(-1000000,1000000, by = 1000), cex.axis =1)
 }
-legend("topright",legend = c("Pop 1", "Pop 2", "Pop 3", "Pop 4", "Pop 5"),
-  lty = c(1, 1, 1, 1, 1), lwd = 4, bty = "n", col =  c("#CC6677", "cyan4", "purple4", "goldenrod", "darkgreen","sienna", "navy"))
+
+# gradientLegend(
+#   x = 0.5, y = 0.5,
+#   legend = output$pop,
+#   fill = colorRampPalette(colors)(11),
+#   border = NA,
+#   y.intersp = 0.5,
+#   cex = 2, text.font = 2)
+# # legend("topright",legend = c("Pop 1", "Pop 2", "Pop 3", "Pop 4", "Pop 5"),
+# #   lty = c(1, 1, 1, 1, 1), lwd = 4, bty = "n", col =  c("#CC6677", "cyan4", "purple4", "goldenrod", "darkgreen","sienna", "navy"))
 
 dev.off()
 
