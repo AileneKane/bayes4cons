@@ -38,10 +38,16 @@ We propose follow simple example of Wade 2000 (with citation to it) with a clima
 \end{itemize}
 \end{itemize}
 
+\newpage
+\section*{Text for box}
 
-\section*{Starter text ...}
+In some cases, Bayesian approaches can lead to importantly different conclusions than common Fisherian approaches, such as null hypothesis testing (Wade 2000). Consider, for example, sampling five populations of a species across its range---from north to south---to monitor for changes in the population size with climate change. After collecting data for ten years, a traditional null hypothesis testing approach to analyzing the data, using the common Type I error value ($\alpha$) of 0.05 would find changes in only two of the populations---the furthest north population, which appears to be increasing, and the second furthest north population, also increasing. The three other populations are not significantly changing under this approach (Fig. \refl{fig:nht} left). In contrast, a Bayesian approach (using weakly informative priors centered at zero, all code provided in supplement) would likely focus on the posteriors, where small differences in the variance do not appear so different  (Fig. \refl{fig:nht} right). Here, a a clear trend emerges where trends in population correlate with position in range---with the most northern population increasing the most and the most southern population decreasing the most. This pattern across the range is the type predicted by climate change and may be missed with a classic Fisherian approach (combining null hypothesis testing with threshold values for `significance'), leading to potential very difference conservation and management decisions. % EMW says: We could also add (1) more details on the simulations (the variance in the underlying model increases going from north to south, which is expected for smaller population sizes), (2) point out 10 years is often more years than we have; though I think there is enough text already. 
 
-In some cases, Bayesian approaches can lead to different conclusions than Fisherian approaches, such as null hypothesis testing (Wade 2000) ...
+\begin{figure}
+\includegraphics[width=1\textwidth]{figures/nhtBoxLayeredMeans.pdf}
+\caption{Trends in population size over time (left) analyzed with a traditional Fisherian approach using null hypothesis testing (using an $\alpha$ of 0.05 to reject the null hypothesis of a slope of zero) versus a Bayesian approach, which focuses on the posterior distribution (right).}
+\label{fig:nht}
+\end{figure}
 
 \end{document}
 
