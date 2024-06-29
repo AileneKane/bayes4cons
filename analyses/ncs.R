@@ -139,22 +139,30 @@ colnames(uncert)<-c("graz","ungr")
 ext_sd<-ext/5 #sd=20% of mean extent for noe for now
 ext_unc<-rnorm(50,ext,ext_sd)
 extmin<-min(ext_unc)
+extmax<-max(ext_unc)
+#with min estimated extent
 ch4emiss_ungr_extmin <-ch4ungr_samples*extmin*0.001#*0.001 is to convert to kg from g 
 ch4emiss_graz_extmin <-ch4graz_samples*extmin*0.001
-
 ch4means_extmin<-c(mean(ch4emiss_graz_extmin),mean(ch4emiss_ungr_extmin))
 ch4meds_extmin<-c(median(ch4emiss_graz_extmin),median(ch4emiss_ungr_extmin))
 uncert_extmin<-cbind(quantile(ch4emiss_graz_extmin,c(.10,.90)),
               quantile(ch4emiss_ungr_extmin,c(.10,.90)))
 colnames(uncert_extmin)<-c("graz","ungr")
-
+#with max est. extent
+ch4emiss_ungr_extmax <-ch4ungr_samples*extmax*0.001#*0.001 is to convert to kg from g 
+ch4emiss_graz_extmax <-ch4graz_samples*extmax*0.001
+ch4means_extmax<-c(mean(ch4emiss_graz_extmax),mean(ch4emiss_ungr_extmax))
+ch4meds_extmax<-c(median(ch4emiss_graz_extmax),median(ch4emiss_ungr_extmax))
+uncert_extmax<-cbind(quantile(ch4emiss_graz_extmax,c(.10,.90)),
+                     quantile(ch4emiss_ungr_extmax,c(.10,.90)))
+colnames(uncert_extmax)<-c("graz","ungr")
 
 
 x<-c(1,2)
 png("figs/ncs/ncsprojimpactch4.png",height=600,width=800)
 plot(x,ch4meds,
-     type="p", pch=16, cex=3,col="darkgreen",
-     ylim=c(0,150),xlim=c(.5,2.5),xaxt='n',cex.axis=2,
+     type="p", pch=16, cex=1,col="darkgreen",
+     ylim=c(-1,250),xlim=c(.5,2.5),xaxt='n',cex.axis=2,
      ylab="CH4 (kg per ha per yr)",xlab="Land Use",cex.lab=2,
      main="CH4 Emissions in Project Area",
      bty="l")
@@ -162,7 +170,13 @@ for(i in 1:length(x)){
   arrows(x[i],uncert[1,i],x[i],uncert[2,i], 
         code=3, angle=90, length=0.05,lwd=2, col="darkgreen")
 }
+for(i in 1:length(x)){
+  arrows(x[i],uncert_extmin[1,i],x[i],uncert_extmax[2,i], 
+         code=3, angle=90, length=0.05,lwd=2, col="lightgreen")
+}
+
 axis(1,at=x,labels=c("grazed","ungrazed"), cex.axis=2)
+points(x,ch4meds,pch=16, cex=2.5,col="darkgreen",)
 dev.off()
 
 #Now CO2
