@@ -104,20 +104,17 @@
 \newpage
 \section* {Introduction: The challenges and needs of today's conservation science are well-suited for Bayesian data analysis}
 
-\par Conservation science in the 21st century seeks to address the dual crises of  climate change and rapid biodiversity loss. These are problems that require urgent action globally, as loss of earth's biodiversity and its benefits are accelerating \citep{brondizio2019assessing, ripple2017extinction,tittensor2014mid}. Conserving biodiversity is, of course, the primary motivation for the field of conservation biology \citep{williams2020past} and at the heart of recent international resolutions such as the Convention on Biological Diversity's Aichi targets (UNEP CBD 2010) and of Sustainable Development Goal 15 \citep{assembly2015resolution}. 
-\par Recently, nature conservation has been integrated into global climate change mitigation assessment and efforts, as well, through the concept of `natural climate solutions’ (NCS) \citep{Ellis2024}. NCS are intentional human actions (or `NCS pathways') that protect, restore, and improve management of forests, wetlands, grasslands, oceans, and agricultural lands to mitigate climate change \citep{griscom2017natural}.
+\par Conservation science in the 21st century seeks to address the dual crises of  climate change and rapid biodiversity loss. These are problems that require urgent action globally, as loss of earth's biodiversity and its benefits are accelerating \citep{brondizio2019assessing, ripple2017extinction,tittensor2014mid}. Conserving biodiversity is the primary motivation for the field of conservation biology \citep{williams2020past} and at the heart of recent international resolutions such as the Convention on Biological Diversity's Aichi targets (UNEP CBD 2010) and of Sustainable Development Goal 15 \citep{assembly2015resolution}. 
+\par Recently, nature conservation has been integrated into global climate change mitigation assessment and efforts, as well, such as through the concept of `natural climate solutions’ (NCS) \citep{Ellis2024}. NCS are intentional human actions (or `NCS pathways') that protect, restore, and improve management of forests, wetlands, grasslands, oceans, and agricultural lands to mitigate climate change \citep{griscom2017natural}.
 
-\par Though action is urgently needed, effective biodiversity conservation and durable climate change solutions should be evidence-based. 
-\begin{itemize}
-\item `best available science' often required by  policy
-\item part of science process, though often `ideal' data are not available
-\item synthesizing multiple data sources  and incomplete datasets may be required 
+\par Biodiversity conservation and carbon mitigation approaches-- especially newer, innovative advances that are urgently needed-- must be evidence-based. International climate policy relies on scientific data and publications for systematic observation of climate systems and impacts to people, and for Nationally Determined Contributions, National Adaptation Plans, and other climate plans within the United Nations climate process are informed by the 'best available science.' Many policies and regulations require that 
+
+\item synthesizing multiple data sources and incomplete datasets may be required 
 \end{itemize}
-
-\par 
-\par A critical part of building the evidence base is transparency and reproducibility in science. 
+ 
+\par Ideal data are often challenging or impossible to collect within required timeframes A critical part of building the evidence base is transparency and reproducibility in science. 
 \begin{itemize}
-\item This includes being transparent and clear about uncertainty
+\item This includes being transparent and clear about uncertainty (https://www.unep.org/geo/ does not do uncertainty)
 \item Communicating/quantifying uncertainty about climate change mitigation (e.g., principles of Natural Climate Solutions, Ellis 2023, IPCC requires uncertainty (Chap 3 from 2006))
 
 \end{itemize}
