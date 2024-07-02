@@ -17,9 +17,9 @@ parameters {
 /*----------------------- Model --------------------------*/
 model {
   // Prior distributions
-  sdo ~ normal(20, 1); // Half-normal since real<lower=0> above and mean 0 - Vague
-  sdp ~ normal(0.1, 0.01); // Half-normal since real<lower=0> above and mean 0 - Vague
-  beta0 ~ normal(log(4), 0.01);
+  sdo ~ normal(10, 0.1); // Half-normal since real<lower=0> above and mean 0 - Vague
+  sdp ~ normal(0.05, 0.01); // Half-normal since real<lower=0> above and mean 0 - Vague
+  beta0 ~ normal(log(1.3), 0.01);
   beta1 ~ normal(-0.005, 0.001); // Density dependence 
   // Distribution for the first state
   w[1] ~ normal(w0, sdp);
