@@ -182,3 +182,198 @@ data.frame(sdo = c(sdo, mean(sdo.est.vague), mean(sdo.est.informed)),
            sdp.975 = c(NA, quantile(sdp.est.vague, probs = 0.975), quantile(sdp.est.informed, probs = 0.975)))
 
 ```
+
+# Use a simple population model (values constrained to be positive)
+
+Based on model in SSM review, based on Jamieson and Brooks (2004) and Dennis and Taper (1994). It allows for density dependence. 
+
+Process equation: $z_{t} = z_{t-1}\exp(\beta_0 + \beta_1 z_{t-1} + \epsilon_t), \;\; \epsilon_t \sim \text{N}(0, \sigma_p^2),$
+Observation equation: $y_t = z_t + \eta_t, \;\; \eta_t \sim \text{N}(0,\sigma_{o}^2).$
+
+Species that produce on average 3 offspring when in good conditions. So $\beta_0 = \ln{10}$.
+
+Simulate data
+
+```{r}
+# Create a vector that will keep track of the states
+# It's of length T + 1 (+1 for t=0)
+TT <- 20 #0
+z <- numeric(TT + 1)
+
+# Population starts at 20 # Reintroduction
+z[1] <- 20
+
+# Standard deviation of the process variation
+sdp <- 0.1
+sdo <- 20
+beta0 <- log(4) 
+beta1 <- -0.005
+
+# Set the seed, so we can reproduce the results
+set.seed(87687)
+# For-loop that simulates the state through time, using i instead of t,
+for(i in 1:TT){
+  # This is the process equation
+  z[i+1] <- z[i]*exp(beta0 + beta1*z[i] + rnorm(1, 0, sdp))
+  # Note that this index is shifted compared to equation in text,
+  # because we assume the first value to be at time 0
+}
+
+# Create a vector that will keep track of the observations
+# It's of length T
+y <- numeric(TT)
+# Standard deviation of the observation error
+
+# For t=1, ... T, add measurement error
+# Remember that z[1] is t=0
+y <- z[2:(TT+1)] + rnorm(TT, 0, sdo)
+```
+
+```{r}
+monitoring <- data.frame(year = seq(2024-TT, length.out = TT), true = z[-1], obs = y)
+ggplot() +
+  geom_point(data = monitoring, aes(y= true, x=year), col="hotpink") +
+  geom_point(data = monitoring, aes(y= obs, x = year), col="grey")
+```
+
+# Fit models
+
+```{r}
+dataStan <- list(y=y, TT=TT, w0=log(z[1]))
+```
+
+
+
+## Vague prior
+
+Fit model
+
+```{r}
+m.vague <- stan(file = "ssm_dens_vague.stan",
+                data = dataStan,
+                chains = 3, iter = 50000)
+
+```
+
+Look at traceplot
+
+```{r}
+# Traceplot for sdp
+traceplot(m.vague, pars="sdp", inc_warmup = TRUE)
+```
+
+Extract info
+
+```{r}
+# Posterior
+m.vague.post <- as.matrix(m.vague)
+sdo.est.vague <- m.vague.post[,"sdo"]
+sdp.est.vague <- m.vague.post[,"sdp"]
+beta0.est.vague <- m.vague.post[,"beta0"]
+beta1.est.vague <- m.vague.post[,"beta1"]
+```
+
+
+## Informed prior
+
+The prior we are using in this case is
+
+```{r}
+# Quick plot of priors
+x <- seq(0, 30, by=0.01)
+plot(dnorm(x, 10, 10/2) ~ x, ty="l")
+abline(v=sdo)
+
+x <- seq(0, 30, by=0.01)
+plot(dnorm(x, log(10), log(10)/2) ~ x, ty="l")
+abline(v=beta0)
+```
+Show that the models work with tight priors based on simulation
+
+```{r}
+m.sim.informed <- stan(file = "ssm_dens_sim_informed.stan",
+                data = dataStan,
+                chains = 3, iter = 50000)
+
+```
+
+Look at traceplot
+
+```{r}
+# Traceplot for sdp
+traceplot(m.sim.informed, pars="sdp", inc_warmup = TRUE)
+```
+
+
+Extract info
+
+```{r}
+m.sim.informed.post <- as.matrix(m.sim.informed)
+sdo.est.sim.informed <- m.sim.informed.post[,"sdo"]
+sdp.est.sim.informed <- m.sim.informed.post[,"sdp"]
+beta0.est.sim.informed <- m.sim.informed.post[,"beta0"]
+beta1.est.sim.informed <- m.sim.informed.post[,"beta1"]
+```
+
+
+```{r}
+m.biol.informed <- stan(file = "ssm_dens_biol_informed.stan",
+                data = dataStan,
+                chains = 3, iter = 50000)
+
+```
+
+
+```{r}
+m.informed.post <- as.matrix(m.biol.informed)
+sdo.est.informed <- m.informed.post[,"sdo"]
+sdp.est.informed <- m.informed.post[,"sdp"]
+beta0.est.informed <- m.informed.post[,"beta0"]
+beta1.est.informed <- m.informed.post[,"beta1"]
+```
+
+# Compare models
+
+Plot posterior
+```{r}
+plot_title <- ggtitle("Posterior distributions",
+                      "with medians and 80% intervals")
+mcmc_areas(m.vague.post,
+           pars = c("sdo", "sdp"),
+           prob = 0.8) + plot_title +
+  geom_vline(aes(xintercept = sdp), col="hotpink") +
+  geom_vline(aes(xintercept = sdo), col="purple")
+
+
+plot_title <- ggtitle("Posterior distributions",
+                      "with medians and 80% intervals")
+mcmc_areas(m.sim.informed.post,
+           pars = c("sdo", "sdp"),
+           prob = 0.8) + plot_title +
+  geom_vline(aes(xintercept = sdp), col="hotpink") +
+  geom_vline(aes(xintercept = sdo), col="purple")
+
+plot_title <- ggtitle("Posterior distributions",
+                      "with medians and 80% intervals")
+mcmc_areas(m.informed.post,
+           pars = c("sdo", "sdp"),
+           prob = 0.8) + plot_title +
+  geom_vline(aes(xintercept = sdp), col="hotpink") +
+  geom_vline(aes(xintercept = sdo), col="purple")
+
+```
+
+```{r}
+data.frame(sdo = c(sdo, mean(sdo.est.vague), mean(sdo.est.informed)), 
+           sdo.025 = c(NA, quantile(sdo.est.vague, probs = 0.025), quantile(sdo.est.informed, probs = 0.025)),
+           sdo.975 = c(NA, quantile(sdo.est.vague, probs = 0.975), quantile(sdo.est.informed, probs = 0.975)),
+           sdp = c(sdp, mean(sdp.est.vague), mean(sdp.est.informed)),
+           sdp.025 = c(NA, quantile(sdp.est.vague, probs = 0.025), quantile(sdp.est.informed, probs = 0.025)),
+           sdp.975 = c(NA, quantile(sdp.est.vague, probs = 0.975), quantile(sdp.est.informed, probs = 0.975)),
+           beta0 = c(beta0, mean(beta0.est.vague), mean(beta0.est.informed)),
+           beta0.025 = c(NA, quantile(beta0.est.vague, probs = 0.025), quantile(beta0.est.informed, probs = 0.025)),
+           beta0.975 = c(NA, quantile(beta0.est.vague, probs = 0.975), quantile(beta0.est.informed, probs = 0.975)),
+           beta1 = c(beta1, mean(beta1.est.vague), mean(beta1.est.informed)),
+           beta1.025 = c(NA, quantile(beta1.est.vague, probs = 0.025), quantile(beta1.est.informed, probs = 0.025)),
+           beta1.975 = c(NA, quantile(beta1.est.vague, probs = 0.975), quantile(beta1.est.informed, probs = 0.975)))
+```
