@@ -109,11 +109,18 @@
 
 \par The need for robust and usable conservation science under climate change is necessary at scales ranging from local to global. For example, preserve managers seek guidance about how to best steward nnatural resources for climate resilience (REF), international climate policy relies on scientific data and publications for systematic observation of climate systems and impacts to people. Developing the evidence base for urgent climate and biodiversity questions often requires synthesizing multiple data sources and incomplete datasets, given the complex social ecological systems in which many conservation science problems are grounded. Thus, a critical part of building the evidence base is ensuring reproducibility and transparency,including clear communication of uncertainty \citep{Ellis2024,ipcc2007} 
 
-\par Bayesian data analysis provides a framework and approaches that align well with these needs of conservation science in the 21st century. Bayesian approaches facilitate synthesis of multiple sources of data to update probabilities of focal outcomes of interest after obtaining new data (e.g., priors, see Box 1). Bayesian methods are well-suited to decision making, as they moving beyond null-hypothesis testing:
-whereas frequentist inference estimates the probability that the observed data occurred given a particular hypothesis (P(Y|H)),Bayesian inference provides a quantitative measure of the probability of a hypothesis being true given the available data (P(H|Y)). Further, Bayesian approaches provide stratightforward approaches to propagate uncertainty through posterior distirbutions. Though some fields within conservation biology and natural resource management have adopted Bayesian methods (e.g., wildlife mark and recapture models or occupancy models \citep{}, fisheries\citep{}), historically they have not been widely used.
+\par Bayesian data analysis provides a framework and approaches that align well with these needs of conservation science in the 21st century. Bayesian approaches facilitate synthesis of multiple sources of data to update probabilities of focal outcomes of interest after obtaining new data (e.g., priors, see Box 1). Bayesian methods are well-suited to decision making, as they moving beyond strict null-hypothesis testing:
+%whereas frequentist inference estimates the probability that the observed data occurred given a particular hypothesis (P(Y|H)),Bayesian inference  
+and provide a quantitative measure of the probability of a hypothesis being true given the available data. % (P(H|Y)). Further, Bayesian approaches provide stratightforward approaches to propagate uncertainty through posterior distirbutions. 
+Some fields within conservation biology and natural resource management have adopted Bayesian methods (e.g., wildlife mark and recapture models or occupancy models \citep{}, fisheries\citep{}), historically they have not been widely used.
 
-\subsection*{Aim} We aim to highlight features of Bayesian approaches that are well-suited to conservation science, and hope to help accelerate more widespread adoption of Bayesian data analytical approaches in the field, as we believe these approaches could enhance progress, with more  widespread adoption. We describe the benefits of using Bayesian methods for conservation science questions, summarize what is required to use these methods, and provide example code and analyses relevant to current conservation problems. We also share resources and a glossary that we hope will make Bayesian tools more approachable to those who have not used them before.
-
+\subsection*{Aim} We aim to highlight features of Bayesian approaches that are well-suited to conservation science, and hope to help accelerate more widespread adoption of Bayesian data analytical approaches in the field, as we believe these approaches could enhance progress, with more  widespread adoption. We show that Bayesian approaches have been steadily increasing in ecology/naturel resource management, highlighting that the time is right for more widespread use in conservation sciences. We describe the benefits of using Bayesian methods for conservation science questions, summarize what is required to use these methods, and provide example code and analyses relevant to current conservation problems. We also share resources and a glossary that we hope will make Bayesian tools more approachable to those who have not used them before.
+\section* {Increasing use of Bayesian approaches}
+\begin{itemize}
+\item Bayesian approaches are increasing in ecology, Fig. \ref{fig:consbaystrend}. variation across fields (more in fisheries, wildlife biology; less in forestry).
+\item Bayesian approaches are not standard in approaches globally (IPCC, ) and not widely used in conservation biology, in our experience
+%From Lizzie: IUCN `Rules of Procedure’ (download here) are pretty vague on uncertainty (and have two types at least: Uncertainty in the data and uncertainty in taxonomic). I think our relevant interest in the IUCN goal is to get to ‘Direction of current population trend (stable, increasing, decreasing, unknown)’ and there are actually are some papers about what to do about uncertainty in this for the IUCN. One well-cited one is: Making Consistent IUCN Classifications under Uncertainty (2000, JSTOR link), which I think basically advocated fuzzy numbers (but I did not read closely; this paper seems to have led to the RAMAS software). There’s a literature from this citation including a Bayesian network (Use of a Bayesian network for Red Listing under uncertainty, 2010) that someone could dig into a little more? See also: JARA: ‘Just Another Red-List Assessment’
+\end{itemize}
 \section* {Benefits for Conservation}
 \subsection*{Bayesian approaches offer powerful and flexible model that can get the job done!}
 \par Ecological data are notoriously poorly aligned with classic stastical techniques (e.g., nonnormal data, unbalanced, etc). This can result in situations where frequentist models are not possible to fit or result in inaccurate interpretations (e.g.,case study 1). Bayesian modelling approaches are flexible and powerful enough to provide robust estimates under a wide range of conditions. 
@@ -132,20 +139,20 @@ The need to test new approaches, coupled with the fact that ecosystems are dynam
 
 \par Conservation often requires making easily-interpretable wildlife status categories to inform decision making (Brooks, 2008). For example, conservation might be prioritized for species declining `rapidly' versus `moderately.' These discrete categories require information about when a species' population has passed a particular threshold (Brooks, 2008).  Bayesian models make it possible to assess the evidence for whether a species has surpassed a given threshold (Brooks, 2008). 
 
-
 \section* {Case Studies}
 \subsection*{Robust estimates; bird example (Deirdre, Mao)}
 \begin{itemize}
 
 \item Extinction example referenced in \citep{wade2000bayesian}. Compare frequentist (Maximum likelihood) to Bayesian analysis to get at population trend and extinction risk 
 \item simulate data
+\item insert the text box and figures!
 \end{itemize}
 
-\subsection*{Priors; NCS example (Marie)}
+\subsection*{Priors; example (Marie)}
 
 \subsection*{Propagating uncertainty; NCS example (Ailene)}
 \begin{itemize}
-\item Mitigation= flux X extent
+\item Mitigation= flux X extent, Fig. \ref{fig:ncs}
 \item uncertainty propogation using posterior
 \end{itemize}
 
@@ -180,7 +187,7 @@ P(A|B) = f(B|A)(A)/P(B)
 \item Posterior distribution (P(A|B)): used to update the prior using the likelihood
 \item Likelihood ( f(B|A)): function of how likely te response variable is given the data
 \item Prior ((A)): pre-existing information about the hypothesis—data from pilot studies or previous experiments, knowledge from experts or the literature—reflect the uncertainty within the system
-\end{itemze}
+\end{itemize}
 \par Bayesian modeling is an iterative process: analyses may start with insufficient knowledge and data but use experiments to inform priors, and uses model checking to test key assumptions and our understanding of the data generating process.
 \par General bayesian workflow 
 \begin{itemize}
@@ -199,12 +206,14 @@ P(A|B) = f(B|A)(A)/P(B)
 \underline{Priors}
 \par Default priors. Chosen without critical thought or evaluation. Fear ob being too subjective. Defending prior choice promotes good statistical inference
 \par Resources on priors: 
+
 \begin{itemize}
 \item Banner et al. 2020 https://besjournals.onlinelibrary.wiley.com/doi/full/10.1111/2041-210X.13407 
 \end{itemize}
+
 \par Resources on model checking:
 \begin{itemize}
-\item Conn et al. 2018 https://esajournals.onlinelibrary.wiley.com/doi/full/10.1002/ecm.1314?casa_token=xI6HXgrOhMAAAAAA%3AkQL_00kjFJjSqOi_iAejxbimMaXP5Gy6kdFPUjVAyzxzLA9KLdzgkl91DM7-XbT1PFxiqZdievS5fro
+\item Conn et al. 2018 %https://esajournals.onlinelibrary.wiley.com/doi/full/10.1002/ecm.1314?casa_token=xI6HXgrOhMAAAAAA%3AkQL_00kjFJjSqOi_iAejxbimMaXP5Gy6kdFPUjVAyzxzLA9KLdzgkl91DM7-XbT1PFxiqZdievS5fro
 \item Gentle Introduction to Bayesian statistics (van de Schoot et al. 2014)
 https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4158865/
 \item Bayesian model selection for ecologists. Hooten and Hobbs 2015
