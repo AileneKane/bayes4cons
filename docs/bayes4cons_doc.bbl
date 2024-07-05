@@ -1,4 +1,4 @@
-\begin{thebibliography}{25}
+\begin{thebibliography}{29}
 \providecommand{\natexlab}[1]{#1}
 
 \bibitem[{Assembly(2015)}]{assembly2015resolution}
@@ -29,11 +29,27 @@ Brondizio, E., S.~M. D{\'\i}az, J.~Settele, H.~Ngo, M.~Gueze,
 \newblock Assessing a planet in transformation: Rationale and approach of the
   ipbes global assessment on biodiversity and ecosystem services .
 
+\bibitem[{Brooks et~al.(2008)Brooks, Freeman, Greenwood, King, and
+  Mazzetta}]{brooks2008quantifying}
+Brooks, S.~P., S.~N. Freeman, J.~J. Greenwood, R.~King, and C.~Mazzetta. 2008.
+\newblock Quantifying conservation concern--bayesian statistics, birds and the
+  red lists.
+\newblock Biological Conservation 141:1436--1441.
+
 \bibitem[{Draper(1995)}]{draper1995assessment}
 Draper, D. 1995.
 \newblock Assessment and propagation of model uncertainty.
 \newblock Journal of the Royal Statistical Society Series B: Statistical
   Methodology 57:45--70.
+
+\bibitem[{Ellis et~al.(2024)Ellis, Page, Wood, Fargione, Masuda,
+  Carrasco~Denney, Moore, Kroeger, Griscom, Sanderman, Atleo, Cortez, Leavitt,
+  and Cook-Patton}]{Ellis2024}
+Ellis, P.~W., A.~M. Page, S.~Wood, J.~Fargione, Y.~J. Masuda,
+  V.~Carrasco~Denney, C.~Moore, T.~Kroeger, B.~Griscom, J.~Sanderman, T.~Atleo,
+  R.~Cortez, S.~Leavitt, and S.~C. Cook-Patton. 2024.
+\newblock The principles of natural climate solutions.
+\newblock Nature Communications 15.
 
 \bibitem[{Eyster et~al.(2022)Eyster, Srivastava, Kreitzman, and
   Chan}]{Eyster2022}
@@ -48,12 +64,20 @@ Eyster, H.~N., D.~S. Srivastava, M.~Kreitzman, and K.~M.~A. Chan. 2022.
 Fornacon-Wood, I., H.~Mistry, C.~Johnson-Hart, J.~P. O'Connor, G.~J. Price, and
   C.~Faivre-Finn. 2021.
 \newblock A bayesian approach to evaluate the impact of change in igrt protocol
-  using real world data .
+  using real world data.
+\newblock Radiotherapy and Oncology 161.
 
 \bibitem[{Gallistel(2009)}]{gallistel2009importance}
 Gallistel, C.~R. 2009.
 \newblock The importance of proving the null.
 \newblock Psychological review 116:439.
+
+\bibitem[{Gelman et~al.(2020)Gelman, Vehtari, Simpson, Margossian, Carpenter,
+  Yao, Kennedy, Gabry, B{\"u}rkner, and Modr{\'a}k}]{gelman2020bayesian}
+Gelman, A., A.~Vehtari, D.~Simpson, C.~C. Margossian, B.~Carpenter, Y.~Yao,
+  L.~Kennedy, J.~Gabry, P.-C. B{\"u}rkner, and M.~Modr{\'a}k. 2020.
+\newblock Bayesian workflow.
+\newblock arXiv preprint arXiv:2011.01808 .
 
 \bibitem[{Gilbert et~al.(2023)Gilbert, Eyster, and
   Zipkin}]{gilbert2023propagating}
@@ -80,12 +104,19 @@ Gross, M. 2013.
 Holling, C.~S., and C.~Walters. 1978.
 \newblock Adaptive environmental assessment and management .
 
+\bibitem[{IPCC(2007)}]{ipcc2007}
+IPCC. 2007.
+\newblock Contribution of Working Group II to the Fourth Assessment Report of
+  the Intergovernmental Panel on Climate Change, 2007.
+\newblock Cambridge University Press, Cambridge, United Kingdom and New York,
+  NY, USA.
+
 \bibitem[{Levin et~al.(2012)Levin, Xepapadeas, Cr{\'{e}}pin, Norberg, de~Zeeuw,
-  Folke, Hughes, Arrow, Barrett, Daily, Ehrlich, Kautsky, Mäler, Polasky,
+  Folke, Hughes, Arrow, Barrett, Daily, Ehrlich, Kautsky, M{\"a}ler, Polasky,
   Troell, Vincent, and Walker}]{Levin2012}
 Levin, S., T.~Xepapadeas, A.-S. Cr{\'{e}}pin, J.~Norberg, A.~de~Zeeuw,
   C.~Folke, T.~Hughes, K.~Arrow, S.~Barrett, G.~Daily, P.~Ehrlich, N.~Kautsky,
-  K.-G. Mäler, S.~Polasky, M.~Troell, J.~R. Vincent, and B.~Walker. 2012.
+  K.-G. M{\"a}ler, S.~Polasky, M.~Troell, J.~R. Vincent, and B.~Walker. 2012.
 \newblock Social-ecological systems as complex adaptive systems: modeling and
   policy implications.
 \newblock Environment and Development Economics 18:111--132.
@@ -162,10 +193,10 @@ Tittensor, D.~P., M.~Walpole, S.~L. Hill, D.~G. Boyce, G.~L. Britten, N.~D.
   targets.
 \newblock Science 346:241--244.
 
-\bibitem[{Wade(2000)}]{wade2000bayesian}
-Wade, P.~R. 2000.
-\newblock Bayesian methods in conservation biology.
-\newblock Conservation biology 14:1308--1316.
+\bibitem[{van Zyl(2018)}]{Zyl2018}
+van Zyl, C.~J. 2018.
+\newblock Frequentist and bayesian inference: A conceptual primer.
+\newblock New Ideas in Psychology 51:44--49.
 
 \bibitem[{Williams et~al.(2020)Williams, Balmford, and
   Wilcove}]{williams2020past}
