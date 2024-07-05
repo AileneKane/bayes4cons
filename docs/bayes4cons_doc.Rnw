@@ -135,7 +135,7 @@ The need to test new approaches, coupled with the fact that ecosystems are dynam
 \section* {Increasing use of Bayesian approaches}
 \par Use of Bayesian approaches varies across ecological fields and systems, but is generally increasing (Fig. \ref{fig:consbaystrend}). The variation across fields is notable, with more widespread use in fisheries and wildlife biology, cand less in forestry  (Fig. \ref{fig:consbaystrend}).
 
-\par  Though Bayesian methods are increasing, the are not standard, widely used s approaches that are well-integrated into global systems of conservation and climate science, policy and practice (e.g., IPCC, IUCN). For example, IPCC-described methods for uncertainty propogation do not include Bayesian approaches (REF) and 
+\par  Though Bayesian methods are increasing, the are not standard, widely used s approaches that are well-integrated into global systems of conservation and climate science, policy and practice (e.g., IPCC, IUCN). For example, IPCC-described methods for uncertainty propogation do not include Bayesian approaches \citep{ipcc2007}, though they offer straightforward implementation (Case Study 2).
 %From Lizzie: IUCN `Rules of Procedure’ (download here) are pretty vague on uncertainty (and have two types at least: Uncertainty in the data and uncertainty in taxonomic). I think our relevant interest in the IUCN goal is to get to ‘Direction of current population trend (stable, increasing, decreasing, unknown)’ and there are actually are some papers about what to do about uncertainty in this for the IUCN. One well-cited one is: Making Consistent IUCN Classifications under Uncertainty (2000, JSTOR link), which I think basically advocated fuzzy numbers (but I did not read closely; this paper seems to have led to the RAMAS software). There’s a literature from this citation including a Bayesian network (Use of a Bayesian network for Red Listing under uncertainty, 2010) that someone could dig into a little more? See also: JARA: ‘Just Another Red-List Assessment’
 \section* {Case Studies}
 \subsection*{Case Stufy 1: Robust estimates of trends in species or populations of concern}
@@ -173,7 +173,7 @@ Inference in frequentist statistics can take many forms, but here we focus on th
 \item Frequentist methods—cares about p-value, significance, confidence interval
 \item Bayesian methods—cares about credible interval, prior, posterior
 \end{itemize}
-Bayesian methods use Bayes Theorem (eqn. 1) to combine our prior knowledge of a system with the available data to estimate the probability of an event. 
+Bayesian methods use Bayes' Theorem (eqn. 1) to combine our prior knowledge of a system with the available data to estimate the probability of an event. 
 Does not assume that parameters are the fixed or true quantities
 Since inferences are probabilistic—can perform simulations using the density distributions of their parameters and make stronger inference of models predictive uncertainty
 P(A|B) = f(B|A)(A)/P(B)
@@ -226,9 +226,9 @@ https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4158865/
 \section* {Figures}
  \begin{figure}[h]
 \centering
- \includegraphics{../figs/BayesianWorkflowfromGelman2020.jpg}
-  \includegraphics{../figs/The-Open-Standards-adaptive-management-cycle-from-wwwconservationmeasuresorg.png}
- \caption{\textbf{Do we want to include something like this Bayesian workflow? Also, it seems aligned with adaptive management cycles, which are comnonly used in conservation biology. We could consider a 2-paneled figure with sometlike these? I would love to discuss this as a group, if people think it would be useful}} 
+ \includegraphics[width=0.75\textwidth]{../figs/BayesianWorkflowfromGelman2020.jpg}
+  \includegraphics[width=0.75\textwidth]{../figs/The-Open-Standards-adaptive-management-cycle-from-wwwconservationmeasuresorg.png}
+ \caption{\textbf{Do we want to include something like this Bayesian workflow \citep{gelman2020bayesian} (top panel)? Also, it seems aligned with adaptive management cycles (e.g., bottom panel, from \href{www.conservationmeasures.org}{www.conservationmeasures.org}), which are comnonly used in conservation biology. We could consider a 2-paneled figure with sometlike these? I would love to discuss this as a group, if people think it would be useful}} 
  \label{fig:workflow}
  \end{figure}
 
