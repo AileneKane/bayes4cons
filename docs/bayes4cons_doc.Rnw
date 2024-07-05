@@ -143,12 +143,25 @@ The need to test new approaches, coupled with the fact that ecosystems are dynam
 
 
 \subsection*{Case Study 2: Incorporating and propagating uncertainty}
+\par We simulate flux data from a field study quantifying greenhouse gas fluxes (methane, carbon dioxide) s in peatlands with and without grazing in Ecuador (Sanchez et al) to show how Bayesian approaches can be used to propoagate uncertainty in a straightforward way. 
+
 \begin{itemize}
 \item carbon Mitigation= flux X extent, Fig. \ref{fig:ncs}
 \item uncertainty propogation using posterior
+\item see \href{https://github.com/AileneKane/bayes4cons/tree/main/analyses/ncs.R}{https://github.com/AileneKane/bayes4cons/tree/main/analyses/ncs.R}
 \end{itemize}
 
-\subsection*{Case Study 3: State-space model and priors example (Marie)}
+\subsection*{Case Study 3: State-space model and priors example}
+
+\par We demonstratte use of priors via a population model, described in Auger-Methe et al 2021 and based on Jamieson and Brooks (2004) and Dennis and Taper (1994). This is a simple population model with density dependence, made up of process and observation components, as described at \href{https://github.com/AileneKane/bayes4cons/blob/main/analyses/SSM.Rmd}{https://github.com/AileneKane/bayes4cons/blob/main/analyses/SSM.Rmd}
+
+\par In this scenario, we have re-introduced 10 adult females and some 10 adult males from an extirpated species in 2003 in a conservation area, and we are monitoring their growth for the path 20 years to see if they have reached carrying capacity and what is that carrying capacity.
+
+\par This is a species that has a long life span (e.g. 20+ years) and creates long term pairs  that can produce maximum 2 offspring when in good conditions, and therefore could be able to almost double in size ever year. Here the conservation area does not allow the animal to fulfill it's full growth ($\beta_0 = 1.3$). From a repeated assessments of the efficiency of the line transect in early years, when all of the re-introduce animals were individually marked, we know that we can miss many individuals and have estimated the $\sigma_o = 10$.
+
+\par As for most population of this species the birth rate, which is the main source of biological stochasticity, vary by less than 5%.
+
+\par When we fit the model with vague priors, there are many warnings, indicating the model is problematic. However, when we use knowledge gained frmo previous studies of species' biology to inform priors, we are able to fit models.
 
 
 \section* {A future with more widespread use of Bayesian modelling in Conservation}
@@ -220,6 +233,23 @@ https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4158865/
 
 \end{itemize}
  
+\section* {Questions}
+\begin{itemize}
+\item What do you think of the overall arc, structure, and flow of the manuscript? Are there important sections missing that we should add? Or are there superfluous sections that we should remove?
+\item What do you think about adding some version of something like the Bayesian workflow figure (Fig \ref{fig:workflow}? 
+\item How do you think we should do the case studies? Options may include:
+\begin {itemize}
+\item Option A: include short descriptions, equations and figures in the main text, with code as an appendix/supplemental file
+\item Option B: include only short desctiption/summary in the main text and include all equations/additional details as separate vignettes
+\item Option C: some other idea that you may have?
+\end{itemize}
+\item We need volunteers to work on the below- please let me know what you would like to take on!
+\begin {itemize}
+\item Box 1
+\item Box 2
+\end{itemize}
+
+\end{itemize}
 
 \bibliography{conslib.bib}
 
