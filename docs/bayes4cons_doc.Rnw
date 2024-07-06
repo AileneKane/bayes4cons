@@ -11,7 +11,7 @@
 \usepackage{array}
 \usepackage{authblk}
 \usepackage{gensymb}
-
+\usepackage{amsmath}
 %\usepackage[backend=bibtex]{biblatex}
 %Strongly recommended
  %put your figures in one place
@@ -105,9 +105,9 @@
 \section* {Introduction}
 
 \par Conservation science in the 21st century seeks to address the dual crises of  climate change and rapid biodiversity loss. These are problems that require urgent action globally, as loss of earth's biodiversity and its benefits are accelerating \citep{brondizio2019assessing, ripple2017extinction,tittensor2014mid}. Conventionally, conserving biodiversity is the primary motivation for the field of conservation biology \citep{williams2020past} and at the heart of recent international resolutions such as the Convention on Biological Diversity's Aichi targets (UNEP CBD 2010) and of Sustainable Development Goal 15 \citep{assembly2015resolution}. 
-\par Climate change brings additional complexity to conservation science, as climate change both affects and is affected by conservation actions. Historically, conservation focused on protecting habitat as a primary strategy, but such approaches are unlikely to be effective for many species, given that many species ranges are shifting with warming (add REFs). In addition, nature conservation has been integrated into global climate change mitigation assessment and efforts, as well, such as through the concept of `natural climate solutions’ (NCS) \citep{Ellis2024}. NCS are intentional human actions (or `NCS pathways') that protect, restore, and improve management of forests, wetlands, grasslands, oceans, and agricultural lands to mitigate climate change \citep{griscom2017natural}.
+\par Climate change brings additional complexity to conservation science, as climate change both affects and is affected by conservation actions. Historically, conservation focused on protecting habitat as a primary strategy, but such approaches are unlikely to be effective for many species, given that many species ranges are shifting with warming (add REFs). In addition, nature conservation has been integrated into global climate change mitigation assessment and efforts, as well, such as through the concept of `natural climate solutions’ (NCS) \citep{ellis2024principles}. NCS are intentional human actions (or `NCS pathways') that protect, restore, and improve management of forests, wetlands, grasslands, oceans, and agricultural lands to mitigate climate change \citep{griscom2017natural}.
 
-\par The need for robust and usable conservation science under climate change is necessary at scales ranging from local to global. For example, preserve managers seek guidance about how to best steward nnatural resources for climate resilience (REF), international climate policy relies on scientific data and publications for systematic observation of climate systems and impacts to people. Developing the evidence base for urgent climate and biodiversity questions often requires synthesizing multiple data sources and incomplete datasets, given the complex social ecological systems in which many conservation science problems are grounded. Thus, a critical part of building the evidence base is ensuring reproducibility and transparency,including clear communication of uncertainty \citep{Ellis2024,ipcc2007} 
+\par The need for robust and usable conservation science under climate change is necessary at scales ranging from local to global. For example, preserve managers seek guidance about how to best steward nnatural resources for climate resilience (REF), international climate policy relies on scientific data and publications for systematic observation of climate systems and impacts to people. Developing the evidence base for urgent climate and biodiversity questions often requires synthesizing multiple data sources and incomplete datasets, given the complex social ecological systems in which many conservation science problems are grounded. Thus, a critical part of building the evidence base is ensuring reproducibility and transparency,including clear communication of uncertainty \citep{ellis2024principles,ipcc2007} 
 
 \par Bayesian data analysis provides a framework and approaches that align well with these needs of conservation science in the 21st century. Bayesian approaches facilitate synthesis of multiple sources of data to update probabilities of focal outcomes of interest after obtaining new data (e.g., priors, see Box 1). Bayesian methods are well-suited to decision making, as they moving beyond strict null-hypothesis testing:
 %whereas frequentist inference estimates the probability that the observed data occurred given a particular hypothesis (P(Y|H)),Bayesian inference  
@@ -125,9 +125,10 @@ Some fields within conservation biology and natural resource management have ado
 \subsection*{Frameworks for integrating multiple data sources}
 \par Conservation problems are complex and addressing them, especially in the era of climate change, requires integrating social, economic, biological, and physical information to provide the evidence base upon which decisions can be made. Conservation evidence comes in many forms, including from quantitative studies, community knowledge, expert knowledge, traditional ecological knowledge, and others. Conservation decision-making requires integrating these multiple sources of information to provide an evidence base upon which decisions can be grounded \citep{stern2022interweaving}. Bayesian methods enable two fruitful avenues for such integration. First, information can be amalgamated into Bayesian Belief Networks \citep{marcot2001using,newton2007bayesian}. Second, extant information can be used to inform prior distributions \citep{o2008informed}. 
 
-\subsection*{Moving beyond null hypothesis testing: comparing alternatives}
+\subsection*{Moving beyond null hypothesis testing and $\alpha <0.05$ }
 \par Conservation scientists often need to compare outcomes from current `business-as-usual' approaches to new alternatives. For example, conservation scientists might be interested in deciding whether an alternative practice produces the same results as current practice. 
-The need to test new approaches, coupled with the fact that ecosystems are dynamic and often yield unexpected behaviors \citep{Levin2012,Gross2013}, have led to practices of adaptive management in conservation \citep{holling1978adaptive} (Fig. \ref{fig:workflow}). Yet frequentist statistical frameworks rarely provide information necessary to adequately inform adaptive management \citep{prato2005bayesian}.  Specifically, frequentist statistics incapacity to compare support for a variety of hypotheses \citep[including a `null' hypothesis;][]{Zyl2018} prevents this method from informing what interventions will most likely bring about conservation gains \citep{prato2005bayesian}. For example, in its submission process, leading conservation journal \textit{Conservation Biology} requires that authors recognize that, `8. ensured you have not misinterpreted statistical nonsignificance as no effect if a frequentist approach was used (absence of evidence is not evidence of absence)?' Bayesian analysis, on the other hand, can provide evidence to support a null hypothesis, e.g., that the current and alternative and current management practices produce similar results \citep{gallistel2009importance}.
+The need to test new approaches, coupled with the fact that ecosystems are dynamic and often yield unexpected behaviors \citep{Levin2012,Gross2013}, have led to practices of adaptive management in conservation \citep{holling1978adaptive} (Fig. \ref{fig:workflow}). Yet frequentist statistical frameworks rarely provide information necessary to adequately inform adaptive management \citep{prato2005bayesian}.  Specifically, frequentist statistics' incapacity to compare support for a variety of hypotheses \citep[including a `null' hypothesis;][]{Zyl2018} prevents this method from informing what interventions will most likely bring about conservation gains \citep{prato2005bayesian}. For example, in its submission process, leading conservation journal \textit{Conservation Biology} requires that authors recognize that, `8. ensured you have not misinterpreted statistical nonsignificance as no effect if a frequentist approach was used (absence of evidence is not evidence of absence)?' Bayesian analysis, on the other hand, can provide evidence to support a null hypothesis, e.g., that the current and alternative and current management practices produce similar results \citep{gallistel2009importance}.
+\par Null hypothesis significance testing and conventions of rejecting the null hypohtesis when $\alpha <0.05$ have long been dominant in conservation biology, as in ecology and related biological fields \citep[e.g., ecotoxicaology][]{erickson2020moving}. method for inference. P-value-focused conventions are becoming less prevalent, but many biologists are unsure of alternative ways to analyse and interpret their data \citep{halsey2019reign}. Bayesian approaches and workflows offer an alternative framework, not bound by conventions of $p<0.05$. Add more here i think....
 \subsection*{Integrated appraoches for quantifying and propagating uncertainty} 
 \par Bayesian analyses are particularly useful for decision-making because they are adept at integrating not only include a range of information types, but also the uncertainty associated with these information types \citep[e.g.,][]{stern2022interweaving}. The integration of multiple datasets required by many conservation problems in turn necessitates quantifying and sometimes propoagating uncertainty across multiple sources and/or multiple modeling steps (see Case Study 2). Bayesian approaches enable straightforward quantification and  propagation of  uncertainty, including for some conservation problems that can require analyses for which frequentist statistics are unable to compute the associated uncertainties \citep{bolker2009a,bates2006r}. Frequentist statistics produce metrics like confidence intervals and p-values, which have very specific interpretations \citep{fornacon2021bayesian}. However, these metrics are often misinterpreted. Bayesian statistics, in contrast, produces credible intervals, for which the intuitive interpretation matches the technical definition, yielding much more easily interpretable results, particularly for non-statistician colleagues and decision-makers \citep{fornacon2021bayesian}. 
 \par Moreover, Bayesian methods enable uncertainty to be propagated through multiple analyses, ensuring that end results represent the full uncertainty of the process under study. \citep{draper1995assessment,gilbert2023propagating,Eyster2022,Saunders2019}. For example, using Bayesian methods, one can calculate the abundance of birds in different types of management landscapes such as traditional agriculture and perennial polycultures, and then propagate the uncertainty associated with those abundances into a downstream analysis to test whether the bird communities in the alternative perennial polyculture landscape are maintained simply as an ecological sink \citep{Eyster2022}. 
@@ -169,7 +170,7 @@ The need to test new approaches, coupled with the fact that ecosystems are dynam
 \item Implementing Bayesian modelling is easier than ever before! Computational resources (add some details)- are getting easier and should continue getting easier to develop, test, and refine models that represent focal systems and are able to address relevant questions)
 \item Urgency and complexity of problems and systems requires flexible, powerful modelling appraoches 
 \item We envision a future in which conservation and ecology students (undegraduate and graduate levels) recieve statistical training to provide strong foundations in Bayesian statistics. Currently the focus of many introductory statistics classes is frequentist methods, which are not appropriate for most ecological data. It doesn't have to be this way! 
-\item IPCC and other global institutions should include guidelines for Bayesian approaches increasingly used by ecologists ( Fig. XX), as NCS gets integrated into the climate/biophysical analyses that dominated early IPCC work.
+\item IPCC and other global institutions should include guidelines for Bayesian approaches increasingly used by ecologists ( Fig. \ref{fig:consbaystrend}), as NCS gets integrated into the climate/biophysical analyses that dominated early IPCC work.
 \end{itemize}
 
 \par 
@@ -212,24 +213,24 @@ P(A|B) = f(B|A)(A)/P(B)
 
 \section* {Box 2: Resources to Get Started}
 \underline{Priors}
-\par Default priors. Chosen without critical thought or evaluation. Fear ob being too subjective. Defending prior choice promotes good statistical inference
+\par Default priors. Chosen without critical thought or evaluation. Fear of being too subjective. Defending prior choice promotes good statistical inference
 \par Resources on priors: 
 
 \begin{itemize}
 \item Banner et al. 2020 https://besjournals.onlinelibrary.wiley.com/doi/full/10.1111/2041-210X.13407 
 \end{itemize}
 
-\par Resources on model checking:
+\par Other resources:
 \begin{itemize}
-\item Conn et al. 2018 %https://esajournals.onlinelibrary.wiley.com/doi/full/10.1002/ecm.1314?casa_token=xI6HXgrOhMAAAAAA%3AkQL_00kjFJjSqOi_iAejxbimMaXP5Gy6kdFPUjVAyzxzLA9KLdzgkl91DM7-XbT1PFxiqZdievS5fro
-\item Gentle Introduction to Bayesian statistics (van de Schoot et al. 2014)
-https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4158865/
-\item Bayesian model selection for ecologists. Hooten and Hobbs 2015
- https://doi.org/10.1890/14-0661.1
-\item Bayesian Inference for ecologists. Ellison 2004
- https://doi.org/10.1111/j.1461-0248.2004.00603.x
-\item Why becoming Bayesian? Clark 2004
- https://doi.org/10.1111/j.1461-0248.2004.00702.x
+\item A guide to Bayesian model checking for ecologists \citep{conn2018guide}
+\item Gentle Introduction to Bayesian statistics \citep{van2014gentle}
+\href{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4158865/}{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4158865/}
+\item Bayesian model selection for ecologists. \citep{hooten2015guide}
+ \href{https://doi.org/10.1890/14-0661.1}{https://doi.org/10.1890/14-0661.1}
+\item Bayesian Inference for ecologists. \citep{elis2004}
+\item Why becoming Bayesian? \citep{clark2005environmental}
+ \href{https://doi.org/10.1111/j.1461-0248.2004.00702.x}{https://doi.org/10.1111/j.1461-0248.2004.00702.x}
+\item Bayesian Workflow \citep{gelman2020bayesia}
 
 \end{itemize}
  
@@ -243,7 +244,7 @@ https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4158865/
 \item Option B: include only short desctiption/summary in the main text and include all equations/additional details as separate vignettes
 \item Option C: some other idea that you may have?
 \end{itemize}
-\item We need volunteers to work on the below- please let me know what you would like to take on!
+\item We need someone to work on the below- please let me know what you would like to take on!
 \begin {itemize}
 \item Box 1
 \item Box 2
@@ -258,7 +259,7 @@ https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4158865/
 \centering
  \includegraphics[width=0.75\textwidth]{../figs/BayesianWorkflowfromGelman2020.jpg}
   \includegraphics[width=0.75\textwidth]{../figs/The-Open-Standards-adaptive-management-cycle-from-wwwconservationmeasuresorg.png}
- \caption{\textbf{Do we want to include something like this Bayesian workflow \citep{gelman2020bayesian} (top panel)? Also, it seems aligned with adaptive management cycles (e.g., bottom panel, from \href{www.conservationmeasures.org}{www.conservationmeasures.org}), which are comnonly used in conservation biology. We could consider a 2-paneled figure with sometlike these? I would love to discuss this as a group, if people think it would be useful}} 
+ \caption{\textbf{Could we/Do we want to include a version of this Bayesian workflow \citep{gelman2020bayesian} (top panel) or Michael Betancourt's principled Bayesian workflow? Also, it seems aligned with the iterative nature of adaptive management cycles (e.g., bottom panel, from \href{www.conservationmeasures.org}{www.conservationmeasures.org}), which are comnonly used in conservation biology. We could consider a 2-paneled figure with something like these? I would like to discuss this as a group, if people think it would be useful}} 
  \label{fig:workflow}
  \end{figure}
 
@@ -266,7 +267,7 @@ https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4158865/
 \begin{figure}[h]
 \centering
  \includegraphics{../figs/conservation.pdf}
- \caption{\textbf{Proportion papers using Bayes in XX major conservation journals since 2000}} 
+ \caption{\textbf{Proportion papers using Bayes in XX major conservation journals since 2000}}
  \label{fig:consbaystrend}
  \end{figure}
 

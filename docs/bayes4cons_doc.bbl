@@ -1,4 +1,4 @@
-\begin{thebibliography}{29}
+\begin{thebibliography}{35}
 \providecommand{\natexlab}[1]{#1}
 
 \bibitem[{Assembly(2015)}]{assembly2015resolution}
@@ -36,6 +36,18 @@ Brooks, S.~P., S.~N. Freeman, J.~J. Greenwood, R.~King, and C.~Mazzetta. 2008.
   red lists.
 \newblock Biological Conservation 141:1436--1441.
 
+\bibitem[{Clark(2005)}]{clark2005environmental}
+Clark, J.~S. 2005.
+\newblock Why environmental scientists are becoming bayesians.
+\newblock Ecology letters 8:2--14.
+
+\bibitem[{Conn et~al.(2018)Conn, Johnson, Williams, Melin, and
+  Hooten}]{conn2018guide}
+Conn, P.~B., D.~S. Johnson, P.~J. Williams, S.~R. Melin, and M.~B. Hooten.
+  2018.
+\newblock A guide to bayesian model checking for ecologists.
+\newblock Ecological Monographs 88:526--542.
+
 \bibitem[{Draper(1995)}]{draper1995assessment}
 Draper, D. 1995.
 \newblock Assessment and propagation of model uncertainty.
@@ -43,13 +55,18 @@ Draper, D. 1995.
   Methodology 57:45--70.
 
 \bibitem[{Ellis et~al.(2024)Ellis, Page, Wood, Fargione, Masuda,
-  Carrasco~Denney, Moore, Kroeger, Griscom, Sanderman, Atleo, Cortez, Leavitt,
-  and Cook-Patton}]{Ellis2024}
+  Carrasco~Denney, Moore, Kroeger, Griscom, Sanderman
+  et~al.}]{ellis2024principles}
 Ellis, P.~W., A.~M. Page, S.~Wood, J.~Fargione, Y.~J. Masuda,
-  V.~Carrasco~Denney, C.~Moore, T.~Kroeger, B.~Griscom, J.~Sanderman, T.~Atleo,
-  R.~Cortez, S.~Leavitt, and S.~C. Cook-Patton. 2024.
+  V.~Carrasco~Denney, C.~Moore, T.~Kroeger, B.~Griscom, J.~Sanderman, et~al.
+  2024.
 \newblock The principles of natural climate solutions.
-\newblock Nature Communications 15.
+\newblock Nature Communications 15:547.
+
+\bibitem[{Erickson and Rattner(2020)}]{erickson2020moving}
+Erickson, R.~A., and B.~A. Rattner. 2020.
+\newblock Moving beyond p< 0.05 in ecotoxicology: A guide for practitioners.
+\newblock Environmental Toxicology and Chemistry 39:1657--1669.
 
 \bibitem[{Eyster et~al.(2022)Eyster, Srivastava, Kreitzman, and
   Chan}]{Eyster2022}
@@ -100,9 +117,20 @@ Gross, M. 2013.
   Routledge international handbook of social and environmental change.
   Routledge/Taylor \& Francis Group, London New York.
 
+\bibitem[{Halsey(2019)}]{halsey2019reign}
+Halsey, L.~G. 2019.
+\newblock The reign of the p-value is over: what alternative analyses could we
+  employ to fill the power vacuum?
+\newblock Biology letters 15:20190174.
+
 \bibitem[{Holling and Walters(1978)}]{holling1978adaptive}
 Holling, C.~S., and C.~Walters. 1978.
 \newblock Adaptive environmental assessment and management .
+
+\bibitem[{Hooten and Hobbs(2015)}]{hooten2015guide}
+Hooten, M.~B., and N.~T. Hobbs. 2015.
+\newblock A guide to bayesian model selection for ecologists.
+\newblock Ecological monographs 85:3--28.
 
 \bibitem[{IPCC(2007)}]{ipcc2007}
 IPCC. 2007.
@@ -192,6 +220,14 @@ Tittensor, D.~P., M.~Walpole, S.~L. Hill, D.~G. Boyce, G.~L. Britten, N.~D.
 \newblock A mid-term analysis of progress toward international biodiversity
   targets.
 \newblock Science 346:241--244.
+
+\bibitem[{Van~de Schoot et~al.(2014)Van~de Schoot, Kaplan, Denissen, Asendorpf,
+  Neyer, and Van~Aken}]{van2014gentle}
+Van~de Schoot, R., D.~Kaplan, J.~Denissen, J.~B. Asendorpf, F.~J. Neyer, and
+  M.~A. Van~Aken. 2014.
+\newblock A gentle introduction to bayesian analysis: Applications to
+  developmental research.
+\newblock Child development 85:842--860.
 
 \bibitem[{van Zyl(2018)}]{Zyl2018}
 van Zyl, C.~J. 2018.
