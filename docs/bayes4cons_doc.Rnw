@@ -294,3 +294,7 @@ P(A|B) = f(B|A)(A)/P(B)
 % and for Nationally Determined Contributions, National Adaptation Plans, and other climate plans within the United Nations climate process are informed by the 'best available science.'
 %Questions for the group:
 %1) How detailed to get in Bayesian methods/theory in introduction?
+
+%Text to add somewhere:
+% in the past, climate science and biodiversity fields have been separated, but scientists and decision-makers  are increasingly highlighting  the role nature plays in global climate systems and the critical ecosystem services provided by nature to humans \citep{cohen2016nature,nesshover2017science,USGCRP2024}
+
