@@ -97,7 +97,7 @@
 %\linenumbers
 
 \section*{Abstract} 
-MAke more focused on why we should integrate Bayesian more into current frameworks/resolutions etc. including an angle towards better adaptive management and forecasting with climate change.
+
 
 
 \newpage
