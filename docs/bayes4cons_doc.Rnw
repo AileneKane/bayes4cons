@@ -170,7 +170,7 @@ Bayesian analysis is beneficial in that it is flexible enough to allow compariso
 \begin{itemize}
 \item Implementing Bayesian modelling is easier than ever before! Computational resources (add some details)- are getting easier and should continue getting easier to develop, test, and refine models that represent focal systems and are able to address relevant questions)
 \item Urgency and complexity of problems and systems requires flexible, powerful modelling appraoches 
-\item We envision a future in which conservation and ecology students (undegraduate and graduate levels) recieve statistical training to provide strong foundations in Bayesian statistics. Many introductory statistics classes focus on t-tests and linear regressions, which are often not appropriate for ecological datasets. It doesn't have to be this way! 
+\item We envision a future in which conservation and ecology students (undegraduate and graduate levels) receive statistical training to provide strong foundations in Bayesian statistics. Many introductory statistics classes focus on t-tests and linear regressions, which are often not appropriate for ecological datasets. It doesn't have to be this way! 
 \item IPCC and other global institutions should include guidelines for Bayesian approaches increasingly used by ecologists ( Fig. \ref{fig:consbaystrend}), as NCS gets integrated into the climate/biophysical analyses that dominated early IPCC work.
 \end{itemize}
 
@@ -244,7 +244,7 @@ P(A|B) = f(B|A)(A)/P(B)
 \centering
  \includegraphics[width=0.75\textwidth]{../figs/BayesianWorkflowfromGelman2020.jpg}
   \includegraphics[width=0.75\textwidth]{../figs/The-Open-Standards-adaptive-management-cycle-from-wwwconservationmeasuresorg.png}
- \caption{\textbf{Could we/Do we want to include a version of this Bayesian workflow \citep{gelman2020bayesian} (top panel) or Michael Betancourt's principled Bayesian workflow? Also, it seems aligned with the iterative nature of adaptive management cycles (e.g., bottom panel, from \href{www.conservationmeasures.org}{www.conservationmeasures.org}), which are comnonly used in conservation biology. We could consider a 2-paneled figure with something like these? I would like to discuss this as a group, if people think it would be useful}} 
+ \caption{\textbf{Could we/Do we want to include a version of this Bayesian workflow \citep{gelman2020bayesian} (top panel) or Michael Betancourt's principled Bayesian workflow? Also, it seems aligned with the iterative nature of adaptive management cycles (e.g., bottom panel, from \href{www.conservationmeasures.org}{www.conservationmeasures.org}), which are commonly used in conservation biology. We could consider a 2-paneled figure with something like these? I would like to discuss this as a group, if people think it would be useful}} 
  \label{fig:workflow}
  \end{figure}
 
