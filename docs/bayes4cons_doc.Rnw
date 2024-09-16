@@ -179,23 +179,23 @@ Bayesian analysis is beneficial in that it is flexible enough to allow compariso
 
 \begin{enumerate}
 \item Define what it is: 2-3 sentences
-\begin{enumerate}
+\begin{itemize}
 \item Bayesian methods—provides a quantitative measure of the probability that a hypothesis is true using available data
 \item Bayesian methods—bring prior knowledge together with the sample data
 \item Does not assume that parameters are the fixed or true quantities
 \item Bayesian analysis can be formulated in a variety of different ways (Lee, 2011).
-\end{enumerate}
+\end{itemize}
 \item Brief discussion of equation: 2 sentences
 \begin{itemize}
 \item Bayesian methods use Bayes' Theorem (eqn. 1) to combine our prior knowledge of a system with the available data to estimate the probability of an event. 
 \item P(A|B) = f(B|A)(A)/P(B)
 \end{itemize}
 \item Three components of Bayesian: point form list
-\begin{enumerate}
+\begin{itemize}
 \item Posterior distribution (P(A|B)): used to update the prior using the likelihood
 \item Likelihood ( f(B|A)): function of how likely te response variable is given the data
 \item Prior ((A)): pre-existing information about the hypothesis—data from pilot studies or previous experiments, knowledge from experts or the literature—reflect the uncertainty within the system
-\end{enumerate}
+\end{itemize}
 \item How to interpret the results 2-3 sentences
 \begin{itemize}
 \item Bayesian methods—cares about credible interval, prior, posterior
