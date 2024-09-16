@@ -176,40 +176,67 @@ Bayesian analysis is beneficial in that it is flexible enough to allow compariso
 
 \par 
 \section* {Box 1: Defining Bayesian Analysis (i.e., Inference and Workflow)}
-Inference in frequentist statistics can take many forms, but here we focus on the most dominant incarnation, which entails testing the significance of a null hypothesis given data, measured with a p-value \citep{Zyl2018}. Bayesian analysis can be formulated in a variety of different ways (Lee, 2011). Frequentist methods have previously dominated ecological analyses.
-\begin{itemize}
 
-\item Frequentist methods—that rely on the frequency of an event's occurrence in a sample dataset given a particular hypothesis to estimate its probability.
+\begin{enumerate}
+\item Define what it is: 2-3 sentences
+\begin{enumerate}
 \item Bayesian methods—provides a quantitative measure of the probability that a hypothesis is true using available data
-\item Frequentist methods—only make use of the sample data
 \item Bayesian methods—bring prior knowledge together with the sample data
-\item Frequentist methods—parameters  are considered to be estimates of fixed
-\item Bayesian methods—model parameters are treated as random variables
-\item Frequentist methods—cares about p-value, significance, confidence interval
-\item Bayesian methods—cares about credible interval, prior, posterior
-\end{itemize}
-Bayesian methods use Bayes' Theorem (eqn. 1) to combine our prior knowledge of a system with the available data to estimate the probability of an event. 
-Does not assume that parameters are the fixed or true quantities
-Since inferences are probabilistic—can perform simulations using the density distributions of their parameters and make stronger inference of models predictive uncertainty
-P(A|B) = f(B|A)(A)/P(B)
-\par Three components:
+\item Does not assume that parameters are the fixed or true quantities
+\item Bayesian analysis can be formulated in a variety of different ways (Lee, 2011).
+\end{enumerate}
+\item Brief discussion of equation: 2 sentences
 \begin{itemize}
+\item Bayesian methods use Bayes' Theorem (eqn. 1) to combine our prior knowledge of a system with the available data to estimate the probability of an event. 
+\item P(A|B) = f(B|A)(A)/P(B)
+\end{itemize}
+\item Three components of Bayesian: point form list
+\begin{enumerate}
 \item Posterior distribution (P(A|B)): used to update the prior using the likelihood
 \item Likelihood ( f(B|A)): function of how likely te response variable is given the data
 \item Prior ((A)): pre-existing information about the hypothesis—data from pilot studies or previous experiments, knowledge from experts or the literature—reflect the uncertainty within the system
-\end{itemize}
-\par Bayesian modeling is an iterative process: analyses may start with insufficient knowledge and data but use experiments to inform priors, and uses model checking to test key assumptions and our understanding of the data generating process.
-\par General bayesian workflow (Fig. \ref{fig:workflow})
+\end{enumerate}
+\item How to interpret the results 2-3 sentences
 \begin{itemize}
-\item Simulate data based on priors and initial model specification 
-\item Collect data
-\item Model construction and testing
-\item Prior predictive checks→Fit model to data
-\item Posterior predictive checks
-\item Summarize posteriors
-\item Report results to targeted audiences
+\item Bayesian methods—cares about credible interval, prior, posterior
+\item Since inferences are probabilistic—can perform simulations using the density distributions of their parameters and make stronger inference of models predictive uncertainty
 \end{itemize}
+\end{enumerate}
 
+
+% Inference in frequentist statistics can take many forms, but here we focus on the most dominant incarnation, which entails testing the significance of a null hypothesis given data, measured with a p-value \citep{Zyl2018}. Bayesian analysis can be formulated in a variety of different ways (Lee, 2011). Frequentist methods have previously dominated ecological analyses.
+% \begin{itemize}
+% \item Frequentist methods—that rely on the frequency of an event's occurrence in a sample dataset given a particular hypothesis to estimate its probability.
+% \item Bayesian methods—provides a quantitative measure of the probability that a hypothesis is true using available data
+% \item Frequentist methods—only make use of the sample data
+% \item Bayesian methods—bring prior knowledge together with the sample data
+% \item Frequentist methods—parameters  are considered to be estimates of fixed
+% \item Bayesian methods—model parameters are treated as random variables
+% \item Frequentist methods—cares about p-value, significance, confidence interval
+% \item Bayesian methods—cares about credible interval, prior, posterior
+% \end{itemize}
+% Bayesian methods use Bayes' Theorem (eqn. 1) to combine our prior knowledge of a system with the available data to estimate the probability of an event. 
+% Does not assume that parameters are the fixed or true quantities
+% Since inferences are probabilistic—can perform simulations using the density distributions of their parameters and make stronger inference of models predictive uncertainty
+% P(A|B) = f(B|A)(A)/P(B)
+% \par Three components:
+% \begin{itemize}
+% \item Posterior distribution (P(A|B)): used to update the prior using the likelihood
+% \item Likelihood ( f(B|A)): function of how likely te response variable is given the data
+% \item Prior ((A)): pre-existing information about the hypothesis—data from pilot studies or previous experiments, knowledge from experts or the literature—reflect the uncertainty within the system
+% \end{itemize}
+% \par Bayesian modeling is an iterative process: analyses may start with insufficient knowledge and data but use experiments to inform priors, and uses model checking to test key assumptions and our understanding of the data generating process.
+% \par General bayesian workflow (Fig. \ref{fig:workflow})
+% \begin{itemize}
+% \item Simulate data based on priors and initial model specification 
+% \item Collect data
+% \item Model construction and testing
+% \item Prior predictive checks→Fit model to data
+% \item Posterior predictive checks
+% \item Summarize posteriors
+% \item Report results to targeted audiences
+% \end{itemize}
+% 
 
 
 \section* {Box 2: Resources to Get Started}
