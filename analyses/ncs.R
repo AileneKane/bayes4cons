@@ -3,7 +3,7 @@
 # Bayesian for Conservation paper                   #
 # started by Ailene Ettinger                        #
 # ailene.ettinger@tnc.org                           #
-# March 2024
+# started March 2024
 #####################################################
 
 # housekeeping
@@ -12,7 +12,7 @@ options(stringsAsFactors = FALSE)
 
 # Set working directory. Add in your own path in an if statement for your file structure
 if (length(grep("ailene", getwd()))>0) 
-{setwd("~/GitHub/bayes4cons/ncs")
+{setwd("~/GitHub/bayes4cons")
 }# else if
 
 # load packages
@@ -112,9 +112,6 @@ plot(co2est)
 co2graz_samples <-posterior_samples(co2est)$b_Intercept
 co2ungr_samples <-posterior_samples(co2est)$b_Intercept+posterior_samples(co2est)$b_luungr
 
-# perhaps newer syntax is as_draws(ch4est)?
-
-
 #############################################################
 # EXTENT (LANDUSE AREA)
 # Approach: We simulate extent data for a hypothetical  
@@ -134,11 +131,38 @@ ch4meds<-c(median(ch4emiss_graz),median(ch4emiss_ungr))
 uncert<-cbind(quantile(ch4emiss_graz,c(.10,.90)),
               quantile(ch4emiss_ungr,c(.10,.90)))
 colnames(uncert)<-c("graz","ungr")
+
+
+########################################
+## Add uncertainty from extent        ##  
+########################################
+ext_sd<-ext/5 #sd=20% of mean extent for noe for now
+ext_unc<-rnorm(50,ext,ext_sd)
+extmin<-min(ext_unc)
+extmax<-max(ext_unc)
+#with min estimated extent
+ch4emiss_ungr_extmin <-ch4ungr_samples*extmin*0.001#*0.001 is to convert to kg from g 
+ch4emiss_graz_extmin <-ch4graz_samples*extmin*0.001
+ch4means_extmin<-c(mean(ch4emiss_graz_extmin),mean(ch4emiss_ungr_extmin))
+ch4meds_extmin<-c(median(ch4emiss_graz_extmin),median(ch4emiss_ungr_extmin))
+uncert_extmin<-cbind(quantile(ch4emiss_graz_extmin,c(.10,.90)),
+              quantile(ch4emiss_ungr_extmin,c(.10,.90)))
+colnames(uncert_extmin)<-c("graz","ungr")
+#with max est. extent
+ch4emiss_ungr_extmax <-ch4ungr_samples*extmax*0.001#*0.001 is to convert to kg from g 
+ch4emiss_graz_extmax <-ch4graz_samples*extmax*0.001
+ch4means_extmax<-c(mean(ch4emiss_graz_extmax),mean(ch4emiss_ungr_extmax))
+ch4meds_extmax<-c(median(ch4emiss_graz_extmax),median(ch4emiss_ungr_extmax))
+uncert_extmax<-cbind(quantile(ch4emiss_graz_extmax,c(.10,.90)),
+                     quantile(ch4emiss_ungr_extmax,c(.10,.90)))
+colnames(uncert_extmax)<-c("graz","ungr")
+
+
 x<-c(1,2)
-png("ncsprojimpactch4.png",height=600,width=800)
+png("figs/ncs/ncsprojimpactch4.png",height=600,width=800)
 plot(x,ch4meds,
-     type="p", pch=16, cex=3,col="darkgreen",
-     ylim=c(0,150),xlim=c(.5,2.5),xaxt='n',cex.axis=2,
+     type="p", pch=16, cex=1,col="darkgreen",
+     ylim=c(-1,250),xlim=c(.5,2.5),xaxt='n',cex.axis=2,
      ylab="CH4 (kg per ha per yr)",xlab="Land Use",cex.lab=2,
      main="CH4 Emissions in Project Area",
      bty="l")
@@ -146,11 +170,16 @@ for(i in 1:length(x)){
   arrows(x[i],uncert[1,i],x[i],uncert[2,i], 
         code=3, angle=90, length=0.05,lwd=2, col="darkgreen")
 }
+for(i in 1:length(x)){
+  arrows(x[i],uncert_extmin[1,i],x[i],uncert_extmax[2,i], 
+         code=3, angle=90, length=0.05,lwd=2, col="lightgreen")
+}
+
 axis(1,at=x,labels=c("grazed","ungrazed"), cex.axis=2)
+points(x,ch4meds,pch=16, cex=2.5,col="darkgreen",)
 dev.off()
 
 #Now CO2
-
 co2emiss_ungr <-co2ungr_samples*ext*.001#convert to kg 
 co2emiss_graz <-co2graz_samples*ext*.001
 
@@ -160,7 +189,7 @@ co2uncert<-cbind(quantile(co2emiss_graz,c(.10,.90)),
               quantile(co2emiss_ungr,c(.10,.90)))
 colnames(uncert)<-c("graz","ungr")
 
-png("ncsprojimpactco2.png",height=600,width=800)
+png("figs/ncs/ncsprojimpactco2.png",height=600,width=800)
 plot(x,co2meds,
      type="p", pch=16, cex=3,col="darkgreen",
      ylim=c(-50,50),xlim=c(.5,2.5),xaxt='n',cex.axis=2,
@@ -174,15 +203,25 @@ for(i in 1:length(x)){
 axis(1,at=x,labels=c("grazed","ungrazed"), cex.axis=2)
 dev.off()
 
+
 # Now forecast future fluxes, under warming/drought (i.e. lower water table)
 # From Wilson et al, CO2 flux vs MWTL
 # co2 = -0.29 + (-0.05× MWTL))
 # current water table is (-3, -5) for ungrazed and (0,20) for grazed 
+wtmn_ungr<- -4
+wtsd_ungr<-abs(wtmn_ungr)/abs(wtmn_ungr)#start with sd=mean
+wtmn_gr<- 10
+wtsd_gr<-abs(wtmn_gr)/(abs(wtmn_gr)/5)#grazed site had wider range/more variation
 
-
+wt_ungr<-rnorm(nreps,wtmn_ungr,wtsd_ungr)
+range(wt_ungr)
+wt_gr<-rnorm(nreps,wtmn_gr,wtsd_gr)
+range(wt_gr)
 	
 #projected increase in CO2 emissions from peatlands with decreased water table in grazed and ungrazed areas
-
+#for now, assume water table goes down consistently by 20% (due to warming-induced drying)- check with ECuador team about this
+wtmn_ungr_cc<- wtmn_ungr*.8
+wtmn_gr_cc<- wtmn_gr*.8
 
 # for now fit to all of peat area in ecuador. 
 # could consider implementing for some arbitraty area- e.g., restricting grazing
@@ -191,12 +230,6 @@ dev.off()
 # in this case, use probably of peat to draw from peat/notpeat
 # could also include possibility of restoration and uncertainty around that
 
-  
-## do we want to talk about priors?
-## this could be useful for thinking about areas with no/little data?
-  
-## Ipcc approach- show this? not sure its necessary...
-## code for standard (non-Bayesian) approach to quantifying mitigation (could incorporate error for emissions factor, using IPCC approach
 
 
 

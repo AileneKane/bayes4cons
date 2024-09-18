@@ -1,0 +1,15 @@
+#####################################################
+# Peatland NCS Example                              #
+# Bayesian for Conservation paper                   #
+# started by Ailene Ettinger                        #
+# ailene.ettinger@tnc.org                           #
+# started March 2024                                #
+#####################################################
+
+Analyses of trends in literature
+
+1) Started with journals selected in Ellison paper, as part of goal is to compare changes in recent decade with his analysis
+
+2) Added two journals as indicators of trends in forestry and fisheries conservation/ecology (two large sectors of conservation/natural resource management) as we wanted to also compare trends by subdiscipline. To identify commonly used journals in these two fields, we conducted a web of science search for topic = forest* AND ecology OR topic = forest* AND conservation on May 14, 2024. This resulted in 10,923 Articles, Review articles and data papers from 1953-2024. The publication titles with the highest numbers of articles were BIOLOGICAL CONSERVATION (406) and FOREST ECOLOGY AND MANAGEMENT (340). We selected FEM, as a field-specific journal. 
+
+For Fisheries, we conducted a similar search web of science search for topic = fish* AND ecology OR topic = fish* AND conservation on May 14, 2024 and found 5,586 Articles, Review articles and data papers from 1936-2024. Publications with the highest number of articles were Marine Ecology Progress Series (201) and Aquatic Conservation Marine and Freshwater Ecosystems (186)
