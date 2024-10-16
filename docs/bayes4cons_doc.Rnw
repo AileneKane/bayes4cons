@@ -181,32 +181,13 @@ Bayesian analysis is beneficial in that it is flexible enough to allow compariso
 \par 
 \section* {Box 1: Defining Bayesian Analysis (i.e., Inference and Workflow)}
 
-\begin{enumerate}
-\item Define what it is: 2-3 sentences
-\begin{itemize}
-\item Bayesian methods—provides a quantitative measure of the probability that a hypothesis is true using available data
-\item Bayesian methods—bring prior knowledge together with the sample data
-\item Does not assume that parameters are the fixed or true quantities
-\item Bayesian analysis can be formulated in a variety of different ways (Lee, 2011).
-\end{itemize}
-\item Brief discussion of equation: 2 sentences
-\begin{itemize}
-\item Bayesian methods use Bayes' Theorem (eqn. 1) to combine our prior knowledge of a system with the available data to estimate the probability of an event. 
-\item P(A|B) = f(B|A)(A)/P(B)
-\end{itemize}
-\item Three components of Bayesian: point form list
-\begin{itemize}
-\item Posterior distribution (P(A|B)): used to update the prior using the likelihood
-\item Likelihood ( f(B|A)): function of how likely te response variable is given the data
-\item Prior ((A)): pre-existing information about the hypothesis—data from pilot studies or previous experiments, knowledge from experts or the literature—reflect the uncertainty within the system
-\end{itemize}
-\item How to interpret the results 2-3 sentences
-\begin{itemize}
-\item Bayesian methods—cares about credible interval, prior, posterior
-\item Since inferences are probabilistic—can perform simulations using the density distributions of their parameters and make stronger inference of models predictive uncertainty
-\end{itemize}
-\end{enumerate}
+Bayesian methods allow us to combine prior knowledge of a system with available data to quantitatively measure the probability of a model or hypothesis being true. This is done by treating model parameters as random variables for which a known probability distribution is defined based on prior knowledge of the parameter uncertainty. This allows the development of bespoke and uniquely formulated models for any given data-generating process.\\
 
+At the foundation of this statistical approach is the use of Bayes' Theorem (eqn 1). Consisting of three components, this theorem combines a prior distribution (A) as defined using data from previous experiments, expert opinions, or literature with a likelihood function ($f(B|A)$) to estimate probability distributions for each parameter (\emph{P}(A|B)). \\
+\begin{align}
+ \emph{P}(A|B) = \frac{f(B|A)(A)}{P(B)}
+ \end{align}
+Since the results of Bayesian methods are probabilisitic, generating posterior distributions for each parameter, they allow us to make stronger inference of models predictive uncertainty. Estimates can be further used to perform simulations and in the context of conservation, allow us to make more robust forecasts under future conditions. 
 
 % Inference in frequentist statistics can take many forms, but here we focus on the most dominant incarnation, which entails testing the significance of a null hypothesis given data, measured with a p-value \citep{Zyl2018}. Bayesian analysis can be formulated in a variety of different ways (Lee, 2011). Frequentist methods have previously dominated ecological analyses.
 % \begin{itemize}
