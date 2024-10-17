@@ -182,13 +182,13 @@ Bayesian analysis is beneficial in that it is flexible enough to allow compariso
 \par 
 \section* {Box 1: Defining Bayesian Analysis (i.e., Inference and Workflow)}
 
-Bayesian methods allow us to combine prior knowledge of a system with available data to quantitatively measure the probability of a model or hypothesis being true. This is done by treating model parameters as random variables for which a known probability distribution is defined based on prior knowledge of the parameter uncertainty. This allows the development of bespoke and uniquely formulated models for any given data-generating process.\\
+Bayesian methods allow us to combine prior knowledge of a system with available data to quantitatively measure the probability of a model or hypothesis being true. A Bayesian model treats parameters as random variables for which a known probability distribution is defined based on prior knowledge of the parameter uncertainty. This allows the development of bespoke and uniquely formulated models for any given data-generating process.\\
 
 At the foundation of this statistical approach is the use of Bayes' Theorem (eqn 1). Consisting of three components, this theorem combines a prior distribution (A) as defined using data from previous experiments, expert opinions, or literature with a likelihood function ($f(B|A)$) to estimate probability distributions for each parameter (\emph{P}(A|B)). \\
 \begin{align}
  \emph{P}(A|B) = \frac{f(B|A)(A)}{P(B)}
  \end{align}
-Since the results of Bayesian methods are probabilisitic, generating posterior distributions for each parameter, they allow us to make stronger inference of models predictive uncertainty. Estimates can be further used to perform simulations and in the context of conservation, allow us to make more robust forecasts under future conditions. 
+Since the results of Bayesian methods are probabilistic, they allow us to make stronger inferences based on a model's predicted uncertainty. As new data is collected or inferences made, we can improve our model priors and iteratively improve our understanding of the data-generating processes that underlie ecological systems. Model estimates can be further used to perform simulations and more robustly forecast changes under future conditions. 
 
 % Inference in frequentist statistics can take many forms, but here we focus on the most dominant incarnation, which entails testing the significance of a null hypothesis given data, measured with a p-value \citep{Zyl2018}. Bayesian analysis can be formulated in a variety of different ways (Lee, 2011). Frequentist methods have previously dominated ecological analyses.
 % \begin{itemize}
