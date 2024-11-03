@@ -195,14 +195,15 @@ Bayesian methods are also well-suited to accommodate the small population sizes 
 \par 
 \section* {Box 1: Defining Bayesian Analysis (i.e., Inference and Workflow)}
 
-Bayesian methods allow us to combine prior knowledge of a system with available data to quantitatively measure the probability of a model or hypothesis being true. A Bayesian model treats parameters as random variables for which a known probability distribution is defined based on prior knowledge of the parameter uncertainty. This allows the development of bespoke and uniquely formulated models for any given data-generating process.\\
+Bayesian methods allow us to combine prior knowledge of a system with available data to quantitatively measure the probability of a model or hypothesis being true. A Bayesian model treats parameters as random variables for which a known probability distribution is defined based on prior knowledge of the parameter uncertainty. By incorporating expert knowledge of ecological processes or species natural history, this modelling approach allows the development of bespoke and uniquely formulated models for any given data-generating process.\\
 
-At the foundation of this statistical approach is the use of Bayes' Theorem (eqn 1). Consisting of three components, this theorem combines a prior distribution (A) as defined using data from previous experiments, expert opinions, or literature with a likelihood function ($f(B|A)$) to estimate probability distributions for each parameter (\emph{P}(A|B)). \\
+At the foundation of this statistical approach is the use of Bayes' Theorem (eqn 1). This theorem consists of three components: a prior distribution (A) as defined using data from previous experiments, expert opinions, or literature, and a likelihood function ($f(B|A)$), which are combined to estimate the probability distributions for each parameter (\emph{P}(A|B)). \\
 \begin{align}
  \emph{P}(A|B) = \frac{f(B|A)(A)}{P(B)}
  \end{align}
-Since the results of Bayesian methods are probabilistic, they allow us to make stronger inferences based on a model's predicted uncertainty. As new data is collected or inferences made, we can improve our model priors and iteratively improve our understanding of the data-generating processes that underlie ecological systems. Model estimates can be further used to perform simulations and more robustly forecast changes under future conditions. 
+Since the results of Bayesian methods are probabilistic, they allow us to make stronger inferences based on a model's predicted uncertainty. As new data is collected or inferences made, we can revise our model priors and iteratively improve our understanding of the data-generating processes that underlie ecological systems. Model estimates can be further used to perform simulations and more robustly forecast changes under future conditions. 
 
+Our aim here is not to provide an exhaustive explanation of Bayesian statistics, but to provide a brief introduction of core components of a Bayesian model and their relationships. For an in depth discussion of Bayesian statistics, we recommend the \emph{Gentle Introduction to Bayesain statistics} by \cite{van2014gentle}, \emph{Bayesian model selection for ecologists} by \cite{hooten2015guide}, and \emph{Bayesian Inference for ecologists} by \cite{elis2004}. For further discussion of prior selection for ecological models, see \cite{banner2020priors}.
 % Inference in frequentist statistics can take many forms, but here we focus on the most dominant incarnation, which entails testing the significance of a null hypothesis given data, measured with a p-value \citep{Zyl2018}. Bayesian analysis can be formulated in a variety of different ways (Lee, 2011). Frequentist methods have previously dominated ecological analyses.
 % \begin{itemize}
 % \item Frequentist methods—that rely on the frequency of an event's occurrence in a sample dataset given a particular hypothesis to estimate its probability.
@@ -238,28 +239,28 @@ Since the results of Bayesian methods are probabilistic, they allow us to make s
 % 
 
 
-\section* {Box 2: Resources to Get Started}
-\underline{Priors}
-\par Default priors. Chosen without critical thought or evaluation. Fear of being too subjective. Defending prior choice promotes good statistical inference
-\par Resources on priors: 
-
-\begin{itemize}
-\item Banner et al. 2020 https://besjournals.onlinelibrary.wiley.com/doi/full/10.1111/2041-210X.13407 
-\end{itemize}
-
-\par Other resources:
-\begin{itemize}
-\item A guide to Bayesian model checking for ecologists \citep{conn2018guide}
-\item Gentle Introduction to Bayesian statistics \citep{van2014gentle}
-\href{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4158865/}{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4158865/}
-\item Bayesian model selection for ecologists. \citep{hooten2015guide}
- \href{https://doi.org/10.1890/14-0661.1}{https://doi.org/10.1890/14-0661.1}
-\item Bayesian Inference for ecologists. \citep{elis2004}
-\item Why becoming Bayesian? \citep{clark2005environmental}
- \href{https://doi.org/10.1111/j.1461-0248.2004.00702.x}{https://doi.org/10.1111/j.1461-0248.2004.00702.x}
-\item Bayesian Workflow \citep{gelman2020bayesia}
-
-\end{itemize}
+% \section* {Box 2: Resources to Get Started}
+% \underline{Priors}
+% \par Default priors. Chosen without critical thought or evaluation. Fear of being too subjective. Defending prior choice promotes good statistical inference
+% \par Resources on priors: 
+% 
+% \begin{itemize}
+% \item Banner et al. 2020 https://besjournals.onlinelibrary.wiley.com/doi/full/10.1111/2041-210X.13407 
+% \end{itemize}
+% 
+% \par Other resources:
+% \begin{itemize}
+% \item A guide to Bayesian model checking for ecologists \citep{conn2018guide}
+% \item Gentle Introduction to Bayesian statistics \citep{van2014gentle}
+% \href{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4158865/}{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4158865/}
+% \item Bayesian model selection for ecologists. \citep{hooten2015guide}
+%  \href{https://doi.org/10.1890/14-0661.1}{https://doi.org/10.1890/14-0661.1}
+% \item Bayesian Inference for ecologists. \citep{elis2004}
+% \item Why becoming Bayesian? \citep{clark2005environmental}
+%  \href{https://doi.org/10.1111/j.1461-0248.2004.00702.x}{https://doi.org/10.1111/j.1461-0248.2004.00702.x}
+% \item Bayesian Workflow \citep{gelman2020bayesia}
+% 
+% \end{itemize}
 %xwNov1: I think maybe we can make this box more informative by relating resources we included here to the sections we have in the paper. 
 
 
