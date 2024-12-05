@@ -165,15 +165,7 @@ Bayesian methods are also well-suited to accommodate the small population sizes 
 
 \subsection*{Case Study 2: Incorporating and propagating uncertainty}
 
-\par One major approach that integrates biodiversity conservation and climate change mitigation is `natural climate solutions' (NCS) \citep{ellis2024principles}, also called nature-based climate solutions. NCS are intentional human actions (or `NCS pathways') that protect, restore, and improve management of forests, wetlands, grasslands, oceans, and agricultural lands to mitigate climate change \citep{griscom2017natural}. ADD a bit more detail here.
-
-\par We simulate flux data from a field study quantifying greenhouse gas fluxes (methane, carbon dioxide) s in peatlands with and without grazing in Ecuador (Sanchez et al) to show how Bayesian approaches can be used to propagate uncertainty in a straightforward way. 
-
-\begin{itemize}
-\item carbon Mitigation= flux X extent, Fig. \ref{fig:ncs}
-\item uncertainty propagation using posterior
-\item see \href{https://github.com/AileneKane/bayes4cons/tree/main/analyses/ncs.R}{https://github.com/AileneKane/bayes4cons/tree/main/analyses/ncs.R}
-\end{itemize}
+\par One major approach that integrates biodiversity conservation and climate change mitigation is `natural climate solutions' (NCS) \citep{ellis2024principles}, also called nature-based climate solutions. NCS are intentional human actions (or `NCS pathways') that protect, restore, and improve management of forests, wetlands, grasslands, oceans, and agricultural lands to mitigate climate change \citep{griscom2017natural}. Estimating mitigation potential of NCS involves multiple sources of uncertainty, many of which are not incorporated in commonly used approaches. We simulate flux data from a field study quantifying methane fluxes in peatlands with and without grazing in Ecuador \citep{sanchez2017carbon} to show how Bayesian approaches can be used to propagate uncertainty from area, as well as fluces,in a straightforward way (Fig.\ref{fig:ncs}). 
 
 \subsection*{Case Study 3: State-space model and priors example}
 %emw1Nov: I wonder if this case study would work better as a conceptual figure (boxes, arrows) to just explain state space models, which we actually discuss a bit. I feel like the current example is great, but it's a bit more tricky to grasp and not critical for readers of the paper, whereas helping them understand observation versus process models is ... if we did this it could be a two-panel figure with Harold's example of propagating uncertainty on one side and Marie's example of combining observation and process models on the other. More conceptual figures would also hive with the quick and upbeat tone of the current ms (which I like!).
