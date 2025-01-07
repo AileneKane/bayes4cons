@@ -1,17 +1,18 @@
 ---
 title: "Case Study 1"
-author: "E.Wolkovich, D.Loughnan and X.Wang"
 format: pdf
 editor: visual
 fig_width: 16 
 fig_height: 12 
 ---
 
+\emph{This case study was developed primarily by E.Wolkovich, D.Loughnan and X.Wang with the input of the full manuscript author team.}
+
 This code for the case study includes two sections. The first section explains how to simulate data that fits our needs. We aim to simulate population data where the population is declining, but the p-value remains greater than 0.05. The second section is on data visualization, comparing how the results differ when using Fisherian approaches and Bayesian approaches.
 
 # Data simulation
 
-To simulate data that fits our needs, we use a simple linear function and add noise. We want the population data to exhibit either an increasing or decreasing trend, but some trends are not statistically significant (with a p-value greater than 0.05).
+To simulate data that fits our needs, we use a simple linear function and add noise. We want the population data to exhibit either an increasing or decreasing trend, but some trends are not statistically significant (with a p-value greater than 0.05). After
 
 ## Function
 
@@ -61,31 +62,15 @@ for (i in 1:length(a)) {
 
 ## Select populations
 
-### p-values
-
-Set p-value thresholds to 0, 1, 2 where 0 is \<0.05, 1 is 0.05 to 0.15 and 2 is \> 0.15, and we are looking for 1 appears for both positive slope and negative slope, which means not statistically significant.
-
-![](slopewithpval.png){fig-align="center"}
-
-Visualization suggests that MAYBE noise of 7000-9000 could work
-
-### Estimated slopes
-
-Which noise range can still give us similar estimated slopes close to given slopes
-
-![](slopenoise.png)
-
-Visualization suggests that noise of 7000-9000 also fits.
-
 ### Search for populations:
 
-Semi-brute force search for cases were:
+We want to search for cases were:
 
 \(1\) All the estimated slopes are pretty close to given slopes and
 
 \(2\) The bottom populations has a p-value between 0.05-0.15
 
-```{r}
+```{r include=FALSE}
 a <- seq(from=-2000, to=2000, by=200)
 a <- a[-c(5:17)] 
 # remove middle close-to-zero slopes, as though are hard to get pval low
@@ -111,10 +96,6 @@ for(seedz in c(333:3999)){
   }
 }
 ```
-
-We got seeds: 423, 1546, 1869, 2154, 2954, 3069, 3201, 3488, 3545 and 3786.
-
-### Try different seeds
 
 After checking different seeds, we finally decided on seed 1546
 
