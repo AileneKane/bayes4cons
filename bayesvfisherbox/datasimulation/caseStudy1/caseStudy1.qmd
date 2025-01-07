@@ -63,16 +63,9 @@ for (i in 1:length(a)) {
 
 ### p-values
 
-Set p-value thresholds to 0, 1, 2 where 0 is \<0.05, 1 is 0.05 to 0.15 and 2 is \> 0.15, and we are looking for 1 appears for both positive slope and negative slope, which means not statistically significant
+Set p-value thresholds to 0, 1, 2 where 0 is \<0.05, 1 is 0.05 to 0.15 and 2 is \> 0.15, and we are looking for 1 appears for both positive slope and negative slope, which means not statistically significant.
 
-```{r echo = FALSE}
-dfout$pvalsig <- ifelse(dfout$pval>0.15, 2, 0)
-dfout$pvalsig[which(dfout$pval>0.05 & dfout$pval<0.15)] <- 1
-library(ggplot2)
-ggplot(dfout, aes(x=givenslope, y=estslope, color=as.factor(pvalsig)))+
-  geom_point() + 
-  facet_wrap(.~noise)
-```
+![](slopewithpval.png){fig-align="center"}
 
 Visualization suggests that MAYBE noise of 7000-9000 could work
 
@@ -80,13 +73,9 @@ Visualization suggests that MAYBE noise of 7000-9000 could work
 
 Which noise range can still give us similar estimated slopes close to given slopes
 
-```{r echo = FALSE}
-plot((dfout$estslope/dfout$givenslope)~dfout$noise)
-hist(dfout$estslope/dfout$givenslope)
-plot((dfout$estslope/dfout$givenslope)~dfout$pval)
-```
+![](slopenoise.png)
 
-Visualization suggests that noise of 7000-9000 also fits
+Visualization suggests that noise of 7000-9000 also fits.
 
 ### Search for populations:
 
@@ -199,7 +188,7 @@ output$pred <- abund$value
 
 ### Visualization
 
-```{r echo = FALSE}
+```{r include=FALSE}
 # Set color palette for plots
 popID <- unique(output$pop)
 colors <- c("#f7cb44ff", "#f68f46ff", "#de7065ff", "#a65c85ff","#593d9cff","purple4", "navy")
@@ -235,12 +224,13 @@ legend("topright", legend = c(expression('Farthest north (p = 3.4e'^-4*')'),
        lty = c(1, 1, 1, 1, 1), lwd = 4, bty = "n", col = c("#593d9cff","#a65c85ff", "#de7065ff", "#f68f46ff","#f7cb44ff"),cex = 1, pt.cex = 2.5)
 ```
 
+![](frequentist.png){fig-align="center"}
+
 ## Bayesian approach
 
 With Bayesian approach, we run the stan code:
 
 ```{r engine = 'cat', engine.opts = list(file = "partialPoolSimMdl.stan", lang = "stan")}
-//
 data {
   int<lower=0> N; //No. obs
   int<lower=0> Ngrp; //No. in group---population or species
@@ -296,7 +286,7 @@ datalistGrp <- with(output,
                           year = output$year ))
 ```
 
-```{r}
+```{r message = FALSE}
 mdlPop <- stan("partialPoolSimMdl.stan",
                data = datalistGrp)
 

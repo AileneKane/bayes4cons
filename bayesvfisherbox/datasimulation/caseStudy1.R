@@ -57,9 +57,10 @@ ggplot(dfout, aes(x=givenslope, y=estslope, color=as.factor(pvalsig)))+
 # Visualization suggests that MAYBE noise of 7000-9000 could work
 
 # Which noise range can still give us similar estimated slopes close to given slopes
-plot((dfout$estslope/dfout$givenslope)~dfout$noise)
-hist(dfout$estslope/dfout$givenslope)
-plot((dfout$estslope/dfout$givenslope)~dfout$pval)
+plot(dfout$noise, (dfout$estslope/dfout$givenslope), xlab="Noise", ylab="Estimated slope/Given slope")
+
+hist(dfout$estslope/dfout$givenslope, main=NULL,xlab="Estimated slope/Given slope")
+plot(dfout$pval,(dfout$estslope/dfout$givenslope), xlab="p-value", ylab="Estimated slope/Given slope")
 ################################################################################
 # Semi-brute force search for cases were:
 # (1) All the estiamted slopes are pretty close to given slopes and
@@ -223,7 +224,7 @@ legend_image <- as.raster(matrix(colfunc(5), ncol=1))
 
 layout(matrix(1:2,ncol=2), width = c(2,1),height = c(1,1))
 par(mfrow = c(1,2), mar = c(5.1, 4.5, 4.1, 2.1))
-
+par(mfrow = c(1,1))
 marks <- c(0, expression('5e'^4*''), expression('1e'^5*''),expression('1.4e'^5*''))
 ticks <- c(0, 50000, 100000, 150000)
 plot(1, type="n", ylab = "Abundance", xlab = "Year", xlim=c(00, 11), ylim=c(0, 160000), 
