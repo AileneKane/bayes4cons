@@ -12,11 +12,11 @@ This code for the case study includes two sections. The first section explains h
 
 # Data simulation
 
-To simulate data that fits our needs, we use a simple linear function and add noise. We want the population data to exhibit either an increasing or decreasing trend, but some trends are not statistically significant (with a p-value greater than 0.05). After
+To simulate data that fits our needs, we use a simple linear function and add noise. We want the population data to exhibit either an increasing or decreasing trend, but some trends are not statistically significant (with a p-value greater than 0.05).
 
-## Function
+## Simulate population data
 
-Function to simulate a population with linear growth and noise:
+Simulate population data with different increasing and decreasing rates as well as different noises
 
 ```{r}
 simulate_population <- function(a, b, t, noise_sd) {
@@ -34,14 +34,6 @@ simulate_population <- function(a, b, t, noise_sd) {
   pval <- coef(summary(lm(y ~ time)))[["time", "Pr(>|t|)"]]
   return(c(estimated_slope, pval))
 }
-
-```
-
-## Simulate population data
-
-Simulate population data with different increasing and decreasing rates as well as different noises
-
-```{r}
 t <- 10
 a <- seq(from=-2000, to=2000, by=200)
 b <- 100000
@@ -116,8 +108,6 @@ for (i in 1:length(a)) {
 dfout
 ```
 
-We dropped the 2nd population with p-value smaller than 0.05.
-
 # Data analysis
 
 The following code performs data analysis and visualization using both the traditional Fisherian approach and the Bayesian approach. For the Fisherian approach, we use an `lm` model and plot the p-values for different populations, indicating whether the increase or decrease is statistically significant. For the Bayesian approach, we use Stan code with priors and plot the posterior distribution.
@@ -136,7 +126,7 @@ require(viridis)
 ```{r}
 # Decided to run with 1546 
 set.seed(1546)
-# Dropping -1600, 1600
+# Dropping -1600, 1600 with p-value smaller than 0.05.
 a <- c(-2000, -1600, -1400,  600, 1400 , 1600,  2000)
 t <- 10
 time <- 1:t
