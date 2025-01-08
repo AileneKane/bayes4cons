@@ -106,13 +106,13 @@ dataStan <- list(y=y, TT=TT, w0=log(z[1]))
 ```
 
 
-## Vague prior
+## Vague priors
 
 As this is a Bayesian model, we need to specify priors for all parameters ($\sigma_o, \sigma_p, \beta_0, \beta_1$).The baseline way to fit this model would be to assume we have no information on the values of these parameters and use vague priors. To demonstrate this approach, we define the priors for all four parameters as $\text{N}(0,100)$. See file `ssm_dens_vague.stan` for exact model definition.
 
 **Ailene:** I think it would be good to set the first value of the time series to 20. Do you know how to do this quickly in stan?
 
-Fit model
+We can fit this model with vague priors using three chains of length 50000 as follow. 
 
 
 ```{r}
@@ -124,15 +124,15 @@ m.vague <- stan(file = "ssm_dens_vague.stan",
 
 We get lots of warnings, indicating that this model may be problematic for the data at hand.
 
-Look at traceplots.
+We can look at the traceplots to further assess these issues.
 
 ```{r}
 traceplot(m.vague, pars=c("sdo", "sdp", "beta1", "beta0"))
 ```
 
-Not well mixed.
+We can see that the chains are not well mixed.
 
-Extract info nonetheless for comparison.
+We would not recommend to use the results of this model, but we extract the information for comparison.
 
 ```{r}
 # Posterior
@@ -143,11 +143,15 @@ beta0.est.vague <- m.vague.post[,"beta0"]
 beta1.est.vague <- m.vague.post[,"beta1"]
 ```
 
+It is not surprising that this model is associated with warnings. While state-space models are very useful models, they can have problem estimating simultaneously the parameters associated with the biological stochasticity and measurement error, especially with small datasets (Auger-Méthé et al. 2016, 2021).
 
-## Informed prior - using narrow priors based on simulation (sanity check here that all works - for Lizzy)
+## Model check - using narrow priors based on simulation
 
-
-We know that $\sigma_o = 10$, $\sigma_p = 0.05$, $\beta_0 = log(1.3)$, and $\beta_1 = -0.005$, so we set priors:  $\sigma_o \sim \text{N}(10, 0.1)$, $\sigma_p \sim \text{N}(0.05, 0.01)$, $\beta_0 \sim \text{N}(log(1.3), 0.01)$, and $\beta_1 \sim \text{N}(-0.005, 0.001)$.
+It is often recommended to check the model with simulations (Auger-Méthé et al. 2016, 2021), and here to verify that this problem is not a coding issue or a fundamental problem, we fit the model with highly informed priors based on the parameter values used to simulate the data. Specifically, we use the following priors: 
+- $\sigma_o \sim \text{N}(10, 0.1)$, 
+- $\sigma_p \sim \text{N}(0.05, 0.01)$, 
+- $\beta_0 \sim \text{N}(log(1.3), 0.01)$, and 
+- $\beta_1 \sim \text{N}(-0.005, 0.001)$.
 
 
 ```{r}
@@ -157,17 +161,17 @@ m.sim.informed <- stan(file = "ssm_dens_sim_informed.stan",
 
 ```
 
-All is good. No warning messages.
+In this case there are no warning messages.
 
-Look at traceplots.
+We further look at the traceplots.
 
 ```{r}
 traceplot(m.sim.informed, pars=c("sdo", "sdp", "beta1", "beta0"))
 ```
 
-Looks ok. 
+The three chains look well mixed.
 
-Extract info
+We extract info.
 
 ```{r}
 m.sim.informed.post <- as.matrix(m.sim.informed)
@@ -178,7 +182,9 @@ beta1.est.sim.informed <- m.sim.informed.post[,"beta1"]
 ```
 
 
-## Informed prior based on biology
+While the model fits well with these priors, in real life we do not know the exact values of the parameters and often the goal of the analysis is to estimate some or all of them. However, as explained in the next section, we often have biological information that can be easily used to create informed priors.
+
+## Informed priors based on biology
 
 Let us assume that we have performed an assessment of the accuracy of the transects in early years with marked individuals and $\sigma_o$ to be 10, and that estimate is reliable, so as a prior we use a normal distribution with mean 10 and sd 0.1. 
 
@@ -294,6 +300,8 @@ sessionInfo()
 # Literature cited
 
 Auger-Méthé, M., K. Newman, D. Cole, F. Empacher, R. Gryba, A. A. King, V. Leos-Barajas, J. Mills Flemming, A. Nielsen, G. Petris, and L. Thomas. 2021. A guide to state–space modeling of ecological time series. Ecological Monographs 91:e01470.
+
+Auger-Méthé, M., C. Field, C. M. Albertsen, A. E. Derocher, M. A. Lewis, I. D. Jonsen, and J. Mills Flemming. 2016. State–space models’ dirty little secrets: even simple linear Gaussian models can have estimation problems. Scientific Reports 6:26677. 
 
 Dennis, B., and M. L. Taper. 1994. Density dependence in time series observations of natural populations: estimation and testing. Ecological Monographs 64:205–224.
 
