@@ -19,6 +19,10 @@ library(ggplot2)
 options(mc.cores=parallel::detectCores())
 # To avoid recompiling unchanged Stan program
 rstan_options(auto_write=TRUE)
+
+# Colours for plots
+col_real <- "hotpink" # Real population trajectory
+col_obs <- grey(0.2) # Observed population trajectory
 ```
 
 
@@ -44,7 +48,7 @@ Below is the code to simulate two times series, the true population tracjectory 
 TT <- 20
 z <- numeric(TT + 1)
 
-# Population starts at 20 # Reintroduction
+# Population starts at 20 (number of individual re-introduced)
 z[1] <- 20
 
 # Standard deviation of the process variation
@@ -74,15 +78,24 @@ y <- numeric(TT)
 y <- z[2:(TT+1)] + rnorm(TT, 0, sdo)
 ```
 
-
+Let's visualize the two simulated time series.
 
 ```{r}
+
+
 monitoring <- data.frame(year = seq(2024-TT, length.out = TT), true = z[-1], obs = y)
 ggplot() +
-  geom_point(data = monitoring, aes(y= true, x=year), col="hotpink") +
-  geom_point(data = monitoring, aes(y= obs, x = year), col="grey") +
-  ylab("Population")
+  geom_point(data = monitoring, aes(y = true, x = year, colour = "Real")) +
+  geom_point(data = monitoring, aes(y = obs, x = year, colour = "Observed")) +
+  geom_line(data = monitoring, aes(y = true, x = year, colour = "Real")) +
+  geom_line(data = monitoring, aes(y = obs, x = year, colour = "Observed")) +
+  scale_color_manual(name = "Pop. trajctories", 
+                     values = c("Real" = col_real, "Observed" = col_obs)) +
+  ylab("Population/count") +
+  theme_bw()
 ```
+
+We can see that due to observation error the observed trajectory is far more variable than the real population trajectory.
 
 # Fit models
 
