@@ -31,10 +31,19 @@ Process equation: $z_{t} = z_{t-1}\exp(\beta_0 + \beta_1 z_{t-1} + \epsilon_t), 
 
 Observation equation: $y_t = z_t + \eta_t, \;\; \eta_t \sim \text{N}(0,\sigma_{o}^2),$
 
-where $z_t$ is the true population size as time $t$, $y_t$ is the observed number of individuals at time $t$ (e.g., via a line transect), $\beta_0$ is the population growth rate when the population is not affected by population density, $\beta_1$ determines how much the population growth rate decreases as a function of population density, $\sigma_p$ is the standard deviation of the process equation (it represents the biological stochasticity), and $\sigma_o$ represents the standard deviation of the observation error.
+where $z_t$ is the true population size as time $t$, $y_t$ is the observed number of individuals at time $t$, $\beta_0$ is the population growth rate when the population is not affected by population density, $\beta_1$ determines how much the population growth rate decreases as a function of population density, $\sigma_p$ is the standard deviation of the process equation (it represents the biological stochasticity), and $\sigma_o$ represents the standard deviation of the observation error.
 
-This species has a long life span (20+ years) and creates long term pairs that can produce maximum 2 offspring when in good conditions, and therefore could be able to almost double in size every year. Here the conservation area does not allow the animal to fulfill its full growth ($\beta_0 = 1.3$). From a repeated assessments of the efficiency of the line transect in early years, when all of the re-introduce animals were individually marked, we know that we can miss many individuals and have estimated the $\sigma_o = 10$. We know that for most population of this species, the birth rate, which is the main source of biological stochasticity, vary by less than 5%.
+This species has a long life span (20+ years) and creates long term pairs that can produce maximum 2 offspring when in good conditions, and therefore could be able to almost double in size every year. However, here we simulate a situation where the conservation area does not allow the animal to fulfill its full growth and we simul by setting $\beta_0 = \text{log}(1.3)$. We assumed when doing the yearly transects we can miss or double count individuals and simulate this by setting $\sigma_o = 10$. We know that for most population of this species, the birth rate, which is the main source of biological stochasticity, vary by less than 5%.
 
+
+
+Let us assume that we have performed an assessment of the accuracy of the transects in early years with marked individuals and $\sigma_o$ to be 10, and that estimate is reliable, so as a prior we use a normal distribution with mean 10 and sd 0.1. 
+
+We also know from previous work that the mortality of adults is low, especially in conserved areas where there is no harvest, and that the birth rate varies from usually less than 5%. Given that 95.45% of a normal distribution falls within two standard deviation, we set the prior of $\sigma_o$ as $\text{N}(0.05, 0.01)$.
+
+Given that the population is increasing and we know based on the birth rate that it can max double each year (if we assume no mortality), we restrict the value of $\beta_0$ to be between log(1) (stays the same) and log(2) (doubles).
+
+Previous estimates of density dependence for the species in similar conservation areas range from -0.01 and -0.001, and thus we use a prior distribution for $\beta_1$ of $\text{Uniform}(-0.01,-0.001)$.
 
 
 ```{r}
@@ -161,7 +170,7 @@ beta1.est.sim.informed <- m.sim.informed.post[,"beta1"]
 
 ## Informed prior based on biology
 
-As mentioned above, we know that based on transects done in early years with marked individuals that $\sigma_o$ is estimated to be 10, and that estimate is reliable, so as a prior we use a normal distribution with mean 10 and sd 0.1. 
+Let us assume that we have performed an assessment of the accuracy of the transects in early years with marked individuals and $\sigma_o$ to be 10, and that estimate is reliable, so as a prior we use a normal distribution with mean 10 and sd 0.1. 
 
 We also know from previous work that the mortality of adults is low, especially in conserved areas where there is no harvest, and that the birth rate varies from usually less than 5%. Given that 95.45% of a normal distribution falls within two standard deviation, we set the prior of $\sigma_o$ as $\text{N}(0.05, 0.01)$.
 
