@@ -62,7 +62,7 @@ beta0 <- log(1.3)
 beta1 <- -0.005
 
 # Set the seed, so we can reproduce the results
-set.seed(87687)
+set.seed(123)
 # For-loop that simulates the state through time, using i instead of t,
 for(i in 1:TT){
   # This is the process equation
