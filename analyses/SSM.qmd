@@ -24,7 +24,7 @@ rstan_options(auto_write=TRUE)
 
 # Simulation: simple population model (values constrained to be positive)
 
-Based on model described in Auger-Methe et al 2021, which is based on Jamieson and Brooks (2004) and Dennis and Taper (1994). 
+Based on model described in Auger-Methe et al. (2021), which is based on Jamieson and Brooks (2004) and Dennis and Taper (1994). 
 
 It's a simple population model with density dependence. 
 
@@ -270,3 +270,8 @@ This looks good to me.
 
 # Literature cited
 
+Auger-Méthé, M., K. Newman, D. Cole, F. Empacher, R. Gryba, A. A. King, V. Leos-Barajas, J. Mills Flemming, A. Nielsen, G. Petris, and L. Thomas. 2021. A guide to state–space modeling of ecological time series. Ecological Monographs 91:e01470.
+
+Dennis, B., and M. L. Taper. 1994. Density dependence in time series observations of natural populations: estimation and testing. Ecological Monographs 64:205–224.
+
+Jamieson, L. E., and S. P. Brooks. 2004. Density dependence in North American ducks. Animal Biodiversity and Conservation 27:113–128. 
