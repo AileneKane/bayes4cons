@@ -13,7 +13,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Set up
 
-```{r, message=FALSE, warning=FALSE}
+```{r library, message=FALSE, warning=FALSE}
 library(rstan)
 library(bayesplot)
 library(ggplot2)
@@ -45,7 +45,7 @@ This species has a long life span (20+ years) and creates long term pairs that c
 Below is the code to simulate two times series, the true population trajectory of the 20 years (contained in `z`), and the observed counts over these years (contained in `y`).
 
 
-```{r, cache=}
+```{r simulation, cache = TRUE}
 # Create a vector that will keep track of the states
 # It's of length T + 1 (+1 for t=0)
 TT <- 20
@@ -83,7 +83,7 @@ y <- z[2:(TT+1)] + rnorm(TT, 0, sdo)
 
 Let's visualize the two simulated time series.
 
-```{r}
+```{r plot_sim, cache = TRUE}
 monitoring <- data.frame(year = seq(2024-TT, length.out = TT), true = z[-1], obs = y)
 ggplot() +
   geom_point(data = monitoring, aes(y = true, x = year, colour = "Real")) +
@@ -102,7 +102,7 @@ We can see that due to observation error (i.e., the fact that the transect count
 
 Now that we have created our data. Let's fit a model to estimate the true population size. We will use `rstan` to fit a Bayesian version of the model to data. The first thing we want to do is set up the data to fit with the function `stan`:
 
-```{r}
+```{r data_stan, cache = TRUE}
 dataStan <- list(y = y, TT = TT, 
                  w0 = log(z[1])) # Starting population, 20 (number re-introduce)
 ```
@@ -115,7 +115,7 @@ As this is a Bayesian model, we need to specify priors for all parameters ($\sig
 We can fit this model with vague priors using three chains of length 50000 as follow. 
 
 
-```{r, cache = TRUE}
+```{r fit_vague, cache = TRUE}
 m.vague <- stan(file = "ssm_dens_vague.stan",
                 data = dataStan,
                 chains = 3, iter = 50000, seed="123")
@@ -158,7 +158,7 @@ It is often recommended to check the model with simulations (Auger-Méthé et al
 - $\beta_1 \sim \text{N}(-0.005, 0.001)$.
 
 
-```{r, cache = TRUE}
+```{r fit_sim_inf, cache = TRUE}
 m.sim.informed <- stan(file = "ssm_dens_sim_informed.stan",
                 data = dataStan,
                 chains = 3, iter = 50000, seed="123")
@@ -203,7 +203,7 @@ Researchers also often have access to estimates from other populations of the sa
 We note that these are just simplified examples of ways to include biological information as priors, other methods and priors could/should be used in many circumstances.
 
 
-```{r, cache = TRUE}
+```{r fit_biol_inf, cache = TRUE}
 m.biol.informed <- stan(file = "ssm_dens_biol_informed.stan",
                 data = dataStan,
                 chains = 3, iter = 50000, seed= "123")

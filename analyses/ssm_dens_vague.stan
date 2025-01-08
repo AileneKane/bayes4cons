@@ -23,7 +23,7 @@ model {
   beta0 ~ normal(0, 100);
   beta1 ~ normal(0, 100); 
   // Distribution for the first state
-  w[1] ~ normal(w0, sdp);
+  w[1] ~ normal(w0 + beta0 + beta1*exp(w0), sdp);
   // Distributions for all other states
   for(t in 2:TT){
     w[t] ~ normal(w[t-1] + beta0 + beta1*exp(w[t-1]), sdp);

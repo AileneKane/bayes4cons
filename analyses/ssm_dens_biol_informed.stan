@@ -22,7 +22,7 @@ model {
   beta0 ~ uniform(log(1), log(2));
   beta1 ~ uniform(-0.007, -0.003);  // Density dependence 
   // Distribution for the first state
-  w[1] ~ normal(w0, sdp);
+  w[1] ~ normal(w0 + beta0 + beta1*exp(w0), sdp);
   // Distributions for all other states
   for(t in 2:TT){
     w[t] ~ normal(w[t-1] + beta0 + beta1*exp(w[t-1]), sdp);
