@@ -24,7 +24,15 @@ rstan_options(auto_write=TRUE)
 
 # Simulation: simple population model
 
-To demonstrate the ease with which we can use Bayesian methods to include biological information to help fit complex population models, we will explore a relatively simple state-space models for population described in Auger-Méthé et al. (2021). This model is based on one of the models Dennis and Taper (1994) and Jamieson and Brooks (2004) have proposed to include density dependence, biological stochasticiy, and measurement error in a single model.
+To demonstrate the ease with which we can use Bayesian methods to include biological information to help fit complex population models, we will simulate the re-introduction of extirpated species in a conservation area and use a state-space model with and without additional biological information to assess whether there is evidence that the population has reached carrying capacity. 
+
+Scenario: we have re-introduced 10 adult females and some 10 adult males from an extirpated species in 2003 in a conservation area, and we are monitoring their growth for the path 20 years to see if they have reached carrying capacity and what is that carrying capacity.
+
+This is a species that has a long life span (e.g. 20+ years) and creates long term pairs  that can produce maximum 2 offspring when in good conditions, and therefore could be able to almost double in size ever year. Here the conservation area does not allow the animal to fulfill it's full growth ($\beta_0 = 1.3$). From a repeated assessments of the efficiency of the line transect in early years, when all of the re-introduce animals were individually marked, we know that we can miss many individuals and have estimated the $\sigma_o = 10$.
+
+As for most population of this species the birth rate, which is the main source of biological stochasticity, vary by less than 5%.
+
+Model: We will use the state-space models for population described in Auger-Méthé et al. (2021). This model is based on one of the models Dennis and Taper (1994) and Jamieson and Brooks (2004) have proposed to include density dependence, biological stochasticiy, and measurement error in a single model.
 
 As it is a state-space model, it has two main equations. The equation describing the population trajectory is often referred to as the process equation, while the equation associated with modelling the error in survey is called the observation equation. Both are defined as follows:
 
@@ -35,11 +43,7 @@ Observation equation: $y_t = z_t + \eta_t, \;\; \eta_t \sim \text{N}(0,\sigma_{o
 where $z_t$ is the true population size as time $t$, $y_t$ is the observed number of individuals at time $t$ (e.g., via a line transect), $\beta_0$ is the population growth rate when the population is not affected by population density, $\beta_1$ determines how much the population growth rate decreases as a function of population density, $\sigma_p$ is the standard deviation of the process equation (it represents the biological stochasticity), and $\sigma_o$ represents the standard deviation of the observation error.
 
 
-Scenario: we have re-introduced 10 adult females and some 10 adult males from an extirpated species in 2003 in a conservation area, and we are monitoring their growth for the path 20 years to see if they have reached carrying capacity and what is that carrying capacity.
 
-This is a species that has a long life span (e.g. 20+ years) and creates long term pairs  that can produce maximum 2 offspring when in good conditions, and therefore could be able to almost double in size ever year. Here the conservation area does not allow the animal to fulfill it's full growth ($\beta_0 = 1.3$). From a repeated assessments of the efficiency of the line transect in early years, when all of the re-introduce animals were individually marked, we know that we can miss many individuals and have estimated the $\sigma_o = 10$.
-
-As for most population of this species the birth rate, which is the main source of biological stochasticity, vary by less than 5%.
 
 ```{r}
 # Create a vector that will keep track of the states
