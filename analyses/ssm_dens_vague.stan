@@ -14,6 +14,7 @@ parameters {
   vector[TT] w; // State time series
   }
 
+
 /*----------------------- Model --------------------------*/
 model {
   // Prior distributions

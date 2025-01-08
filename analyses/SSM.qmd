@@ -108,11 +108,12 @@ dataStan <- list(y=y, TT=TT, w0=log(z[1]))
 
 ## Vague prior
 
-As this is a Bayesian model, 
+As this is a Bayesian model, we need to specify priors for all parameters ($\sigma_o, \sigma_p, \beta_0, \beta_1$).The baseline way to fit this model would be to assume we have no information on the values of these parameters and use vague priors. To demonstrate this approach, we define the priors for all four parameters as $\text{N}(0,100)$. See file `ssm_dens_vague.stan` for exact model definition.
 
-The priors on all four parameters are $\text{N}(0,100)$.
+**Ailene:** I think it would be good to set the first value of the time series to 20. Do you know how to do this quickly in stan?
 
 Fit model
+
 
 ```{r}
 m.vague <- stan(file = "ssm_dens_vague.stan",
