@@ -139,6 +139,7 @@ window.Quarto = {
 </header>
 
 
+<p><strong>Ailene</strong>: Once we have final title we should change the title to the title of the paper + Supplementary Mat. XX. Same with authors. I think we should just use the same list/order as paper. I let you make the change.</p>
 <section id="set-up" class="level1">
 <h1>Set up</h1>
 <div class="cell">
@@ -238,19 +239,26 @@ window.Quarto = {
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">data =</span> dataStan,</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">chains =</span> <span class="dv">3</span>, <span class="at">iter =</span> <span class="dv">50000</span>, <span class="at">seed=</span><span class="st">"123"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: There were 35501 divergent transitions after warmup. See
+<pre><code>hash mismatch so recompiling; make sure Stan code ends with a blank line</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: There were 17674 divergent transitions after warmup. See
 https://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
 to find out why this is a problem and how to eliminate them.</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: There were 2 transitions after warmup that exceeded the maximum treedepth. Increase max_treedepth above 10. See
+<pre><code>Warning: There were 27 transitions after warmup that exceeded the maximum treedepth. Increase max_treedepth above 10. See
 https://mc-stan.org/misc/warnings.html#maximum-treedepth-exceeded</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: There were 2 chains where the estimated Bayesian Fraction of Missing Information was low. See
+https://mc-stan.org/misc/warnings.html#bfmi-low</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Examine the pairs() plot to diagnose sampling problems</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: The largest R-hat is 1.73, indicating chains have not mixed.
+<pre><code>Warning: The largest R-hat is 1.79, indicating chains have not mixed.
 Running the chains for more iterations may help. See
 https://mc-stan.org/misc/warnings.html#r-hat</code></pre>
 </div>
@@ -268,7 +276,7 @@ https://mc-stan.org/misc/warnings.html#tail-ess</code></pre>
 <p>We get lots of warnings, indicating that this model may be problematic for the data at hand.</p>
 <p>We can look at the traceplots to further assess these issues.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">traceplot</span>(m.vague, <span class="at">pars=</span><span class="fu">c</span>(<span class="st">"sdo"</span>, <span class="st">"sdp"</span>, <span class="st">"beta1"</span>, <span class="st">"beta0"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">traceplot</span>(m.vague, <span class="at">pars=</span><span class="fu">c</span>(<span class="st">"sdo"</span>, <span class="st">"sdp"</span>, <span class="st">"beta1"</span>, <span class="st">"beta0"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -280,12 +288,12 @@ https://mc-stan.org/misc/warnings.html#tail-ess</code></pre>
 <p>We can see that the chains are not well mixed.</p>
 <p>We would not recommend to use the results of this model, but we extract the information for comparison.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Posterior</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>m.vague.post <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(m.vague)</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>sdo.est.vague <span class="ot">&lt;-</span> m.vague.post[,<span class="st">"sdo"</span>]</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>sdp.est.vague <span class="ot">&lt;-</span> m.vague.post[,<span class="st">"sdp"</span>]</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>beta0.est.vague <span class="ot">&lt;-</span> m.vague.post[,<span class="st">"beta0"</span>]</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>beta1.est.vague <span class="ot">&lt;-</span> m.vague.post[,<span class="st">"beta1"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Posterior</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>m.vague.post <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(m.vague)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>sdo.est.vague <span class="ot">&lt;-</span> m.vague.post[,<span class="st">"sdo"</span>]</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>sdp.est.vague <span class="ot">&lt;-</span> m.vague.post[,<span class="st">"sdp"</span>]</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>beta0.est.vague <span class="ot">&lt;-</span> m.vague.post[,<span class="st">"beta0"</span>]</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>beta1.est.vague <span class="ot">&lt;-</span> m.vague.post[,<span class="st">"beta1"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>It is not surprising that this model is associated with warnings. While state-space models are very useful models, they can have problem estimating simultaneously the parameters associated with the biological stochasticity and measurement error, especially with small datasets (Auger-Méthé et al.&nbsp;2016, 2021).</p>
 </section>
@@ -295,18 +303,21 @@ https://mc-stan.org/misc/warnings.html#tail-ess</code></pre>
 <ul>
 <li><p><span class="math inline">\(\sigma_o \sim \text{N}(10, 0.1)\)</span>,</p></li>
 <li><p><span class="math inline">\(\sigma_p \sim \text{N}(0.05, 0.01)\)</span>,</p></li>
-<li><p><span class="math inline">\(\beta_0 \sim \text{N}(log(1.3), 0.01)\)</span>, and</p></li>
+<li><p><span class="math inline">\(\beta_0 \sim \text{N}(\text{log}(1.3), 0.01)\)</span>, and</p></li>
 <li><p><span class="math inline">\(\beta_1 \sim \text{N}(-0.005, 0.001)\)</span>.</p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>m.sim.informed <span class="ot">&lt;-</span> <span class="fu">stan</span>(<span class="at">file =</span> <span class="st">"ssm_dens_sim_informed.stan"</span>,</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">data =</span> dataStan,</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">chains =</span> <span class="dv">3</span>, <span class="at">iter =</span> <span class="dv">50000</span>, <span class="at">seed=</span><span class="st">"123"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>m.sim.informed <span class="ot">&lt;-</span> <span class="fu">stan</span>(<span class="at">file =</span> <span class="st">"ssm_dens_sim_informed.stan"</span>,</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">data =</span> dataStan,</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">chains =</span> <span class="dv">3</span>, <span class="at">iter =</span> <span class="dv">50000</span>, <span class="at">seed=</span><span class="st">"123"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>hash mismatch so recompiling; make sure Stan code ends with a blank line</code></pre>
+</div>
 </div>
 <p>In this case there are no warning messages.</p>
 <p>We further look at the traceplots.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">traceplot</span>(m.sim.informed, <span class="at">pars=</span><span class="fu">c</span>(<span class="st">"sdo"</span>, <span class="st">"sdp"</span>, <span class="st">"beta1"</span>, <span class="st">"beta0"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">traceplot</span>(m.sim.informed, <span class="at">pars=</span><span class="fu">c</span>(<span class="st">"sdo"</span>, <span class="st">"sdp"</span>, <span class="st">"beta1"</span>, <span class="st">"beta0"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -318,27 +329,28 @@ https://mc-stan.org/misc/warnings.html#tail-ess</code></pre>
 <p>The three chains look well mixed.</p>
 <p>We extract info.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>m.sim.informed.post <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(m.sim.informed)</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>sdo.est.sim.informed <span class="ot">&lt;-</span> m.sim.informed.post[,<span class="st">"sdo"</span>]</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>sdp.est.sim.informed <span class="ot">&lt;-</span> m.sim.informed.post[,<span class="st">"sdp"</span>]</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>beta0.est.sim.informed <span class="ot">&lt;-</span> m.sim.informed.post[,<span class="st">"beta0"</span>]</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>beta1.est.sim.informed <span class="ot">&lt;-</span> m.sim.informed.post[,<span class="st">"beta1"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>m.sim.informed.post <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(m.sim.informed)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>sdo.est.sim.informed <span class="ot">&lt;-</span> m.sim.informed.post[,<span class="st">"sdo"</span>]</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>sdp.est.sim.informed <span class="ot">&lt;-</span> m.sim.informed.post[,<span class="st">"sdp"</span>]</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>beta0.est.sim.informed <span class="ot">&lt;-</span> m.sim.informed.post[,<span class="st">"beta0"</span>]</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>beta1.est.sim.informed <span class="ot">&lt;-</span> m.sim.informed.post[,<span class="st">"beta1"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>While the model fits well with these priors, in real life we do not know the exact values of the parameters and often the goal of the analysis is to estimate some or all of them. However, as explained in the next section, we often have biological information that can be easily used to create informed priors.</p>
 </section>
 <section id="informed-priors-based-on-biology" class="level2">
 <h2 class="anchored" data-anchor-id="informed-priors-based-on-biology">Informed priors based on biology</h2>
-<p>Here we crate a model based on information researchers may have at hand.</p>
+<p>Here we create a model based on information researchers may have at hand.</p>
 <p>Researchers often perform studies to assess the accuracy of their transect surveys. Here, we assume that we have performed such an assessment (e.g., using the fact that all recaptured individuals were marked to assess the accuracy of the survey) and that <span class="math inline">\(\sigma_o\)</span> was estimated to be 10, and that estimate is reliable, so as a prior we use a normal distribution with mean 10 and standard deviation 0.1.</p>
-<p>Researchers also often have information based on other population. Here, we assume that previous work has shown that the mortality of adults is low, especially in conserved areas where there is no harvest, and that the birth rate varies from usually less than 5%. Given that 95.45% of a normal distribution falls within two standard deviation, we set the prior of <span class="math inline">\(\sigma_o\)</span> as <span class="math inline">\(\text{N}(0.05, 0.01)\)</span>.</p>
-<p>Given that the population is increasing and we know based on the birth rate that it can max double each year (if we assume no mortality), we restrict the value of <span class="math inline">\(\beta_0\)</span> to be between log(1) (stays the same) and log(2) (doubles).</p>
-<p>Previous estimates of density dependence for the species in similar conservation areas range from -0.01 and -0.001, and thus we use a prior distribution for <span class="math inline">\(\beta_1\)</span> of <span class="math inline">\(\text{Uniform}(-0.01,-0.001)\)</span>.</p>
+<p>Researchers also often have information based on other population. Here, we assume that previous work has shown that the mortality of adults is low, especially in conserved areas where there is no harvest, and that the birth rate varies about 5%, and thus set the prior of <span class="math inline">\(\sigma_o\)</span> as <span class="math inline">\(\text{N}(0.05, 0.01)\)</span>.</p>
+<p>We know the population is increasing and we know based on the birth rate (the species can produce maximum two offspring per year) that it can maximum double each year. Thus, we restrict the value of <span class="math inline">\(\beta_0\)</span> to be between log(1) (stays the same) and log(2) (doubles) by using <span class="math inline">\(\text{Uniform}(\text{log}(1), \text{log}(2))\)</span>.</p>
+<p>Researchers also often have access to estimates from other populations of the same species. Here, we assume that we have estimates for the density dependence parameters from the same species that range from -0.007 and -0.003, and thus we use a prior distribution for <span class="math inline">\(\beta_1\)</span> of <span class="math inline">\(\text{Uniform}(-0.007,-0.003)\)</span>. See <code>ssm_dens_biol_informed.stan</code> for detailed model.</p>
+<p>We note that these are just simplified examples of ways to include biological information as priors, other methods and priors could/should be used in many circumstances.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>m.biol.informed <span class="ot">&lt;-</span> <span class="fu">stan</span>(<span class="at">file =</span> <span class="st">"ssm_dens_biol_informed.stan"</span>,</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">data =</span> dataStan,</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">chains =</span> <span class="dv">3</span>, <span class="at">iter =</span> <span class="dv">50000</span>, <span class="at">seed=</span> <span class="st">"123"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>m.biol.informed <span class="ot">&lt;-</span> <span class="fu">stan</span>(<span class="at">file =</span> <span class="st">"ssm_dens_biol_informed.stan"</span>,</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">data =</span> dataStan,</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">chains =</span> <span class="dv">3</span>, <span class="at">iter =</span> <span class="dv">50000</span>, <span class="at">seed=</span> <span class="st">"123"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: There were 18 divergent transitions after warmup. See
+<pre><code>Warning: There were 48756 divergent transitions after warmup. See
 https://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
 to find out why this is a problem and how to eliminate them.</code></pre>
 </div>
@@ -346,10 +358,10 @@ to find out why this is a problem and how to eliminate them.</code></pre>
 <pre><code>Warning: Examine the pairs() plot to diagnose sampling problems</code></pre>
 </div>
 </div>
-<p>We can remove the divergent message by narrowing the uniform from the density dependence, but not sure how realistic it would be to even give this range.</p>
+<p><strong>Ailene</strong>: can you help me fix the issue with these warnings. This models clearly fits ok. But can’t figure out how to fix it so as to remove these warnings.</p>
 <p>Look at traceplots.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">traceplot</span>(m.biol.informed, <span class="at">pars=</span><span class="fu">c</span>(<span class="st">"sdo"</span>, <span class="st">"sdp"</span>, <span class="st">"beta1"</span>, <span class="st">"beta0"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">traceplot</span>(m.biol.informed, <span class="at">pars=</span><span class="fu">c</span>(<span class="st">"sdo"</span>, <span class="st">"sdp"</span>, <span class="st">"beta1"</span>, <span class="st">"beta0"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -360,23 +372,23 @@ to find out why this is a problem and how to eliminate them.</code></pre>
 </div>
 <p>Looks good to me.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>m.informed.post <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(m.biol.informed)</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>sdo.est.informed <span class="ot">&lt;-</span> m.informed.post[,<span class="st">"sdo"</span>]</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>sdp.est.informed <span class="ot">&lt;-</span> m.informed.post[,<span class="st">"sdp"</span>]</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>beta0.est.informed <span class="ot">&lt;-</span> m.informed.post[,<span class="st">"beta0"</span>]</span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>beta1.est.informed <span class="ot">&lt;-</span> m.informed.post[,<span class="st">"beta1"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>m.informed.post <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(m.biol.informed)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>sdo.est.informed <span class="ot">&lt;-</span> m.informed.post[,<span class="st">"sdo"</span>]</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>sdp.est.informed <span class="ot">&lt;-</span> m.informed.post[,<span class="st">"sdp"</span>]</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>beta0.est.informed <span class="ot">&lt;-</span> m.informed.post[,<span class="st">"beta0"</span>]</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>beta1.est.informed <span class="ot">&lt;-</span> m.informed.post[,<span class="st">"beta1"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Plot population estimate</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>pop.est.informed <span class="ot">&lt;-</span> <span class="fu">exp</span>(rstan<span class="sc">::</span><span class="fu">extract</span>(m.biol.informed, <span class="at">pars =</span> <span class="st">"w"</span>)[[<span class="dv">1</span>]])</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>pop.est.informed.sum <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">year=</span> <span class="fu">seq</span>(<span class="dv">2024</span><span class="sc">-</span>TT, <span class="at">length.out =</span> TT), <span class="at">pop.mean =</span> <span class="fu">colMeans</span>(pop.est.informed), </span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>                                   <span class="fu">t</span>(<span class="fu">apply</span>(pop.est.informed, <span class="dv">2</span>, quantile, <span class="at">probs=</span><span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))))</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(pop.est.informed.sum)[<span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"lower"</span>, <span class="st">"upper"</span>) </span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>pop.est.informed.sum, <span class="fu">aes</span>(<span class="at">x=</span>year, <span class="at">y=</span>pop.mean)) <span class="sc">+</span></span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="at">data=</span>pop.est.informed.sum, <span class="fu">aes</span>(<span class="at">ymin =</span> lower, <span class="at">ymax =</span> upper), <span class="at">fill=</span> <span class="fu">alpha</span>(<span class="st">"hotpink"</span>, <span class="fl">0.5</span>)) <span class="sc">+</span></span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> monitoring, <span class="fu">aes</span>(<span class="at">y=</span> obs, <span class="at">x =</span> year), <span class="at">col=</span><span class="st">"grey"</span>) <span class="sc">+</span></span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Population"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>pop.est.informed <span class="ot">&lt;-</span> <span class="fu">exp</span>(rstan<span class="sc">::</span><span class="fu">extract</span>(m.biol.informed, <span class="at">pars =</span> <span class="st">"w"</span>)[[<span class="dv">1</span>]])</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>pop.est.informed.sum <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">year=</span> <span class="fu">seq</span>(<span class="dv">2024</span><span class="sc">-</span>TT, <span class="at">length.out =</span> TT), <span class="at">pop.mean =</span> <span class="fu">colMeans</span>(pop.est.informed), </span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>                                   <span class="fu">t</span>(<span class="fu">apply</span>(pop.est.informed, <span class="dv">2</span>, quantile, <span class="at">probs=</span><span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))))</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(pop.est.informed.sum)[<span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"lower"</span>, <span class="st">"upper"</span>) </span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>pop.est.informed.sum, <span class="fu">aes</span>(<span class="at">x=</span>year, <span class="at">y=</span>pop.mean)) <span class="sc">+</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="at">data=</span>pop.est.informed.sum, <span class="fu">aes</span>(<span class="at">ymin =</span> lower, <span class="at">ymax =</span> upper), <span class="at">fill=</span> <span class="fu">alpha</span>(<span class="st">"hotpink"</span>, <span class="fl">0.5</span>)) <span class="sc">+</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> monitoring, <span class="fu">aes</span>(<span class="at">y=</span> obs, <span class="at">x =</span> year), <span class="at">col=</span><span class="st">"grey"</span>) <span class="sc">+</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Population"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -391,15 +403,15 @@ to find out why this is a problem and how to eliminate them.</code></pre>
 <h1>Compare models</h1>
 <p>Plot posterior</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>plot_title <span class="ot">&lt;-</span> <span class="fu">ggtitle</span>(<span class="st">"Posterior distributions - vague"</span>,</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"with medians and 80% intervals"</span>)</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_areas</span>(m.vague.post,</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">pars =</span> <span class="fu">c</span>(<span class="st">"sdo"</span>, <span class="st">"sdp"</span>, <span class="st">"beta0"</span>, <span class="st">"beta1"</span>),</span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">prob =</span> <span class="fl">0.8</span>) <span class="sc">+</span> plot_title <span class="sc">+</span></span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> sdp), <span class="at">col=</span><span class="st">"hotpink"</span>) <span class="sc">+</span></span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> sdo), <span class="at">col=</span><span class="st">"purple"</span>) <span class="sc">+</span></span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> beta0), <span class="at">col=</span><span class="st">"blue"</span>) <span class="sc">+</span></span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> beta1), <span class="at">col=</span><span class="st">"orange"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>plot_title <span class="ot">&lt;-</span> <span class="fu">ggtitle</span>(<span class="st">"Posterior distributions - vague"</span>,</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"with medians and 80% intervals"</span>)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_areas</span>(m.vague.post,</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">pars =</span> <span class="fu">c</span>(<span class="st">"sdo"</span>, <span class="st">"sdp"</span>, <span class="st">"beta0"</span>, <span class="st">"beta1"</span>),</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">prob =</span> <span class="fl">0.8</span>) <span class="sc">+</span> plot_title <span class="sc">+</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> sdp), <span class="at">col=</span><span class="st">"hotpink"</span>) <span class="sc">+</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> sdo), <span class="at">col=</span><span class="st">"purple"</span>) <span class="sc">+</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> beta0), <span class="at">col=</span><span class="st">"blue"</span>) <span class="sc">+</span></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> beta1), <span class="at">col=</span><span class="st">"orange"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -407,15 +419,15 @@ to find out why this is a problem and how to eliminate them.</code></pre>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>plot_title <span class="ot">&lt;-</span> <span class="fu">ggtitle</span>(<span class="st">"Posterior distributions - sim informed"</span>,</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"with medians and 80% intervals"</span>)</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_areas</span>(m.sim.informed.post,</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">pars =</span> <span class="fu">c</span>(<span class="st">"sdo"</span>, <span class="st">"sdp"</span>, <span class="st">"beta0"</span>, <span class="st">"beta1"</span>),</span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">prob =</span> <span class="fl">0.8</span>) <span class="sc">+</span> plot_title <span class="sc">+</span></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> sdp), <span class="at">col=</span><span class="st">"hotpink"</span>) <span class="sc">+</span></span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> sdo), <span class="at">col=</span><span class="st">"purple"</span>) <span class="sc">+</span></span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> beta0), <span class="at">col=</span><span class="st">"blue"</span>) <span class="sc">+</span></span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> beta1), <span class="at">col=</span><span class="st">"orange"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>plot_title <span class="ot">&lt;-</span> <span class="fu">ggtitle</span>(<span class="st">"Posterior distributions - sim informed"</span>,</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"with medians and 80% intervals"</span>)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_areas</span>(m.sim.informed.post,</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">pars =</span> <span class="fu">c</span>(<span class="st">"sdo"</span>, <span class="st">"sdp"</span>, <span class="st">"beta0"</span>, <span class="st">"beta1"</span>),</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">prob =</span> <span class="fl">0.8</span>) <span class="sc">+</span> plot_title <span class="sc">+</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> sdp), <span class="at">col=</span><span class="st">"hotpink"</span>) <span class="sc">+</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> sdo), <span class="at">col=</span><span class="st">"purple"</span>) <span class="sc">+</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> beta0), <span class="at">col=</span><span class="st">"blue"</span>) <span class="sc">+</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> beta1), <span class="at">col=</span><span class="st">"orange"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -423,15 +435,15 @@ to find out why this is a problem and how to eliminate them.</code></pre>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>plot_title <span class="ot">&lt;-</span> <span class="fu">ggtitle</span>(<span class="st">"Posterior distributions - biol informed"</span>,</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"with medians and 80% intervals"</span>)</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_areas</span>(m.informed.post,</span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">pars =</span> <span class="fu">c</span>(<span class="st">"sdo"</span>, <span class="st">"sdp"</span>, <span class="st">"beta0"</span>, <span class="st">"beta1"</span>),</span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">prob =</span> <span class="fl">0.8</span>) <span class="sc">+</span> plot_title <span class="sc">+</span></span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> sdp), <span class="at">col=</span><span class="st">"hotpink"</span>) <span class="sc">+</span></span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> sdo), <span class="at">col=</span><span class="st">"purple"</span>) <span class="sc">+</span></span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> beta0), <span class="at">col=</span><span class="st">"blue"</span>) <span class="sc">+</span></span>
-<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> beta1), <span class="at">col=</span><span class="st">"orange"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>plot_title <span class="ot">&lt;-</span> <span class="fu">ggtitle</span>(<span class="st">"Posterior distributions - biol informed"</span>,</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"with medians and 80% intervals"</span>)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_areas</span>(m.informed.post,</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">pars =</span> <span class="fu">c</span>(<span class="st">"sdo"</span>, <span class="st">"sdp"</span>, <span class="st">"beta0"</span>, <span class="st">"beta1"</span>),</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">prob =</span> <span class="fl">0.8</span>) <span class="sc">+</span> plot_title <span class="sc">+</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> sdp), <span class="at">col=</span><span class="st">"hotpink"</span>) <span class="sc">+</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> sdo), <span class="at">col=</span><span class="st">"purple"</span>) <span class="sc">+</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> beta0), <span class="at">col=</span><span class="st">"blue"</span>) <span class="sc">+</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> beta1), <span class="at">col=</span><span class="st">"orange"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -442,27 +454,27 @@ to find out why this is a problem and how to eliminate them.</code></pre>
 </div>
 <p>Comparing just vague to biol informed</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">sdo =</span> <span class="fu">c</span>(sdo, <span class="fu">mean</span>(sdo.est.vague), <span class="fu">mean</span>(sdo.est.informed)), </span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">sdo.025 =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="fu">quantile</span>(sdo.est.vague, <span class="at">probs =</span> <span class="fl">0.025</span>), <span class="fu">quantile</span>(sdo.est.informed, <span class="at">probs =</span> <span class="fl">0.025</span>)),</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">sdo.975 =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="fu">quantile</span>(sdo.est.vague, <span class="at">probs =</span> <span class="fl">0.975</span>), <span class="fu">quantile</span>(sdo.est.informed, <span class="at">probs =</span> <span class="fl">0.975</span>)),</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">sdp =</span> <span class="fu">c</span>(sdp, <span class="fu">mean</span>(sdp.est.vague), <span class="fu">mean</span>(sdp.est.informed)),</span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">sdp.025 =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="fu">quantile</span>(sdp.est.vague, <span class="at">probs =</span> <span class="fl">0.025</span>), <span class="fu">quantile</span>(sdp.est.informed, <span class="at">probs =</span> <span class="fl">0.025</span>)),</span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">sdp.975 =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="fu">quantile</span>(sdp.est.vague, <span class="at">probs =</span> <span class="fl">0.975</span>), <span class="fu">quantile</span>(sdp.est.informed, <span class="at">probs =</span> <span class="fl">0.975</span>)),</span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>           <span class="at">beta0 =</span> <span class="fu">c</span>(beta0, <span class="fu">mean</span>(beta0.est.vague), <span class="fu">mean</span>(beta0.est.informed)),</span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>           <span class="at">beta0.025 =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="fu">quantile</span>(beta0.est.vague, <span class="at">probs =</span> <span class="fl">0.025</span>), <span class="fu">quantile</span>(beta0.est.informed, <span class="at">probs =</span> <span class="fl">0.025</span>)),</span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>           <span class="at">beta0.975 =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="fu">quantile</span>(beta0.est.vague, <span class="at">probs =</span> <span class="fl">0.975</span>), <span class="fu">quantile</span>(beta0.est.informed, <span class="at">probs =</span> <span class="fl">0.975</span>)),</span>
-<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>           <span class="at">beta1 =</span> <span class="fu">c</span>(beta1, <span class="fu">mean</span>(beta1.est.vague), <span class="fu">mean</span>(beta1.est.informed)),</span>
-<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>           <span class="at">beta1.025 =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="fu">quantile</span>(beta1.est.vague, <span class="at">probs =</span> <span class="fl">0.025</span>), <span class="fu">quantile</span>(beta1.est.informed, <span class="at">probs =</span> <span class="fl">0.025</span>)),</span>
-<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>           <span class="at">beta1.975 =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="fu">quantile</span>(beta1.est.vague, <span class="at">probs =</span> <span class="fl">0.975</span>), <span class="fu">quantile</span>(beta1.est.informed, <span class="at">probs =</span> <span class="fl">0.975</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">sdo =</span> <span class="fu">c</span>(sdo, <span class="fu">mean</span>(sdo.est.vague), <span class="fu">mean</span>(sdo.est.informed)), </span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">sdo.025 =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="fu">quantile</span>(sdo.est.vague, <span class="at">probs =</span> <span class="fl">0.025</span>), <span class="fu">quantile</span>(sdo.est.informed, <span class="at">probs =</span> <span class="fl">0.025</span>)),</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">sdo.975 =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="fu">quantile</span>(sdo.est.vague, <span class="at">probs =</span> <span class="fl">0.975</span>), <span class="fu">quantile</span>(sdo.est.informed, <span class="at">probs =</span> <span class="fl">0.975</span>)),</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">sdp =</span> <span class="fu">c</span>(sdp, <span class="fu">mean</span>(sdp.est.vague), <span class="fu">mean</span>(sdp.est.informed)),</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">sdp.025 =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="fu">quantile</span>(sdp.est.vague, <span class="at">probs =</span> <span class="fl">0.025</span>), <span class="fu">quantile</span>(sdp.est.informed, <span class="at">probs =</span> <span class="fl">0.025</span>)),</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">sdp.975 =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="fu">quantile</span>(sdp.est.vague, <span class="at">probs =</span> <span class="fl">0.975</span>), <span class="fu">quantile</span>(sdp.est.informed, <span class="at">probs =</span> <span class="fl">0.975</span>)),</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>           <span class="at">beta0 =</span> <span class="fu">c</span>(beta0, <span class="fu">mean</span>(beta0.est.vague), <span class="fu">mean</span>(beta0.est.informed)),</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>           <span class="at">beta0.025 =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="fu">quantile</span>(beta0.est.vague, <span class="at">probs =</span> <span class="fl">0.025</span>), <span class="fu">quantile</span>(beta0.est.informed, <span class="at">probs =</span> <span class="fl">0.025</span>)),</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>           <span class="at">beta0.975 =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="fu">quantile</span>(beta0.est.vague, <span class="at">probs =</span> <span class="fl">0.975</span>), <span class="fu">quantile</span>(beta0.est.informed, <span class="at">probs =</span> <span class="fl">0.975</span>)),</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>           <span class="at">beta1 =</span> <span class="fu">c</span>(beta1, <span class="fu">mean</span>(beta1.est.vague), <span class="fu">mean</span>(beta1.est.informed)),</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>           <span class="at">beta1.025 =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="fu">quantile</span>(beta1.est.vague, <span class="at">probs =</span> <span class="fl">0.025</span>), <span class="fu">quantile</span>(beta1.est.informed, <span class="at">probs =</span> <span class="fl">0.025</span>)),</span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>           <span class="at">beta1.975 =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="fu">quantile</span>(beta1.est.vague, <span class="at">probs =</span> <span class="fl">0.975</span>), <span class="fu">quantile</span>(beta1.est.informed, <span class="at">probs =</span> <span class="fl">0.975</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>        sdo  sdo.025  sdo.975         sdp    sdp.025      sdp.975     beta0
-1 10.000000       NA       NA  0.05000000         NA           NA 0.2623643
-2 22.299941 3.368245 63.35103 46.17223788 0.03792445 234.54709187 6.3775664
-3  9.997705 9.799840 10.19688  0.04934044 0.02984777   0.06872468 0.3754358
-  beta0.025  beta0.975         beta1     beta1.025    beta1.975
-1        NA         NA  -0.005000000            NA           NA
-2 0.3040197 45.2810525 -26.524762452 -1.807262e+02 -0.006628236
-3 0.2121018  0.4913136  -0.007691084 -9.905868e-03 -0.004008915</code></pre>
+<pre><code>        sdo  sdo.025  sdo.975         sdp    sdp.025      sdp.975      beta0
+1 10.000000       NA       NA  0.05000000         NA           NA  0.2623643
+2 22.153642 6.084894 58.59138 32.95195217 0.01211790 186.60694557 16.5446045
+3  9.998692 9.803574 10.19633  0.04932161 0.02990143   0.06889056  0.2939805
+  beta0.025   beta0.975         beta1     beta1.025    beta1.975
+1        NA          NA  -0.005000000            NA           NA
+2 0.3180593 116.4336071 -35.287728644 -2.023321e+02 -0.006482450
+3 0.1965356   0.3640563  -0.005801763 -6.953967e-03 -0.003617147</code></pre>
 </div>
 </div>
 <p>This looks good to me.</p>
@@ -470,7 +482,7 @@ to find out why this is a problem and how to eliminate them.</code></pre>
 <section id="session-info" class="level1">
 <h1>Session info</h1>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>R version 4.3.2 (2023-10-31)
 Platform: aarch64-apple-darwin20 (64-bit)

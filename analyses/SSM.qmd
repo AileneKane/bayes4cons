@@ -9,6 +9,8 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+**Ailene**: Once we have final title we should change the title to the title of the paper + Supplementary Mat. XX. Same with authors. I think we should just use the same list/order as paper. I let you make the change.
+
 # Set up
 
 ```{r, message=FALSE, warning=FALSE}
@@ -21,8 +23,9 @@ options(mc.cores=parallel::detectCores())
 rstan_options(auto_write=TRUE)
 
 # Colours for plots
-col_real <- "hotpink" # Real population trajectory
+col_real <- "purple" # Real population trajectory
 col_obs <- grey(0.2) # Observed population trajectory
+col_real_est <- "hotpink"
 ```
 
 
@@ -39,10 +42,10 @@ where $z_t$ is the true population size as time $t$, $y_t$ is the observed numbe
 
 This species has a long life span (20+ years) and creates long term pairs that can produce maximum 2 offspring when in good conditions, and therefore could be able to almost double in size every year. However, here we simulate a situation where the conservation area does not allow the animal to fulfill its full growth and we simul by setting $\beta_0 = \text{log}(1.3)$. We assumed when doing the yearly transects we can miss or double count individuals and simulate this by setting $\sigma_o = 10$. We assume there is little adult mortality and that birth rate is the main source of biological stochasticity. Specfically, we set $\sigma_p = 0.05$. Finally, we simulate the density dependence parameter by setting $\beta_1 = -0.005$.
 
-Below is the code to simulate two times series, the true population tracjectory of the 20 years (containg in `z`), and the observed counts over these years (contained in `y`).
+Below is the code to simulate two times series, the true population trajectory of the 20 years (contained in `z`), and the observed counts over these years (contained in `y`).
 
 
-```{r}
+```{r, cache=}
 # Create a vector that will keep track of the states
 # It's of length T + 1 (+1 for t=0)
 TT <- 20
@@ -81,8 +84,6 @@ y <- z[2:(TT+1)] + rnorm(TT, 0, sdo)
 Let's visualize the two simulated time series.
 
 ```{r}
-
-
 monitoring <- data.frame(year = seq(2024-TT, length.out = TT), true = z[-1], obs = y)
 ggplot() +
   geom_point(data = monitoring, aes(y = true, x = year, colour = "Real")) +
@@ -95,7 +96,7 @@ ggplot() +
   theme_bw()
 ```
 
-We can see that due to observation error (i.e., the fact that the transect counts are imperfect) the observed trajectory is far more variable than the real population trajectory. In a real-life scenario, we would only have access to this messy observed trajectory and from looking at it would be hard to assess whether there is evidence that the population has reached carrying capacity. 
+We can see that due to observation error (i.e., the fact that the transect counts are imperfect) the observed trajectory is far more variable than the real population trajectory. In a real-life scenario, we would only have access to this messy observed trajectory and from looking at it would be hard to assess whether there is evidence that the population has reached carrying capacity. Note that this plot start the year after the re-introduction (so population higher than 20).
 
 # Fit model
 
@@ -103,16 +104,13 @@ Now that we have created our data. Let's fit a model to estimate the true popula
 
 ```{r}
 dataStan <- list(y = y, TT = TT, 
-                 w0 = log(z[1]), # Starting population, 20 (number re-introduce)
-                 sd0 = 0.0001) # Low sd for the first time step 
+                 w0 = log(z[1])) # Starting population, 20 (number re-introduce)
 ```
 
 
 ## Vague priors
 
 As this is a Bayesian model, we need to specify priors for all parameters ($\sigma_o, \sigma_p, \beta_0, \beta_1$).The baseline way to fit this model would be to assume we have no information on the values of these parameters and use vague priors. To demonstrate this approach, we define the priors for all four parameters as $\text{N}(0,100)$. See file `ssm_dens_vague.stan` for exact model definition.
-
-**Ailene:** I think it would be good to set the first value of the time series to 20. Do you know how to do this quickly in stan?
 
 We can fit this model with vague priors using three chains of length 50000 as follow. 
 
@@ -155,7 +153,7 @@ It is often recommended to check the model with simulations (Auger-Méthé et al
 
 - $\sigma_p \sim \text{N}(0.05, 0.01)$, 
 
-- $\beta_0 \sim \text{N}(log(1.3), 0.01)$, and 
+- $\beta_0 \sim \text{N}(\text{log}(1.3), 0.01)$, and 
 
 - $\beta_1 \sim \text{N}(-0.005, 0.001)$.
 
@@ -192,34 +190,36 @@ While the model fits well with these priors, in real life we do not know the exa
 
 ## Informed priors based on biology
 
-Here we crate a model based on information researchers may have at hand.
+Here we create a model based on information researchers may have at hand.
 
 Researchers often perform studies to assess the accuracy of their transect surveys. Here, we assume that we have performed such an assessment (e.g., using the fact that all recaptured individuals were marked to assess the accuracy of the survey) and that $\sigma_o$ was estimated to be 10, and that estimate is reliable, so as a prior we use a normal distribution with mean 10 and standard deviation 0.1. 
 
-Researchers also often have information based on other population. Here, we assume that previous work has shown that the mortality of adults is low, especially in conserved areas where there is no harvest, and that the birth rate varies from usually less than 5%. Given that 95.45% of a normal distribution falls within two standard deviation, we set the prior of $\sigma_o$ as $\text{N}(0.05, 0.01)$.
+Researchers also often have information based on other population. Here, we assume that previous work has shown that the mortality of adults is low, especially in conserved areas where there is no harvest, and that the birth rate varies about 5%, and thus set the prior of $\sigma_o$ as $\text{N}(0.05, 0.01)$.
 
-Given that the population is increasing and we know based on the birth rate that it can max double each year (if we assume no mortality), we restrict the value of $\beta_0$ to be between log(1) (stays the same) and log(2) (doubles).
+We know the population is increasing and we know based on the birth rate (the species can produce maximum two offspring per year) that it can maximum double each year. Thus, we restrict the value of $\beta_0$ to be between log(1) (stays the same) and log(2) (doubles) by using $\text{Uniform}(\text{log}(1), \text{log}(2))$.
 
-Previous estimates of density dependence for the species in similar conservation areas range from -0.01 and -0.001, and thus we use a prior distribution for $\beta_1$ of $\text{Uniform}(-0.01,-0.001)$.
+Researchers also often have access to estimates from other populations of the same species. Here, we assume that we have estimates for the density dependence parameters from the same species that range from -0.007 and -0.003, and thus we use a prior distribution for $\beta_1$ of $\text{Uniform}(-0.007,-0.003)$. See `ssm_dens_biol_informed.stan` for detailed model.
+
+We note that these are just simplified examples of ways to include biological information as priors, other methods and priors could/should be used in many circumstances.
 
 
 ```{r, cache = TRUE}
 m.biol.informed <- stan(file = "ssm_dens_biol_informed.stan",
                 data = dataStan,
                 chains = 3, iter = 50000, seed= "123")
-
 ```
 
-We can remove the divergent message by narrowing the uniform from the density dependence, but not sure how realistic it would be to even give this range.
+**Ailene**: can you help me fix the issue with these warnings. This models clearly fits ok. But can't figure out how to fix it so as to remove these warnings. 
 
-
-Look at traceplots.
+We will look at the traceplots.
 
 ```{r}
 traceplot(m.biol.informed, pars=c("sdo", "sdp", "beta1", "beta0"))
 ```
 
-Looks good to me.
+We can see that the three chains appear well mixed.
+
+We will extract the information so as to present the results and compared with the results when we used the vague priors.
 
 ```{r}
 m.informed.post <- as.matrix(m.biol.informed)
@@ -227,20 +227,36 @@ sdo.est.informed <- m.informed.post[,"sdo"]
 sdp.est.informed <- m.informed.post[,"sdp"]
 beta0.est.informed <- m.informed.post[,"beta0"]
 beta1.est.informed <- m.informed.post[,"beta1"]
+
+# True pop. estimates
+pop.est.informed <- exp(rstan::extract(m.biol.informed, pars = "w")[[1]])
+pop.est.informed.sum <- data.frame(year= seq(2024-TT, length.out = TT), 
+                                   pop.mean = colMeans(pop.est.informed), 
+                                   t(apply(pop.est.informed, 2, quantile, probs=c(0.025, 0.975))))
+colnames(pop.est.informed.sum)[3:4] <- c("lower", "upper")
 ```
 
-Plot population estimate
+
+# Look at results
+
+We can plot the population estimate
 
 ```{r}
-pop.est.informed <- exp(rstan::extract(m.biol.informed, pars = "w")[[1]])
-pop.est.informed.sum <- data.frame(year= seq(2024-TT, length.out = TT), pop.mean = colMeans(pop.est.informed), 
-                                   t(apply(pop.est.informed, 2, quantile, probs=c(0.025, 0.975))))
-colnames(pop.est.informed.sum)[3:4] <- c("lower", "upper") 
-ggplot(data=pop.est.informed.sum, aes(x=year, y=pop.mean)) +
-  geom_point() +
-  geom_ribbon(data=pop.est.informed.sum, aes(ymin = lower, ymax = upper), fill= alpha("hotpink", 0.5)) +
-  geom_point(data = monitoring, aes(y= obs, x = year), col="grey") +
-  ylab("Population")
+ggplot() +
+  geom_point(data = monitoring, aes(y = true, x = year, colour = "Real")) +
+  geom_point(data = monitoring, aes(y = obs, x = year, colour = "Observed")) +
+  geom_line(data = monitoring, aes(y = true, x = year, colour = "Real")) +
+  geom_line(data = monitoring, aes(y = obs, x = year, colour = "Observed")) +
+  geom_point(data = pop.est.informed.sum, aes(x=year, y=pop.mean, colour = "Estimated")) +
+  geom_ribbon(data = pop.est.informed.sum, aes(x=year, y=pop.mean, ymin = lower, ymax = upper), 
+              fill= alpha(col_real_est, 0.5)) +
+  scale_color_manual(name = "Pop. trajctories", 
+                     values = c("Real" = col_real, 
+                                "Observed" = col_obs, 
+                                "Estimated" = col_real_est)) +
+  ylab("Population/count") +
+  theme_bw()
+
 ```
 
 # Compare models

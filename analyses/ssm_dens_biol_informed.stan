@@ -3,7 +3,6 @@ data {
   int TT; // Length of state and observation time series
   vector[TT] y; // Observations
   real w0; // Initial state/population value (log)
-  real sd0; // Standard deviation for initial state value
 }
 
 /*----------------------- Parameters --------------------------*/
@@ -13,7 +12,7 @@ parameters {
   real<lower=log(1), upper=log(2)> beta0; // median rate of population growth rate when pop. size is 0
   real<lower=-0.01, upper=-0.001> beta1; // how much the growth rate decreases with an increasing pop. size (we assume density dependence, > 0)
   vector[TT] w; // State time series
-  }
+}
 
 /*----------------------- Model --------------------------*/
 model {
@@ -21,9 +20,9 @@ model {
   sdo ~ normal(10, 0.1); // 
   sdp ~ normal(0.05, 0.01); // 
   beta0 ~ uniform(log(1), log(2));
-  beta1 ~ uniform(-0.01, -0.001);  // Density dependence 
+  beta1 ~ uniform(-0.007, -0.003);  // Density dependence 
   // Distribution for the first state
-  w[1] ~ normal(w0, sd0);
+  w[1] ~ normal(w0, sdp);
   // Distributions for all other states
   for(t in 2:TT){
     w[t] ~ normal(w[t-1] + beta0 + beta1*exp(w[t-1]), sdp);
