@@ -23,7 +23,7 @@ simulate_population <- function(a, b, t, noise_sd) {
   y <- numeric(t)
   time <- 1:t
   y <- a*time + b + rnorm(t, 0, noise_sd)
-    # y is the population of certain time
+    # y is the population at a certain time
     # a is the increasing/decreasing rate
     # b is the starting population size
     # time is the x variable 
@@ -35,18 +35,18 @@ simulate_population <- function(a, b, t, noise_sd) {
   return(c(estimated_slope, pval))
 }
 t <- 10
-a <- seq(from=-2000, to=2000, by=200)
+a <- seq(from = -2000, to = 2000, by = 200)
 b <- 100000
-noise_sd <- seq(from=1000, to=10000, by=400)
+noise_sd <- seq(from = 1000, to = 10000, by = 400)
 
-dfout <- data.frame(givenslope=numeric(), noise=numeric(), estslope=numeric(), 
-                    pval=numeric())
+dfout <- data.frame(givenslope = numeric(), noise = numeric(), estslope = numeric(), 
+                    pval = numeric())
 
 for (i in 1:length(a)) {
   for (j in 1:length(noise_sd)){
     simpopout <- simulate_population(a[i], b, t, noise_sd[j])
-    dfadd <- data.frame(givenslope=a[i], noise=noise_sd[j], 
-                        estslope=simpopout[1], pval=simpopout[2])
+    dfadd <- data.frame(givenslope = a[i], noise = noise_sd[j], 
+                        estslope = simpopout[1], pval = simpopout[2])
     dfout <- rbind(dfout, dfadd)
   }
 }
@@ -58,31 +58,31 @@ for (i in 1:length(a)) {
 
 We want to search for cases were:
 
-\(1\) All the estimated slopes are pretty close to given slopes and
+\(1\) All the estimated slopes are pretty close to the given slopes and
 
 \(2\) The bottom populations has a p-value between 0.05-0.15
 
 ```{r include=FALSE}
-a <- seq(from=-2000, to=2000, by=200)
+a <- seq(from = -2000, to = 2000, by = 200)
 a <- a[-c(5:17)] 
 # remove middle close-to-zero slopes, as though are hard to get pval low
-noise_sd <- seq(from=7000, to=9000, by=400) 
+noise_sd <- seq(from = 7000, to = 9000, by = 400) 
 srhere <- 0.3
 
 for(seedz in c(333:3999)){
   set.seed(seedz)
   for (j in 1:length(noise_sd)){
-    dfout <- data.frame(noise=numeric(), sloperatio=numeric(), pval=numeric(),
-                        smratio=numeric())
+    dfout <- data.frame(noise = numeric(), sloperatio = numeric(), pval = numeric(),
+                        smratio = numeric())
     for (i in 1:length(a)) {
       simpopout <- simulate_population(a[i], b, t, noise_sd[j])
       smratiohere  <- ifelse((abs(simpopout[1]/a[i])<(1+srhere) 
                               & abs(simpopout[1]/a[i])>(1-srhere)), 0, 1)
-      dfadd <- data.frame(noise=noise_sd[j], sloperatio=simpopout[1]/a[i], 
-                          pval=simpopout[2], smratio=smratiohere)
+      dfadd <- data.frame(noise = noise_sd[j], sloperatio = simpopout[1]/a[i], 
+                          pval = simpopout[2], smratio = smratiohere)
       dfout <- rbind(dfout, dfadd)
     }
-      if(sum(dfout$smratio)==0 & dfout$pval[1]>0.05 & dfout$pval[1]<0.15){
+      if(sum(dfout$smratio) == 0 & dfout$pval[1] > 0.05 & dfout$pval[1] < 0.15){
     print(paste("try seed: ", seedz, "with noise of ", noise_sd[j]))
   }
   }
@@ -95,13 +95,13 @@ After checking different seeds, we finally decided on seed 1546
 set.seed(1546)
 t <- 10
 b <- 100000
-noise_sd <- rev(seq(from=3000, to=8600, by=400))
+noise_sd <- rev(seq(from = 3000, to = 8600, by = 400))
 
-dfout <- data.frame(givenslope=numeric(), noise=numeric(), estslope=numeric(), pval=numeric())
+dfout <- data.frame(givenslope = numeric(), noise = numeric(), estslope = numeric(), pval = numeric())
 
 for (i in 1:length(a)) {
     simpopout <- simulate_population(a[i], b, t, noise_sd[i])
-    dfadd <- data.frame(givenslope=a[i], noise=noise_sd[i], estslope=simpopout[1], pval=simpopout[2])
+    dfadd <- data.frame(givenslope = a[i], noise = noise_sd[i], estslope = simpopout[1], pval = simpopout[2])
     dfout <- rbind(dfout, dfadd)
 }
 
@@ -130,7 +130,7 @@ set.seed(1546)
 a <- c(-2000, -1600, -1400,  600, 1400 , 1600,  2000)
 t <- 10
 time <- 1:t
-b <- seq(40000, 101000, by=10000)
+b <- seq(40000, 101000, by = 10000)
 noise_sd <- c(7000, 6600, 6200, 5800, 5400, 5000,4600)
 ```
 
@@ -226,18 +226,18 @@ model {
 real mu_y[N]; 
 
 for(i in 1:N){
-     mu_y[i]=a[group[i]]+b[group[i]]*year[i];
+     mu_y[i] = a[group[i]] + b[group[i]] * year[i];
   }
   
 a ~ normal(mu_a, sigma_a);
 b ~ normal(mu_b, sigma_b);
 
-    //Priors
-mu_a ~normal(188, 50); 
-sigma_a ~normal(0,50);
-mu_b ~normal(0,10); //could also be centred at zero, 10
-sigma_b ~normal(0,10); //sigma_b 0,10
-sigma_y ~normal(0,10); 
+//Priors
+mu_a ~ normal(188, 50); 
+sigma_a ~ normal(0,50);
+mu_b ~ normal(0,10); 
+sigma_b ~ normal(0,10); 
+sigma_y ~ normal(0,10); 
 
 ypred ~ normal(mu_y, sigma_y);
 }
@@ -277,8 +277,7 @@ post <- rstan::extract(mdlPop)
 par(mfrow = c(1, 1), mar = c(5.1, 4.5, 4.1, 2.1))
 
 # Histogram of change in abundance with uncertainty intervals
-plot(1, type = "n", xlab = "Change in abundance", ylab = "Frequency", xlim = c(-2500, 2500), ylim = c(0, 1500), 
-     cex.lab = 1.5, frame.plot = FALSE)
+plot(1, type = "n", xlab = "Change in abundance", ylab = "Frequency", xlim = c(-2500, 2500), ylim = c(0, 1500), cex.lab = 1.5, frame.plot = FALSE)
 
 # Plot histograms for each population's posterior distribution
 for(i in 1:length(unique(output$pop))) {
@@ -286,9 +285,8 @@ for(i in 1:length(unique(output$pop))) {
   axis(side = 1, at = seq(-3000, 3000, by = 1000), cex.axis = 1)
   axis(side = 2, at = seq(-1000000, 1000000, by = 1000), cex.axis = 1)
 
-  # Add mean and uncertainty intervals
+# Add mean and uncertainty intervals
   points(x = mean(post$b[,i]), y = 1300, col = colors[i], pch = 19)
-  arrows(x0 = (quantile(post$b[,i], 0.05)), y0 = 1300, x1 = (quantile(post$b[,i], 0.95)), y1 = 1300, 
-         code = 3, length = 0, col = colors[i], lwd = 2)
+  arrows(x0 = (quantile(post$b[,i], 0.05)), y0 = 1300, x1 = (quantile(post$b[,i], 0.95)), y1 = 1300, code = 3, length = 0, col = colors[i], lwd = 2)
 }
 ```
