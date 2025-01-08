@@ -22,18 +22,18 @@ model {
 real mu_y[N]; 
 
 for(i in 1:N){
-     mu_y[i]=a[group[i]]+b[group[i]]*year[i];
+     mu_y[i] = a[group[i]] + b[group[i]] * year[i];
   }
   
 a ~ normal(mu_a, sigma_a);
 b ~ normal(mu_b, sigma_b);
 
-    //Priors
-mu_a ~normal(188, 50); 
-sigma_a ~normal(0,50);
-mu_b ~normal(0,10); //could also be centred at zero, 10
-sigma_b ~normal(0,10); //sigma_b 0,10
-sigma_y ~normal(0,10); 
+//Priors
+mu_a ~ normal(188, 50); 
+sigma_a ~ normal(0,50);
+mu_b ~ normal(0,10); 
+sigma_b ~ normal(0,10); 
+sigma_y ~ normal(0,10); 
 
 ypred ~ normal(mu_y, sigma_y);
 }
