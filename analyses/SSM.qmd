@@ -102,7 +102,9 @@ We can see that due to observation error (i.e., the fact that the transect count
 Now that we have created our data. Let's fit a model to estimate the true population size. We will use `rstan` to fit a Bayesian version of the model to data. The first thing we want to do is set up the data to fit with the function `stan`:
 
 ```{r}
-dataStan <- list(y=y, TT=TT, w0=log(z[1]))
+dataStan <- list(y = y, TT = TT, 
+                 w0 = log(z[1]), # Starting population, 20 (number re-introduce)
+                 sd0 = 0.0001) # Low sd for the first time step 
 ```
 
 
@@ -115,7 +117,7 @@ As this is a Bayesian model, we need to specify priors for all parameters ($\sig
 We can fit this model with vague priors using three chains of length 50000 as follow. 
 
 
-```{r}
+```{r, cache = TRUE}
 m.vague <- stan(file = "ssm_dens_vague.stan",
                 data = dataStan,
                 chains = 3, iter = 50000, seed="123")
@@ -147,14 +149,18 @@ It is not surprising that this model is associated with warnings. While state-sp
 
 ## Model check - using narrow priors based on simulation
 
-It is often recommended to check the model with simulations (Auger-Méthé et al. 2016, 2021), and here to verify that this problem is not a coding issue or a fundamental problem, we fit the model with highly informed priors based on the parameter values used to simulate the data. Specifically, we use the following priors: 
+It is often recommended to check the model with simulations (Auger-Méthé et al. 2016, 2021), and here to verify that this problem is not a coding issue or a fundamental problem, we fit the model with highly informed priors based on the parameter values used to simulate the data. Specifically, we use the following priors:
+
 - $\sigma_o \sim \text{N}(10, 0.1)$, 
+
 - $\sigma_p \sim \text{N}(0.05, 0.01)$, 
+
 - $\beta_0 \sim \text{N}(log(1.3), 0.01)$, and 
+
 - $\beta_1 \sim \text{N}(-0.005, 0.001)$.
 
 
-```{r}
+```{r, cache = TRUE}
 m.sim.informed <- stan(file = "ssm_dens_sim_informed.stan",
                 data = dataStan,
                 chains = 3, iter = 50000, seed="123")
@@ -186,16 +192,18 @@ While the model fits well with these priors, in real life we do not know the exa
 
 ## Informed priors based on biology
 
-Let us assume that we have performed an assessment of the accuracy of the transects in early years with marked individuals and $\sigma_o$ to be 10, and that estimate is reliable, so as a prior we use a normal distribution with mean 10 and sd 0.1. 
+Here we crate a model based on information researchers may have at hand.
 
-We also know from previous work that the mortality of adults is low, especially in conserved areas where there is no harvest, and that the birth rate varies from usually less than 5%. Given that 95.45% of a normal distribution falls within two standard deviation, we set the prior of $\sigma_o$ as $\text{N}(0.05, 0.01)$.
+Researchers often perform studies to assess the accuracy of their transect surveys. Here, we assume that we have performed such an assessment (e.g., using the fact that all recaptured individuals were marked to assess the accuracy of the survey) and that $\sigma_o$ was estimated to be 10, and that estimate is reliable, so as a prior we use a normal distribution with mean 10 and standard deviation 0.1. 
+
+Researchers also often have information based on other population. Here, we assume that previous work has shown that the mortality of adults is low, especially in conserved areas where there is no harvest, and that the birth rate varies from usually less than 5%. Given that 95.45% of a normal distribution falls within two standard deviation, we set the prior of $\sigma_o$ as $\text{N}(0.05, 0.01)$.
 
 Given that the population is increasing and we know based on the birth rate that it can max double each year (if we assume no mortality), we restrict the value of $\beta_0$ to be between log(1) (stays the same) and log(2) (doubles).
 
 Previous estimates of density dependence for the species in similar conservation areas range from -0.01 and -0.001, and thus we use a prior distribution for $\beta_1$ of $\text{Uniform}(-0.01,-0.001)$.
 
 
-```{r}
+```{r, cache = TRUE}
 m.biol.informed <- stan(file = "ssm_dens_biol_informed.stan",
                 data = dataStan,
                 chains = 3, iter = 50000, seed= "123")

@@ -224,7 +224,9 @@ window.Quarto = {
 <h1>Fit model</h1>
 <p>Now that we have created our data. Let’s fit a model to estimate the true population size. We will use <code>rstan</code> to fit a Bayesian version of the model to data. The first thing we want to do is set up the data to fit with the function <code>stan</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>dataStan <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">y=</span>y, <span class="at">TT=</span>TT, <span class="at">w0=</span><span class="fu">log</span>(z[<span class="dv">1</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>dataStan <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">y =</span> y, <span class="at">TT =</span> TT, </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">w0 =</span> <span class="fu">log</span>(z[<span class="dv">1</span>]), <span class="co"># Starting population, 20 (number re-introduce)</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">sd0 =</span> <span class="fl">0.0001</span>) <span class="co"># Low sd for the first time step </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="vague-priors" class="level2">
 <h2 class="anchored" data-anchor-id="vague-priors">Vague priors</h2>
@@ -289,14 +291,20 @@ https://mc-stan.org/misc/warnings.html#tail-ess</code></pre>
 </section>
 <section id="model-check---using-narrow-priors-based-on-simulation" class="level2">
 <h2 class="anchored" data-anchor-id="model-check---using-narrow-priors-based-on-simulation">Model check - using narrow priors based on simulation</h2>
-<p>It is often recommended to check the model with simulations (Auger-Méthé et al.&nbsp;2016, 2021), and here to verify that this problem is not a coding issue or a fundamental problem, we fit the model with highly informed priors based on the parameter values used to simulate the data. Specifically, we use the following priors: - <span class="math inline">\(\sigma_o \sim \text{N}(10, 0.1)\)</span>, - <span class="math inline">\(\sigma_p \sim \text{N}(0.05, 0.01)\)</span>, - <span class="math inline">\(\beta_0 \sim \text{N}(log(1.3), 0.01)\)</span>, and - <span class="math inline">\(\beta_1 \sim \text{N}(-0.005, 0.001)\)</span>.</p>
+<p>It is often recommended to check the model with simulations (Auger-Méthé et al.&nbsp;2016, 2021), and here to verify that this problem is not a coding issue or a fundamental problem, we fit the model with highly informed priors based on the parameter values used to simulate the data. Specifically, we use the following priors:</p>
+<ul>
+<li><p><span class="math inline">\(\sigma_o \sim \text{N}(10, 0.1)\)</span>,</p></li>
+<li><p><span class="math inline">\(\sigma_p \sim \text{N}(0.05, 0.01)\)</span>,</p></li>
+<li><p><span class="math inline">\(\beta_0 \sim \text{N}(log(1.3), 0.01)\)</span>, and</p></li>
+<li><p><span class="math inline">\(\beta_1 \sim \text{N}(-0.005, 0.001)\)</span>.</p></li>
+</ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>m.sim.informed <span class="ot">&lt;-</span> <span class="fu">stan</span>(<span class="at">file =</span> <span class="st">"ssm_dens_sim_informed.stan"</span>,</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">data =</span> dataStan,</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">chains =</span> <span class="dv">3</span>, <span class="at">iter =</span> <span class="dv">50000</span>, <span class="at">seed=</span><span class="st">"123"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>All is good. No warning messages.</p>
-<p>Look at traceplots.</p>
+<p>In this case there are no warning messages.</p>
+<p>We further look at the traceplots.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">traceplot</span>(m.sim.informed, <span class="at">pars=</span><span class="fu">c</span>(<span class="st">"sdo"</span>, <span class="st">"sdp"</span>, <span class="st">"beta1"</span>, <span class="st">"beta0"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -307,8 +315,8 @@ https://mc-stan.org/misc/warnings.html#tail-ess</code></pre>
 </div>
 </div>
 </div>
-<p>Looks ok.</p>
-<p>Extract info</p>
+<p>The three chains look well mixed.</p>
+<p>We extract info.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>m.sim.informed.post <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(m.sim.informed)</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>sdo.est.sim.informed <span class="ot">&lt;-</span> m.sim.informed.post[,<span class="st">"sdo"</span>]</span>
@@ -316,11 +324,13 @@ https://mc-stan.org/misc/warnings.html#tail-ess</code></pre>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>beta0.est.sim.informed <span class="ot">&lt;-</span> m.sim.informed.post[,<span class="st">"beta0"</span>]</span>
 <span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>beta1.est.sim.informed <span class="ot">&lt;-</span> m.sim.informed.post[,<span class="st">"beta1"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>While the model fits well with these priors, in real life we do not know the exact values of the parameters and often the goal of the analysis is to estimate some or all of them. However, as explained in the next section, we often have biological information that can be easily used to create informed priors.</p>
 </section>
-<section id="informed-prior-based-on-biology" class="level2">
-<h2 class="anchored" data-anchor-id="informed-prior-based-on-biology">Informed prior based on biology</h2>
-<p>Let us assume that we have performed an assessment of the accuracy of the transects in early years with marked individuals and <span class="math inline">\(\sigma_o\)</span> to be 10, and that estimate is reliable, so as a prior we use a normal distribution with mean 10 and sd 0.1.</p>
-<p>We also know from previous work that the mortality of adults is low, especially in conserved areas where there is no harvest, and that the birth rate varies from usually less than 5%. Given that 95.45% of a normal distribution falls within two standard deviation, we set the prior of <span class="math inline">\(\sigma_o\)</span> as <span class="math inline">\(\text{N}(0.05, 0.01)\)</span>.</p>
+<section id="informed-priors-based-on-biology" class="level2">
+<h2 class="anchored" data-anchor-id="informed-priors-based-on-biology">Informed priors based on biology</h2>
+<p>Here we crate a model based on information researchers may have at hand.</p>
+<p>Researchers often perform studies to assess the accuracy of their transect surveys. Here, we assume that we have performed such an assessment (e.g., using the fact that all recaptured individuals were marked to assess the accuracy of the survey) and that <span class="math inline">\(\sigma_o\)</span> was estimated to be 10, and that estimate is reliable, so as a prior we use a normal distribution with mean 10 and standard deviation 0.1.</p>
+<p>Researchers also often have information based on other population. Here, we assume that previous work has shown that the mortality of adults is low, especially in conserved areas where there is no harvest, and that the birth rate varies from usually less than 5%. Given that 95.45% of a normal distribution falls within two standard deviation, we set the prior of <span class="math inline">\(\sigma_o\)</span> as <span class="math inline">\(\text{N}(0.05, 0.01)\)</span>.</p>
 <p>Given that the population is increasing and we know based on the birth rate that it can max double each year (if we assume no mortality), we restrict the value of <span class="math inline">\(\beta_0\)</span> to be between log(1) (stays the same) and log(2) (doubles).</p>
 <p>Previous estimates of density dependence for the species in similar conservation areas range from -0.01 and -0.001, and thus we use a prior distribution for <span class="math inline">\(\beta_1\)</span> of <span class="math inline">\(\text{Uniform}(-0.01,-0.001)\)</span>.</p>
 <div class="cell">

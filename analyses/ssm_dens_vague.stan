@@ -2,7 +2,8 @@
 data {
   int TT; // Length of state and observation time series
   vector[TT] y; // Observations
-  real w0; // Initial state value
+  real w0; // Initial state/population value (log)
+  real sd0; // Standard deviation for initial state value
 }
 
 /*----------------------- Parameters --------------------------*/
@@ -23,7 +24,7 @@ model {
   beta0 ~ normal(0, 100);
   beta1 ~ normal(0, 100); 
   // Distribution for the first state
-  w[1] ~ normal(w0, sdp);
+  w[1] ~ normal(w0, sd0);
   // Distributions for all other states
   for(t in 2:TT){
     w[t] ~ normal(w[t-1] + beta0 + beta1*exp(w[t-1]), sdp);
