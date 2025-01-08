@@ -95,11 +95,11 @@ ggplot() +
   theme_bw()
 ```
 
-We can see that due to observation error the observed trajectory is far more variable than the real population trajectory.
+We can see that due to observation error (i.e., the fact that the transect counts are imperfect) the observed trajectory is far more variable than the real population trajectory. In a real-life scenario, we would only have access to this messy observed trajectory and from looking at it would be hard to assess whether there is evidence that the population has reached carrying capacity. 
 
-# Fit models
+# Fit model
 
-Set up the data for all models.
+Now that we have created our data. Let's fit a model to estimate the true population size. We will use `rstan` to fit a Bayesian version of the model to data. The first thing we want to do is set up the data to fit with the function `stan`:
 
 ```{r}
 dataStan <- list(y=y, TT=TT, w0=log(z[1]))
@@ -107,6 +107,8 @@ dataStan <- list(y=y, TT=TT, w0=log(z[1]))
 
 
 ## Vague prior
+
+As this is a Bayesian model, 
 
 The priors on all four parameters are $\text{N}(0,100)$.
 
