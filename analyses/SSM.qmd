@@ -90,13 +90,13 @@ ggplot() +
   geom_point(data = monitoring, aes(y = obs, x = year, colour = "Observed")) +
   geom_line(data = monitoring, aes(y = true, x = year, colour = "Real")) +
   geom_line(data = monitoring, aes(y = obs, x = year, colour = "Observed")) +
-  scale_color_manual(name = "Pop. trajctories", 
+  scale_color_manual(name = "Pop. trajectories", 
                      values = c("Real" = col_real, "Observed" = col_obs)) +
   ylab("Population/count") +
   theme_bw()
 ```
 
-We can see that due to observation error (i.e., the fact that the transect counts are imperfect) the observed trajectory is far more variable than the real population trajectory. In a real-life scenario, we would only have access to this messy observed trajectory and from looking at it would be hard to assess whether there is evidence that the population has reached carrying capacity. Note that this plot start the year after the re-introduction (so population higher than 20).
+We can see that due to observation error (i.e., the fact that the transect counts are imperfect) the observed trajectory is far more variable than the real population trajectory. In a real-life scenario, we would only have access to this messy observed trajectory and from looking at it would be harder to assess whether there is evidence that the population has reached carrying capacity than looking at the real trajectory, which appears to indicate that the population is starting to remain stable. Note that this plot start the year after the re-introduction (so population higher than 20).
 
 # Fit model
 
@@ -126,7 +126,7 @@ We get lots of warnings, indicating that this model may be problematic for the d
 
 We can look at the traceplots to further assess these issues.
 
-```{r}
+```{r traceplot_vague, cache=TRUE}
 traceplot(m.vague, pars=c("sdo", "sdp", "beta1", "beta0"))
 ```
 
@@ -149,7 +149,7 @@ It is not surprising that this model is associated with warnings. While state-sp
 
 It is often recommended to check the model with simulations (Auger-Méthé et al. 2016, 2021), and here to verify that this problem is not a coding issue or a fundamental problem, we fit the model with highly informed priors based on the parameter values used to simulate the data. Specifically, we use the following priors:
 
-- $\sigma_o \sim \text{N}(10, 0.1)$, 
+- $\sigma_o \sim \text{N}(10, 0.01)$, 
 
 - $\sigma_p \sim \text{N}(0.05, 0.01)$, 
 
@@ -169,15 +169,15 @@ In this case there are no warning messages.
 
 We further look at the traceplots.
 
-```{r}
+```{r traceplot_sim_inf, cache=TRUE}
 traceplot(m.sim.informed, pars=c("sdo", "sdp", "beta1", "beta0"))
 ```
 
 The three chains look well mixed.
 
-We extract info.
+<!-- We extract info. -->
 
-```{r}
+```{r, eval=FALSE, echo=FALSE}
 m.sim.informed.post <- as.matrix(m.sim.informed)
 sdo.est.sim.informed <- m.sim.informed.post[,"sdo"]
 sdp.est.sim.informed <- m.sim.informed.post[,"sdp"]
@@ -194,7 +194,7 @@ Here we create a model based on information researchers may have at hand.
 
 Researchers often perform studies to assess the accuracy of their transect surveys. Here, we assume that we have performed such an assessment (e.g., using the fact that all recaptured individuals were marked to assess the accuracy of the survey) and that $\sigma_o$ was estimated to be 10, and that estimate is reliable, so as a prior we use a normal distribution with mean 10 and standard deviation 0.1. 
 
-Researchers also often have information based on other population. Here, we assume that previous work has shown that the mortality of adults is low, especially in conserved areas where there is no harvest, and that the birth rate varies about 5%, and thus set the prior of $\sigma_o$ as $\text{N}(0.05, 0.01)$.
+Researchers also often have information based on other population. Here, we assume that previous work has shown that the mortality of adults is low, especially in conserved areas where there is no harvest, and that the birth rate varies about 5%, and thus set the prior of $\sigma_p$ as $\text{N}(0.05, 0.01)$.
 
 We know the population is increasing and we know based on the birth rate (the species can produce maximum two offspring per year) that it can maximum double each year. Thus, we restrict the value of $\beta_0$ to be between log(1) (stays the same) and log(2) (doubles) by using $\text{Uniform}(\text{log}(1), \text{log}(2))$.
 
@@ -213,7 +213,7 @@ m.biol.informed <- stan(file = "ssm_dens_biol_informed.stan",
 
 We will look at the traceplots.
 
-```{r}
+```{r traceplot_biol_inf, cache=TRUE}
 traceplot(m.biol.informed, pars=c("sdo", "sdp", "beta1", "beta0"))
 ```
 
@@ -229,7 +229,7 @@ beta0.est.informed <- m.informed.post[,"beta0"]
 beta1.est.informed <- m.informed.post[,"beta1"]
 
 # True pop. estimates
-pop.est.informed <- exp(rstan::extract(m.biol.informed, pars = "w")[[1]])
+pop.est.informed <- exp(rstan::extract(m.biol.informed, pars = "w")[[1]]) # Modelled as log pop
 pop.est.informed.sum <- data.frame(year= seq(2024-TT, length.out = TT), 
                                    pop.mean = colMeans(pop.est.informed), 
                                    t(apply(pop.est.informed, 2, quantile, probs=c(0.025, 0.975))))
@@ -239,7 +239,7 @@ colnames(pop.est.informed.sum)[3:4] <- c("lower", "upper")
 
 # Look at results
 
-We can plot the population estimate
+We can plot the population estimate, and since we have simulated the data, we can compare it to the real values.
 
 ```{r}
 ggplot() +
@@ -250,7 +250,7 @@ ggplot() +
   geom_point(data = pop.est.informed.sum, aes(x=year, y=pop.mean, colour = "Estimated")) +
   geom_ribbon(data = pop.est.informed.sum, aes(x=year, y=pop.mean, ymin = lower, ymax = upper), 
               fill= alpha(col_real_est, 0.5)) +
-  scale_color_manual(name = "Pop. trajctories", 
+  scale_color_manual(name = "Pop. trajectories", 
                      values = c("Real" = col_real, 
                                 "Observed" = col_obs, 
                                 "Estimated" = col_real_est)) +
@@ -259,10 +259,12 @@ ggplot() +
 
 ```
 
-# Compare models
+We can see that the estimated values are close to the simulated real values. The band represents the 95% credible interval for the value of the estimated true population size. The smoothed estimated time series provide support that the population growth appears to slowed down.
 
-Plot posterior
-```{r}
+# Compare model estimates to simulated values
+
+<!-- Old posterior plots -->
+```{r, eval=FALSE, echo=FALSE}
 plot_title <- ggtitle("Posterior distributions - vague",
                       "with medians and 80% intervals")
 mcmc_areas(m.vague.post,
@@ -273,10 +275,26 @@ mcmc_areas(m.vague.post,
   geom_vline(aes(xintercept = beta0), col="blue") +
   geom_vline(aes(xintercept = beta1), col="orange") 
 
+mcmc_intervals(m.vague.post,
+           pars = c("sdo", "sdp", "beta0", "beta1"),
+           prob = 0.8) + plot_title +
+  geom_vline(aes(xintercept = sdp), col="hotpink") +
+  geom_vline(aes(xintercept = sdo), col="purple") +
+  geom_vline(aes(xintercept = beta0), col="blue") +
+  geom_vline(aes(xintercept = beta1), col="orange")
+
 
 plot_title <- ggtitle("Posterior distributions - sim informed",
                       "with medians and 80% intervals")
 mcmc_areas(m.sim.informed.post,
+           pars = c("sdo", "sdp", "beta0", "beta1"),
+           prob = 0.8) + plot_title +
+  geom_vline(aes(xintercept = sdp), col="hotpink") +
+  geom_vline(aes(xintercept = sdo), col="purple") +
+  geom_vline(aes(xintercept = beta0), col="blue") +
+  geom_vline(aes(xintercept = beta1), col="orange") 
+
+mcmc_intervals(m.sim.informed.post,
            pars = c("sdo", "sdp", "beta0", "beta1"),
            prob = 0.8) + plot_title +
   geom_vline(aes(xintercept = sdp), col="hotpink") +
@@ -296,24 +314,43 @@ mcmc_areas(m.informed.post,
 
 ```
 
-Comparing just vague to biol informed
+As we have simulated the data, we know the true parameter values. We can compare the estimates from the model with vague priors to the model with biologically informed priors.
+
+Here are the 90% posterior intervals for the four parameters when using the model with the vague priors. 
 
 ```{r}
-data.frame(sdo = c(sdo, mean(sdo.est.vague), mean(sdo.est.informed)), 
-           sdo.025 = c(NA, quantile(sdo.est.vague, probs = 0.025), quantile(sdo.est.informed, probs = 0.025)),
-           sdo.975 = c(NA, quantile(sdo.est.vague, probs = 0.975), quantile(sdo.est.informed, probs = 0.975)),
-           sdp = c(sdp, mean(sdp.est.vague), mean(sdp.est.informed)),
-           sdp.025 = c(NA, quantile(sdp.est.vague, probs = 0.025), quantile(sdp.est.informed, probs = 0.025)),
-           sdp.975 = c(NA, quantile(sdp.est.vague, probs = 0.975), quantile(sdp.est.informed, probs = 0.975)),
-           beta0 = c(beta0, mean(beta0.est.vague), mean(beta0.est.informed)),
-           beta0.025 = c(NA, quantile(beta0.est.vague, probs = 0.025), quantile(beta0.est.informed, probs = 0.025)),
-           beta0.975 = c(NA, quantile(beta0.est.vague, probs = 0.975), quantile(beta0.est.informed, probs = 0.975)),
-           beta1 = c(beta1, mean(beta1.est.vague), mean(beta1.est.informed)),
-           beta1.025 = c(NA, quantile(beta1.est.vague, probs = 0.025), quantile(beta1.est.informed, probs = 0.025)),
-           beta1.975 = c(NA, quantile(beta1.est.vague, probs = 0.975), quantile(beta1.est.informed, probs = 0.975)))
+mcmc_intervals(m.vague.post,
+           pars = c("sdo", "sdp", "beta0", "beta1"),
+           prob = 0.8) + 
+  ggtitle("Posterior distributions - vague",
+                      "with medians and 80% intervals") +
+  geom_vline(aes(xintercept = sdp), col="hotpink") +
+  geom_vline(aes(xintercept = sdo), col="purple") +
+  geom_vline(aes(xintercept = beta0), col="blue") +
+  geom_vline(aes(xintercept = beta1), col="orange") +
+  theme_bw()
 ```
 
-This looks good to me.
+The simulated values are showed with the vertical lines. We can see that the estimates are poor for all four parameters.
+
+Here are the 90% posterior intervals for the four parameters, this time with the model with biologically informed priors. 
+
+```{r}
+mcmc_intervals(m.informed.post,
+           pars = c("sdo", "sdp", "beta0", "beta1"),
+           prob = 0.8) + 
+  ggtitle("Posterior distributions - vague",
+                      "with medians and 80% intervals") +
+  geom_vline(aes(xintercept = sdp), col="hotpink") +
+  geom_vline(aes(xintercept = sdo), col="purple") +
+  geom_vline(aes(xintercept = beta0), col="blue") +
+  geom_vline(aes(xintercept = beta1), col="orange") +
+  theme_bw()
+```
+
+We can see that the estimates are really close to the true values simulated values.
+
+**Ailene**: if you have a better way to represent this, please go ahead and change it.
 
 # Session info
 

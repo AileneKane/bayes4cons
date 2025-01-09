@@ -11,7 +11,7 @@ parameters {
   real<lower=0> sdo; // Standard deviation of the observation equation
   real<lower=0> beta0; // median rate of population growth rate when pop. size is 0
   real<upper=0> beta1; // how much the growth rate decreases with an increasing pop. size (we assume density dependence, > 0)
-  vector[TT] w; // State time series
+  vector[TT] w; // State time series, log
   }
 
 
