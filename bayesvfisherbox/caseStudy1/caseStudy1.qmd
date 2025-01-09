@@ -1,14 +1,32 @@
 ---
 title: "Case Study 1"
-format: pdf
+format: html
 editor: visual
 fig_width: 16 
 fig_height: 12 
 ---
 
-\emph{This case study was developed primarily by E.Wolkovich, D.Loughnan and X.Wang with the input of the full manuscript author team.}
+\emph{This case study was developed primarily by D.Loughnan, X.Wang and E.Wolkovich with the input of the full manuscript author team.}
 
-```{r include=FALSE}
+We simulate data using a simple linear function with noise, assuming the sampling of five populations within its distributional range, from north to south for 10 years. The following code performs data analysis and visualization using both the traditional Fisherian approach and the Bayesian approach. For the Fisherian approach, we use an `lm` model and plot the p-values for different populations, indicating whether the increase or decrease is statistically significant. For the Bayesian approach, we use Stan code with priors and plot the posterior distribution.
+
+```{r echo=T, message=F}
+# Use all cores to run the stan model
+options(mc.cores = parallel::detectCores())
+
+# Install dependencies
+require(rstan)
+require(lme4)
+require(shinystan)
+require(viridis)
+```
+
+```{r}
+# We set the seed so the results will be consistent
+set.seed(1546)
+
+# To simulate data that fits our needs, we use a simple linear function and 
+# add noise.
 simulate_population <- function(a, b, t, noise_sd) {
   y <- numeric(t)
   time <- 1:t
@@ -24,88 +42,8 @@ simulate_population <- function(a, b, t, noise_sd) {
   pval <- coef(summary(lm(y ~ time)))[["time", "Pr(>|t|)"]]
   return(c(estimated_slope, pval))
 }
-t <- 10
-a <- seq(from = -2000, to = 2000, by = 200)
-b <- 100000
-noise_sd <- seq(from = 1000, to = 10000, by = 400)
 
-dfout <- data.frame(givenslope = numeric(), noise = numeric(), estslope = numeric(), 
-                    pval = numeric())
-
-for (i in 1:length(a)) {
-  for (j in 1:length(noise_sd)){
-    simpopout <- simulate_population(a[i], b, t, noise_sd[j])
-    dfadd <- data.frame(givenslope = a[i], noise = noise_sd[j], 
-                        estslope = simpopout[1], pval = simpopout[2])
-    dfout <- rbind(dfout, dfadd)
-  }
-}
-```
-
-```{r include=FALSE}
-a <- seq(from = -2000, to = 2000, by = 200)
-a <- a[-c(5:17)] 
-# remove middle close-to-zero slopes, as though are hard to get pval low
-noise_sd <- seq(from = 7000, to = 9000, by = 400) 
-srhere <- 0.3
-
-for(seedz in c(333:3999)){
-  set.seed(seedz)
-  for (j in 1:length(noise_sd)){
-    dfout <- data.frame(noise = numeric(), sloperatio = numeric(), pval = numeric(),
-                        smratio = numeric())
-    for (i in 1:length(a)) {
-      simpopout <- simulate_population(a[i], b, t, noise_sd[j])
-      smratiohere  <- ifelse((abs(simpopout[1]/a[i])<(1+srhere) 
-                              & abs(simpopout[1]/a[i])>(1-srhere)), 0, 1)
-      dfadd <- data.frame(noise = noise_sd[j], sloperatio = simpopout[1]/a[i], 
-                          pval = simpopout[2], smratio = smratiohere)
-      dfout <- rbind(dfout, dfadd)
-    }
-      if(sum(dfout$smratio) == 0 & dfout$pval[1] > 0.05 & dfout$pval[1] < 0.15){
-    print(paste("try seed: ", seedz, "with noise of ", noise_sd[j]))
-  }
-  }
-}
-```
-
-```{r include=FALSE}
-set.seed(1546)
-t <- 10
-b <- 100000
-noise_sd <- rev(seq(from = 3000, to = 8600, by = 400))
-
-dfout <- data.frame(givenslope = numeric(), noise = numeric(), estslope = numeric(), pval = numeric())
-
-for (i in 1:length(a)) {
-    simpopout <- simulate_population(a[i], b, t, noise_sd[i])
-    dfadd <- data.frame(givenslope = a[i], noise = noise_sd[i], estslope = simpopout[1], pval = simpopout[2])
-    dfout <- rbind(dfout, dfadd)
-}
-
-dfout
-```
-
-# Data analysis
-
-The following code performs data analysis and visualization using both the traditional Fisherian approach and the Bayesian approach. For the Fisherian approach, we use an `lm` model and plot the p-values for different populations, indicating whether the increase or decrease is statistically significant. For the Bayesian approach, we use Stan code with priors and plot the posterior distribution.
-
-```{r include = FALSE}
-# Use 4 cores
-options(mc.cores = 4)
-
-# Install dependencies
-require(rstan)
-require(lme4)
-require(shinystan)
-require(viridis)
-```
-
-```{r}
-# Seed we selected from data simulation
-set.seed(1546)
-# Dropping -1600, 1600 with p-value smaller than 0.05.
-a <- c(-2000, -1600, -1400,  600, 1400 , 1600,  2000)
+a <- c(-2000, -1400,  600, 1400 , 2000)
 t <- 10
 time <- 1:t
 b <- seq(40000, 101000, by = 10000)
@@ -222,8 +160,7 @@ ypred ~ normal(mu_y, sigma_y);
 
 ```
 
-```{r echo = FALSE}
-output <- subset(output, pop != 2 & pop != 6)
+```{r echo=T, results='hide'}
 str(output)
 output$pop <- as.factor(output$pop)
 
