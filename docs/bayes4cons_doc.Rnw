@@ -52,7 +52,7 @@
 \bibliographystyle{bibstyles/amnat.bst}
 \title{Adaptive conservation science using Bayesian methods} 
 \author[1,a]{A.K. Ettinger}
-\author[2]{H. Eyster}
+\author[2]{Harold N. Eyster}
 \author[3]{Hanna Jackson}
 \author[4,5]{D. Loughnan}
 \author[6]{M. Auger-M\'eth\'e}
@@ -62,7 +62,7 @@
 
 
 \affil[1]{The Nature Conservancy,Seattle, Washington, USA}
-\affil[2]{TNC}
+\affil[2]{The Nature Conservancy, Boulder, Colorado, USA}
 \affil[4]{Department of Zoology, University of British Columbia, Vancouver, British Columbia, Canada}
 \affil[5]{Hakai Institute, Campbell River, British Columbia, Canada}
 \affil[6]{Department of Statistics and Institute for the Oceans and Fisheries The University of British Columbia}
