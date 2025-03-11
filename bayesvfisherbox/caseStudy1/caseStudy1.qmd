@@ -8,7 +8,7 @@ fig_height: 12
 
 \emph{This case study was developed primarily by D.Loughnan, X.Wang and E.Wolkovich with the input of the full manuscript author team.}
 
-We simulate data using a simple linear function with noise, assuming the sampling of five populations within its distributional range, from north to south for 10 years. The following code performs data analysis and visualization using both the traditional Fisherian approach and the Bayesian approach. For the Fisherian approach, we use an `lm` model and plot the p-values for different populations, indicating whether the increase or decrease is statistically significant. For the Bayesian approach, we use Stan code with priors and plot the posterior distribution.
+We simulate data using a simple linear function with noise, assuming the sampling of five populations within its distributional range, from north to south for 10 years. The following code performs data analysis and visualization using both the traditional Fisherian approach and the Bayesian approach. For the Fisherian approach, we use an `lm` model in R and plot the p-values for different populations, indicating whether the increase or decrease is statistically significant. For the Bayesian approach, we use Stan code with priors and plot the posterior distribution.
 
 ```{r echo=T, message=F}
 # Use all cores to run the stan model
@@ -22,6 +22,8 @@ require(viridis)
 ```
 
 ```{r}
+## HNE: I'm confused why you create this 'simulate_population' function when it's never used? I think this section would be clearer if you deleted this whole function, moved the 'output' df creation to this block, and created a new function with just the lm/p-value extraction part and put it into the next block. And then use that function to analyze the data (rather than only doing that within ggplot). I'd also recommend pasting the p-values rather than hard-coding them in the ggplot labels. 
+
 # We set the seed so the results will be consistent
 set.seed(1546)
 
@@ -34,15 +36,15 @@ simulate_population <- function(a, b, t, noise_sd) {
     # y is the population at a certain time
     # a is the increasing/decreasing rate
     # b is the starting population size
-    # time is the x variable 
-    # noise_sd
+    # time is the x (independent) variable 
+    # noise_sd is the standard deviation of the normally-distributed noise 
   model <- lm(y ~ time)
-  # Extract the estimated slope (coefficient of time)
+  # Extract the slop estimate and p-value (coefficient of time)
   estimated_slope <- coef(model)["time"]
   pval <- coef(summary(lm(y ~ time)))[["time", "Pr(>|t|)"]]
   return(c(estimated_slope, pval))
 }
-
+# declaring the parameter values that we'll use in the simulation: 
 a <- c(-2000, -1400,  600, 1400 , 2000)
 t <- 10
 time <- 1:t
@@ -52,7 +54,7 @@ noise_sd <- c(7000, 6600, 6200, 5800, 5400, 5000,4600)
 
 ## Traditional Fisherian approach
 
-With traditional Fisherian approach, we use lm model to plot
+With traditional Fisherian approach, we use `lm` to model the data and then we plot the estimates and p-values.
 
 ```{r}
 
@@ -111,11 +113,17 @@ legend("topright", legend = c(expression('Farthest north (p = 3.4e'^-4*')'),
        lty = c(1, 1, 1, 1, 1), lwd = 4, bty = "n", col = c("#593d9cff","#a65c85ff", "#de7065ff", "#f68f46ff","#f7cb44ff"),cex = 1, pt.cex = 2.5)
 ```
 
-![](frequentist.png){fig-align="center"}
+![](frequentist.png){fig-align="center"} <!--
+HNE: because the above chunk is marked 'include=F' the plot is not shown from that chunk, and the chunk's output is not named 'frequentist.png' and so the plot is not shown. I'd recommend following what you do in the Bayesian visualization below by changing to include=T and then removing the 'frequentist.png' file reference. 
+-->
 
 ## Bayesian approach
 
-With Bayesian approach, we run the stan code:
+With the Bayesian approach, we use the same simulated data but use Stan to analyze it instead of `lm`. Here's the Stan code:
+
+<!--
+HNE: This model also differs in that it uses partial pooling -- maybe also worth mentioning that in the text? 
+-->
 
 ```{r engine = 'cat', engine.opts = list(file = "partialPoolSimMdl.stan", lang = "stan")}
 data {
@@ -204,4 +212,11 @@ for(i in 1:length(unique(output$pop))) {
   points(x = mean(post$b[,i]), y = 1300, col = colors[i], pch = 19)
   arrows(x0 = (quantile(post$b[,i], 0.05)), y0 = 1300, x1 = (quantile(post$b[,i], 0.95)), y1 = 1300, code = 3, length = 0, col = colors[i], lwd = 2)
 }
+```
+
+### Session Info
+
+```{r}
+sessionInfo() 
+
 ```
