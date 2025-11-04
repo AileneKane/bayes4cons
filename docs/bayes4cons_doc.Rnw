@@ -76,11 +76,11 @@
 \maketitle 
 \textbf{Author contributions}: All authors conceived of this manuscript, which began through conversations at a Bayesian Generative Modelling Symposium at University of British Columbia in 2024; AKE led the writing of the manuscript, HNE, EMW, and AKE made figures; all authors contributed portions of text, and revised the manuscript.
 
-\textbf{Data Accessibility} 
+\textbf{Data Accessibility} All data and code are included as supplemental materials and available on GitHub
 
-\textbf{Running title} 
+\textbf{Running title} Conservation science using Bayesian methods
 
-\textbf{Key words} 
+\textbf{Key words} biodiversity, climate change, statistics, adaptive management
 
 
 \textbf{Paper type} \textit{Perspective} in \href{https://conbio.onlinelibrary.wiley.com/hub/journal/1755263x/homepage/forauthors.html#ATypes}{Conservation Letters} (3,000 words). Back-up/next journal to submit to is \href{https://conbio.onlinelibrary.wiley.com/hub/journal/25784854/homepage/author-guidelines}{Conservation Science and Practice} or \href{https://www.sciencedirect.com/journal/environmental-science-and-policy/publish/guide-for-authors}{Environmental Science and Policy}
