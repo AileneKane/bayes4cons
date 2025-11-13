@@ -167,9 +167,10 @@ Ecology and conservation science have become more quantitative and data-driven f
 %DLJuly30: I think case study 3 makes the most sense as a vignette---there is a lot of ecology for the background and to explain what the priors are. As a reader, I would want an explanation for what the warnings mean and how they inform the process. I also think if our goal is to emphasize prior selection, we need to be more explicit in explaining what the vague priors are and what kinds of knowledge was needed to develop informative priors.
 
 \par 
-\section* {Box 1: Defining Bayesian Analysis (i.e., Inference and Workflow)}
+\section* {Box 1}
+\subsection{Defining Bayesian Analysis} %HNE I think remove this parenthetical, and add below (i.e., Inference and Workflow)}
 
-Bayesian methods allow us to combine prior knowledge of a system with available data to quantitatively measure the probability of a model or hypothesis being true. A Bayesian model treats parameters as random variables for which a known probability distribution is defined based on prior knowledge of the parameter uncertainty. By incorporating expert knowledge of ecological processes or species natural history, this modelling approach allows the development of bespoke and uniquely formulated models for any given data-generating process.\\
+Bayesian analysis, including inference and workflow, enable us to combine prior knowledge of a system with available data to quantitatively measure the probability of a model or hypothesis being true. A Bayesian model treats parameters as random variables for which a known probability distribution is defined based on prior knowledge of the parameter uncertainty. By incorporating expert knowledge of ecological processes or species natural history, this modelling approach allows the development of bespoke and uniquely formulated models for any given data-generating process.\\
 
 At the foundation of this statistical approach is the use of Bayes' Theorem (eqn 1). This theorem consists of three components: a prior distribution (A) %P(A)? here and in equation below
 as defined using data from previous experiments, expert opinions, or literature, and a likelihood function ($f(B|A)$), which are combined to estimate the probability distributions for each parameter (\emph{P}(A|B)). \\
@@ -180,6 +181,7 @@ as defined using data from previous experiments, expert opinions, or literature,
 Since the results of Bayesian methods are probabilistic, they allow us to make stronger inferences based on a model's predicted uncertainty. As new data is collected or inferences made, we can revise our model priors and iteratively improve our understanding of the data-generating processes that underlie ecological systems. Model estimates can be further used to perform simulations and more robustly forecast changes under future conditions. 
 
 Our aim here is not to provide an exhaustive explanation of Bayesian statistics, but to provide a brief introduction of core components of a Bayesian model and their relationships. For an in depth discussion of Bayesian statistics, we recommend the \emph{Gentle Introduction to Bayesain statistics} by \cite{van2014gentle}, \emph{Bayesian model selection for ecologists} by \cite{hooten2015guide}, and \emph{Bayesian Inference for ecologists} by \cite{ellison2004}. For further discussion of prior selection for ecological models, see \cite{banner2020priors}.
+%HNE13nov2025 What's the rationalle for removing the items below? They seem helpful? 
 % Inference in frequentist statistics can take many forms, but here we focus on the most dominant incarnation, which entails testing the significance of a null hypothesis given data, measured with a p-value \citep{Zyl2018}. Bayesian analysis can be formulated in a variety of different ways (Lee, 2011). Frequentist methods have previously dominated ecological analyses.
 % \begin{itemize}
 % \item Frequentist methods—that rely on the frequency of an event's occurrence in a sample dataset given a particular hypothesis to estimate its probability.
@@ -215,29 +217,57 @@ Our aim here is not to provide an exhaustive explanation of Bayesian statistics,
 % 
 
 
- \section* {Resources to Get Started}
-\par Note that this will be merged in with Box 1.
- \par Resources on priors: 
- 
- \begin{itemize}
- \item Banner et al. 2020 https://besjournals.onlinelibrary.wiley.com/doi/full/10.1111/2041-210X.13407 
+ \subsection{Resources to Get Started}
+%\par Note that this will be merged in with Box 1.
+%HNE13nov2025: do we want to set these all up to be citations and in the reference list? 
+
+\par Resources on general Bayesian methods: 
+\begin{itemize}
+
+   \item Bayesian Data Analysis by Gelman et al.
+    \item Bayesian Models: A statistical primer for ecologists by Hobbs & Hooten
+    \item Ecological Forecasting by Dietz
+\item Statistical Rethinking by Richard McElreath \url{https://xcelab.net/rm/}
+ \item  \href{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4158865/}{Gentle Introduction to Bayesian statistics \citep{van2014gentle}}
+ \item Bayesian Inference for ecologists. \citep{elis2004}
+\item Bayesian statistics and modelling \url{https://doi.org/10.1038/s43586-020-00001-2}
+\item The Stan Forums \url{https://discourse.mc-stan.org/}
+ \item Why becoming Bayesian? \citep{clark2005environmental}
+  \href{https://doi.org/10.1111/j.1461-0248.2004.00702.x}{https://doi.org/10.1111/j.1461-0248.2004.00702.x}
+\item Applied statistical modelling for ecologists: a practical guide to Bayesian and likelihood inference using R, JAGS, NIMBLE, Stan and TMB by Marc K\'ery
+and Kenneth F Kellner
  \end{itemize}
- 
- \par Other resources:
+
+\par Bayesian workflow:
+\begin{itemize}
+ \item Bayesian Workflow \citep{gelman2020bayesia}
+\item Visualization in Bayesian Workflow \url{https://doi.org/10.1111/rssa.12378} % add ref? 
+\item  A four-step Bayesian workflow for improving ecological science \url{https://doi.org/10.48550/arXiv.2408.02603}
+\end{itemize}
+
+\par Bayesian case studies: 
+\begin{itemize}
+\item Stan Case Studies \url{https://mc-stan.org/learn-stan/case-studies.html}
+\item Stan Example Models \url{https://github.com/stan-dev/example-models} 
+\end{itemize}
+
+ \par Resources on priors: 
+ \begin{itemize}
+ \item Banner et al. 2020 \url{https://doi.org/10.1111/2041-210X.13407}
+\item Northrup \& Gerber 2018. \url{https://doi.org/10.1371/journal.pone.0192819}
+\item Stan Prior Recommendations \url{https://github.com/stan-dev/stan/wiki/Prior-Choice-Recommendations}
+ \end{itemize}
+
+ \par Bayesian model simulation, validation, and checking:
  \begin{itemize}
  \item \href{https://esajournals.onlinelibrary.wiley.com/doi/10.1002/ecm.1314}{A guide to Bayesian model checking for ecologists \citep{conn2018guide}}
  \item 
- \href{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4158865/}{Gentle Introduction to Bayesian statistics \citep{van2014gentle}}
- \item 
   \href{https://doi.org/10.1890/14-0661.1}{Bayesian model selection for ecologists. \citep{hooten2015guide}}
- \item Bayesian Inference for ecologists. \citep{elis2004}
- \item Why becoming Bayesian? \citep{clark2005environmental}
-  \href{https://doi.org/10.1111/j.1461-0248.2004.00702.x}{https://doi.org/10.1111/j.1461-0248.2004.00702.x}
- \item Bayesian Workflow \citep{gelman2020bayesia}
- 
- \end{itemize}
+\item Beginning exercise in simulating data \url{https://bios2.github.io/biodiversity_modelling_2021/exercise_questions.html}
+\end{itemize}
 
 %xwNov1: I think maybe we can make this box more informative by relating resources we included here to the sections we have in the paper. 
+%13nov2025: I reordered -- how does that look? 
 
 
 \bibliography{conslib.bib}
