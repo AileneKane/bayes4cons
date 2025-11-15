@@ -74,7 +74,7 @@
 
 \date{\today}
 \maketitle 
-\textbf{Author contributions}: All authors conceived of this manuscript, which began through conversations at a Bayesian Generative Modelling Symposium at University of British Columbia in 2024; AKE led the writing of the manuscript, HNE, EMW, DL, and AKE made figures; all authors contributed portions of text, and revised the manuscript.
+\textbf{Author contributions}: All authors conceived of this manuscript, which began through conversations at a Bayesian Generative Modelling Symposium at University of British Columbia in 2024 designed by EMW with funding from UBC's Grants for Catalyzing Research Clusters: Biodiversity Research; AKE led the writing of the manuscript, HNE, EMW, DL, and AKE made figures; all authors contributed portions of text, and revised the manuscript.
 
 \textbf{Data Accessibility} All data and code are included as supplemental materials and available on GitHub
 
