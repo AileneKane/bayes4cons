@@ -247,38 +247,46 @@ Our aim here is not to provide an exhaustive explanation of Bayesian statistics,
 %HNE13nov2025: do we want to set these all up to be citations and in the reference list? 
 
 \par Resources on general Bayesian methods: 
+
+Uptick in the use of Bayesian inference has come alongside new programming languages that have made Bayesian models easier and faster to fit \citep{Carpenter:2017stan}, and we thus focus many of our recommendations on materials that use these newer approaches. We provide only a short list, and encourage researchers new to Bayesian to try new or updated materials as they become available. Additionally, a number of the below recommendations now have their materials online, and include videos of lectures (e.g., see websites by McElreath and Vehtari) for courses that go with the books and can help with learning the material. 
+
 \begin{itemize}
-
-
-
-   \item Bayesian Data Analysis by Gelman et al.
-    \item Bayesian Models: A statistical primer for ecologists by Hobbs & Hooten
-    \item Ecological Forecasting by Dietz
-\item Statistical Rethinking by Richard McElreath \url{https://xcelab.net/rm/}
- \item  \href{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4158865/}{Gentle Introduction to Bayesian statistics \citep{van2014gentle}}
- \item Bayesian Inference for ecologists. \citep{elis2004}
-\item Bayesian statistics and modelling \url{https://doi.org/10.1038/s43586-020-00001-2}
-\item The Stan Forums \url{https://discourse.mc-stan.org/}
- \item Why becoming Bayesian? \citep{clark2005environmental}
-  \href{https://doi.org/10.1111/j.1461-0248.2004.00702.x}{https://doi.org/10.1111/j.1461-0248.2004.00702.x}
+\item Statistical Rethinking by Richard McElreath \url{http://xcelab.net/rm/statistical-rethinking/} is likely a major reason for the increasing use of Bayesian inference in ecology and is a great read.
+\item \emph{Regression and Other Stories} (ROS) by Gelman, Hill \& Vehtari (\href{https://avehtari.github.io/ROS-Examples/}{more info here, including ROS online PDF}) is a great resource for learning Bayesian approaches that starts at the very beginning and builds up almost to multi-level modeling. It is effectively the first half of \emph{Data Analysis Using Regression and Multilevel/Hierarchical Models} by Gelman \& Hill \href{http://www.stat.columbia.edu/~gelman/arm/}{(more info here)} but updated to modern approaches and our current understanding of priors, workflows and more. 
+ % emw15Nov2025: I don't know the below but people seem to like them, maybe someone else can add here? 
+\item Bayesian Models: A statistical primer for ecologists by Hobbs \& Hooten
+ \item Ecological Forecasting by Dietz
 \item Applied statistical modelling for ecologists: a practical guide to Bayesian and likelihood inference using R, JAGS, NIMBLE, Stan and TMB by Marc K\'ery
 and Kenneth F Kellner
+\item \emph{Bayesian Data Analysis} (sometimes called `BDA') has also popularized Bayesian inference and is a great resource for those who want to learn from the underlying math and have a resource that covers many approaches. 
+\item Michael Betancourt has most of what will become a book important concepts in probabilistic modeling  \href{https://betanalpha.github.io/writing/}{online}. It builds up from the mathematical foundations to a number of useful modeling approaches with careful case studies throughout. 
+\item Many of the above resources discuss different versions of a Bayesian workflow, which is also highlighted in several papers  \citep{gelman2020bayesia}
+% Add to above bullet?: Visualization in Bayesian Workflow \url{https://doi.org/10.1111/rssa.12378} % add ref? 
+% Add to above bullet?: A four-step Bayesian workflow for improving ecological science \url{https://doi.org/10.48550/arXiv.2408.02603}
  \end{itemize}
 
-\par Bayesian workflow:
-\begin{itemize}
- \item Bayesian Workflow \citep{gelman2020bayesia}
-\item Visualization in Bayesian Workflow \url{https://doi.org/10.1111/rssa.12378} % add ref? 
-\item  A four-step Bayesian workflow for improving ecological science \url{https://doi.org/10.48550/arXiv.2408.02603}
-\end{itemize}
+For many the best way to start or advance in Bayesian inference is through building community. This may mean starting to learn Bayesian approaches in reading or model building group, and is how many of us learned---picking a book and finding a group that wants to meet weekly (or twice monthly) to work through the chapter concepts and exercises together, or having a group where each person reports on a model they're working on each time (this works best when not everyone is new to Bayesian inference). This can also work to go through a suite of case studies (e.g., \url{https://mc-stan.org/learn-stan/case-studies.html}, \url{https://github.com/stan-dev/example-models}). 
 
-\par Bayesian case studies: 
+These communities can be in-person, over Zoom and can extend through a suite of virtual forums. Many questions are posted and answered through The Stan Forums \url{https://discourse.mc-stan.org/} for example, and the community hosts annual conferences as well. In additional conferences for statistical ecology societies, Bayesian statistics societies, and for R and Python can often be great places to meet people interested in these approaches. 
+
+
+\begin{itemize}
+ \item  \href{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4158865/}{Gentle Introduction to Bayesian statistics \citep{van2014gentle}}
+ \item Bayesian Inference for ecologists. \citep{elis2004} % emw15Nov2025: Do we want these older refs? I would skip them. 
+\item Bayesian statistics and modelling \url{https://doi.org/10.1038/s43586-020-00001-2}
+\item The Stan Forums \url{https://discourse.mc-stan.org/} % emw15Nov2025: I integrated above, see what you think. 
+ \item Why becoming Bayesian? \citep{clark2005environmental}  % emw15Nov2025: Do we want these older refs? I would skip them. 
+  \href{https://doi.org/10.1111/j.1461-0248.2004.00702.x}{https://doi.org/10.1111/j.1461-0248.2004.00702.x}
+
+ \end{itemize}
+
+\par Bayesian case studies: % emw15Nov2025: I integrated above, see what you think. 
 \begin{itemize}
 \item Stan Case Studies \url{https://mc-stan.org/learn-stan/case-studies.html}
 \item Stan Example Models \url{https://github.com/stan-dev/example-models} 
 \end{itemize}
 
- \par Resources on priors: 
+ \par Resources on priors: % emw15Nov2025: Skip?
  \begin{itemize}
  \item Banner et al. 2020 \url{https://doi.org/10.1111/2041-210X.13407}
 \item Northrup \& Gerber 2018. \url{https://doi.org/10.1371/journal.pone.0192819}
@@ -287,7 +295,7 @@ and Kenneth F Kellner
 
  \par Bayesian model simulation, validation, and checking:
  \begin{itemize}
- \item \href{https://esajournals.onlinelibrary.wiley.com/doi/10.1002/ecm.1314}{A guide to Bayesian model checking for ecologists \citep{conn2018guide}} % emw15Nov2025: I personally dislike this paper -- be sure to read it before you cite it...
+ \item \href{https://esajournals.onlinelibrary.wiley.com/doi/10.1002/ecm.1314}{A guide to Bayesian model checking for ecologists \citep{conn2018guide}} % emw15Nov2025: I personally dislike this paper -- be sure to read it before you cite it... or maybe we skip this sub-category entirely?
  \item 
   \href{https://doi.org/10.1890/14-0661.1}{Bayesian model selection for ecologists. \citep{hooten2015guide}}
 \item Beginning exercise in simulating data \url{https://bios2.github.io/biodiversity_modelling_2021/exercise_questions.html}
