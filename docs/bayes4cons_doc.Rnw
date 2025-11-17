@@ -210,7 +210,7 @@ as defined using data from previous experiments, expert opinions, or literature,
 Since the results of Bayesian methods are probabilistic, they allow us to make stronger inferences based on a model's predicted uncertainty. As new data is collected or inferences made, we can revise our model priors and iteratively improve our understanding of the data-generating processes that underlie ecological systems. Model estimates can be further used to perform simulations and more robustly forecast changes under future conditions. 
 
 Our aim here is not to provide an exhaustive explanation of Bayesian statistics, but to provide a brief introduction of core components of a Bayesian model and their relationships. For an in depth discussion of Bayesian statistics, we recommend the \emph{Gentle Introduction to Bayesain statistics} by \cite{van2014gentle}, \emph{Bayesian model selection for ecologists} by \cite{hooten2015guide}, and \emph{Bayesian Inference for ecologists} by \cite{ellison2004}. For further discussion of prior selection for ecological models, see \cite{banner2020priors}.
-%HNE13nov2025 What's the rationalle for removing the items below? They seem helpful? 
+%HNE13nov2025 What's the rationale for removing the items below? They seem helpful? 
 % Inference in frequentist statistics can take many forms, but here we focus on the most dominant incarnation, which entails testing the significance of a null hypothesis given data, measured with a p-value \citep{Zyl2018}. Bayesian analysis can be formulated in a variety of different ways (Lee, 2011). Frequentist methods have previously dominated ecological analyses.
 % \begin{itemize}
 % \item Frequentist methods—that rely on the frequency of an event's occurrence in a sample dataset given a particular hypothesis to estimate its probability.
@@ -263,7 +263,7 @@ Uptick in the use of Bayesian inference has come alongside new programming langu
 \item Applied statistical modelling for ecologists: a practical guide to Bayesian and likelihood inference using R, JAGS, NIMBLE, Stan and TMB by Marc K\'ery
 and Kenneth F Kellner
 \item \emph{Bayesian Data Analysis} (sometimes called `BDA') has also popularized Bayesian inference and is a great resource for those who want to learn from the underlying math and have a resource that covers many approaches. 
-\item Michael Betancourt has most of what will become a book important concepts in probabilistic modeling  \href{https://betanalpha.github.io/writing/}{online}. It builds up from the mathematical foundations to a number of useful modeling approaches with careful case studies throughout. 
+\item Michael Betancourt has most of what will become a book important concepts in probabilistic modeling  \href{https://betanalpha.github.io/writing/}{online}. Great for readers with a math background, it builds up from the mathematical foundations to a number of useful modeling approaches with careful case studies throughout. 
 \item Many of the above resources discuss different versions of a Bayesian workflow, which is also highlighted in several papers  \citep{gelman2020bayesia}
 % Add to above bullet?: Visualization in Bayesian Workflow \url{https://doi.org/10.1111/rssa.12378} % add ref? 
 % Add to above bullet?: A four-step Bayesian workflow for improving ecological science \url{https://doi.org/10.48550/arXiv.2408.02603}
@@ -272,7 +272,7 @@ and Kenneth F Kellner
 For many the best way to start or advance in Bayesian inference is through building community. This may mean starting to learn Bayesian approaches in reading or model building group, and is how many of us learned---picking a book and finding a group that wants to meet weekly (or twice monthly) to work through the chapter concepts and exercises together, or having a group where each person reports on a model they're working on each time (this works best when not everyone is new to Bayesian inference). This can also work to go through a suite of case studies (e.g., \url{https://mc-stan.org/learn-stan/case-studies.html}, \url{https://github.com/stan-dev/example-models}). 
 
 These communities can be in-person, over Zoom and can extend through a suite of virtual forums. Many questions are posted and answered through The Stan Forums \url{https://discourse.mc-stan.org/} for example, and the community hosts annual conferences as well. In additional conferences for statistical ecology societies, Bayesian statistics societies, and for R and Python can often be great places to meet people interested in these approaches. 
-
+%HNE16nov2025: Great edits above, Lizzie! 
 
 \begin{itemize}
  \item  \href{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4158865/}{Gentle Introduction to Bayesian statistics \citep{van2014gentle}}
