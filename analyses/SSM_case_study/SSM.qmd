@@ -1,15 +1,12 @@
 ---
-title: "SSM"
+title: "Supporting materials for: Ettinger AK, Eyster HN, Jackson H, Loughnan D, Auger-Méthé M, M'Gonigle L, Wang X, and Wolkovich. Adaptive conservation science using Bayesian methods - Case Study 3"
 author: "Marie Auger-Méthé"
-date: "`r Sys.Date()`"
 output: html_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-
-**Ailene**: Once we have final title we should change the title to the title of the paper + Supplementary Mat. XX. Same with authors. I think we should just use the same list/order as paper. I let you make the change.
 
 # Set up
 
@@ -20,7 +17,7 @@ library(ggplot2)
 # To run in parallel on multiple cores
 options(mc.cores=parallel::detectCores())
 # To avoid recompiling unchanged Stan program
-rstan_options(auto_write=TRUE)
+rstan_options(auto_write = TRUE)
 
 # Colours for plots
 col_real <- "purple" # Real population trajectory
@@ -32,7 +29,7 @@ col_real_est <- "hotpink"
 # Simulation: simple population model
 
 To demonstrate the ease with which we can use Bayesian methods to include biological information to help fit complex population models, we will simulate the re-introduction of an extirpated species in a conservation area and use a population model, with and without additional biological information, to assess whether there is evidence that the population has reached carrying capacity. 
-We will simulate that we have re-introduced in a conservation area 10 adult females and 10 adult males from an extirpated species in 2003, and we are monitoring their growth for the past 20 years to see if they have reached carrying capacity and to estimate what is that carrying capacity. To do so, we will use the state-space models for population described in Auger-Méthé et al. (2021). This model is based on one of the models Dennis and Taper (1994) and Jamieson and Brooks (2004) have proposed to include density dependence, biological stochasticiy, and measurement error in a single model. As it is a state-space model, it has two main equations. The equation describing the population trajectory is often referred to as the process equation, while the equation associated with modelling the error in survey is called the observation equation. Both are defined as follows:
+We will simulate that we have re-introduced in a conservation area 10 adult females and 10 adult males from an extirpated species in 2003, and we are monitoring their population size for the past 20 years using yearly transects. We hope to assess whether the population has reached carrying capacity and to estimate what is that carrying capacity. To do so, we will use the state-space models for population described in Auger-Méthé et al. (2021). This model is based on one of the models Dennis and Taper (1994) and Jamieson and Brooks (2004) have proposed to include density dependence, biological stochasticiy, and measurement error in a single model. As it is a state-space model, it has two main equations. The equation describing the population trajectory is often referred to as the process equation, while the equation associated with modelling the error in survey is called the observation equation. They are defined as follows:
 
 Process equation: $z_{t} = z_{t-1}\exp(\beta_0 + \beta_1 z_{t-1} + \epsilon_t), \;\; \epsilon_t \sim \text{N}(0, \sigma_p^2),$
 
@@ -40,10 +37,9 @@ Observation equation: $y_t = z_t + \eta_t, \;\; \eta_t \sim \text{N}(0,\sigma_{o
 
 where $z_t$ is the true population size as time $t$, $y_t$ is the observed number of individuals at time $t$, $\beta_0$ is the population growth rate when the population is not affected by population density, $\beta_1$ determines how much the population growth rate decreases as a function of population density, $\sigma_p$ is the standard deviation of the process equation (it represents the biological stochasticity), and $\sigma_o$ represents the standard deviation of the observation error.
 
-This species has a long life span (20+ years) and creates long term pairs that can produce maximum 2 offspring when in good conditions, and therefore could be able to almost double in size every year. However, here we simulate a situation where the conservation area does not allow the animal to fulfill its full growth and we simul by setting $\beta_0 = \text{log}(1.3)$. We assumed when doing the yearly transects we can miss or double count individuals and simulate this by setting $\sigma_o = 10$. We assume there is little adult mortality and that birth rate is the main source of biological stochasticity. Specfically, we set $\sigma_p = 0.05$. Finally, we simulate the density dependence parameter by setting $\beta_1 = -0.005$.
+This species has a long life span (20+ years) and creates long term pairs that can produce maximum 2 offspring when in good conditions, and therefore could be able to almost double in size every year. However, here we simulate a situation where the conservation area does not allow the animal to fulfill its full growth by setting $\beta_0 = \text{ln}(1.3)$. We assumed that when doing the yearly transects we can miss or double count individuals and simulate this by setting $\sigma_o = 10$. We assume there is little adult mortality and that birth rate is the main source of biological stochasticity. Specifically, we set $\sigma_p = 0.05$. Finally, we simulate the density dependence parameter by setting $\beta_1 = -0.005$. Here, the carrying capacity would be $K = \frac{\beta_0}{-\beta_1} = \text{ln}(1.3)/0.005 \approx 52.47$
 
 Below is the code to simulate two times series, the true population trajectory of the 20 years (contained in `z`), and the observed counts over these years (contained in `y`).
-
 
 ```{r simulation, cache = TRUE}
 # Create a vector that will keep track of the states
@@ -54,10 +50,10 @@ z <- numeric(TT + 1)
 # Population starts at 20 (number of individual re-introduced)
 z[1] <- 20
 
-# Standard deviation of the process variation
 
-sdo <- 10
-sdp <- 0.05
+
+sdo <- 10 # Standard deviation of the observation error
+sdp <- 0.05 # Standard deviation of the process variation
 beta0 <- log(1.3) 
 beta1 <- -0.005
 
@@ -74,7 +70,7 @@ for(i in 1:TT){
 # Create a vector that will keep track of the observations
 # It's of length T
 y <- numeric(TT)
-# Standard deviation of the observation error
+
 
 # For t=1, ... T, add measurement error
 # Remember that z[1] is t=0
@@ -96,11 +92,16 @@ ggplot() +
   theme_bw()
 ```
 
-We can see that due to observation error (i.e., the fact that the transect counts are imperfect) the observed trajectory is far more variable than the real population trajectory. In a real-life scenario, we would only have access to this messy observed trajectory and from looking at it would be harder to assess whether there is evidence that the population has reached carrying capacity than looking at the real trajectory, which appears to indicate that the population is starting to remain stable. Note that this plot start the year after the re-introduction (so population higher than 20).
+We can see that due to observation error (i.e., the fact that the transect counts are imperfect) the observed trajectory is far more variable than the real population trajectory. 
+In a real-life scenario, we would only have access to this messy observed trajectory.
+While looking at the real trajectory might give us a sense that the population is starting to stabilize, 
+it's harder to make such assessment while looking at the observed trajectory. 
+Note that this plot starts the year after the re-introduction (so population higher than 20).
 
 # Fit model
 
-Now that we have created our data. Let's fit a model to estimate the true population size. We will use `rstan` to fit a Bayesian version of the model to data. The first thing we want to do is set up the data to fit with the function `stan`:
+Now that we have created our data. Let's fit a model to estimate the true population size. 
+We will use `rstan` to fit a Bayesian version of the model to data. The first thing we want to do is set up the data to fit with the function `stan`:
 
 ```{r data_stan, cache = TRUE}
 dataStan <- list(y = y, TT = TT, 
@@ -110,10 +111,10 @@ dataStan <- list(y = y, TT = TT,
 
 ## Vague priors
 
-As this is a Bayesian model, we need to specify priors for all parameters ($\sigma_o, \sigma_p, \beta_0, \beta_1$).The baseline way to fit this model would be to assume we have no information on the values of these parameters and use vague priors. To demonstrate this approach, we define the priors for all four parameters as $\text{N}(0,100)$. See file `ssm_dens_vague.stan` for exact model definition.
+As this is a Bayesian model, we need to specify priors for all parameters ($\sigma_o, \sigma_p, \beta_0, \beta_1$).
+The baseline way to fit this model would be to assume we have no information on the values of these parameters and use vague priors. To demonstrate this approach, we define the priors for all four parameters as $\text{N}(0,100)$. See file `ssm_dens_vague.stan` for exact model definition.
 
 We can fit this model with vague priors using three chains of length 50000 as follow. 
-
 
 ```{r fit_vague, cache = TRUE}
 m.vague <- stan(file = "ssm_dens_vague.stan",
@@ -153,7 +154,7 @@ It is often recommended to check the model with simulations (Auger-Méthé et al
 
 - $\sigma_p \sim \text{N}(0.05, 0.01)$, 
 
-- $\beta_0 \sim \text{N}(\text{log}(1.3), 0.01)$, and 
+- $\beta_0 \sim \text{N}(\text{ln}(1.3), 0.01)$, and 
 
 - $\beta_1 \sim \text{N}(-0.005, 0.001)$.
 
@@ -170,21 +171,22 @@ In this case there are no warning messages.
 We further look at the traceplots.
 
 ```{r traceplot_sim_inf, cache=TRUE}
-traceplot(m.sim.informed, pars=c("sdo", "sdp", "beta1", "beta0"))
+traceplot(m.sim.informed, pars = c("sdo", "sdp", "beta1", "beta0"))
 ```
 
 The three chains look well mixed.
 
-<!-- We extract info. -->
+We can look briefly at the estimates for each parameters.
 
-```{r, eval=FALSE, echo=FALSE}
+```{r estimate_informed}
 m.sim.informed.post <- as.matrix(m.sim.informed)
-sdo.est.sim.informed <- m.sim.informed.post[,"sdo"]
-sdp.est.sim.informed <- m.sim.informed.post[,"sdp"]
-beta0.est.sim.informed <- m.sim.informed.post[,"beta0"]
-beta1.est.sim.informed <- m.sim.informed.post[,"beta1"]
+mean(m.sim.informed.post[,"sdo"]) # 
+mean(m.sim.informed.post[,"sdp"])
+mean(m.sim.informed.post[,"beta0"])
+mean(m.sim.informed.post[,"beta1"])
 ```
-
+We can see that they are close to the true simulated values of `r sdo` for $\sigma_{o}$,
+`r sdp` for $\sigma_{p}$, `r beta0` for $\beta_0$, and `r beta1` for $\beta_1$.
 
 While the model fits well with these priors, in real life we do not know the exact values of the parameters and often the goal of the analysis is to estimate some or all of them. However, as explained in the next section, we often have biological information that can be easily used to create informed priors.
 
@@ -196,7 +198,7 @@ Researchers often perform studies to assess the accuracy of their transect surve
 
 Researchers also often have information based on other population. Here, we assume that previous work has shown that the mortality of adults is low, especially in conserved areas where there is no harvest, and that the birth rate varies about 5%, and thus set the prior of $\sigma_p$ as $\text{N}(0.05, 0.01)$.
 
-We know the population is increasing and we know based on the birth rate (the species can produce maximum two offspring per year) that it can maximum double each year. Thus, we restrict the value of $\beta_0$ to be between log(1) (stays the same) and log(2) (doubles) by using $\text{Uniform}(\text{log}(1), \text{log}(2))$.
+We know the population is increasing and we know based on the birth rate (the species can produce maximum two offspring per year) that it can maximum double each year. Thus, we restrict the value of $\beta_0$ to be between ln(1) (stays the same) and ln(2) (doubles) by using $\text{Uniform}(\text{ln}(1), \text{ln}(2))$.
 
 Researchers also often have access to estimates from other populations of the same species. Here, we assume that we have estimates for the density dependence parameters from the same species that range from -0.007 and -0.003, and thus we use a prior distribution for $\beta_1$ of $\text{Uniform}(-0.007,-0.003)$. See `ssm_dens_biol_informed.stan` for detailed model.
 
@@ -263,60 +265,9 @@ We can see that the estimated values are close to the simulated real values. The
 
 # Compare model estimates to simulated values
 
-<!-- Old posterior plots -->
-```{r, eval=FALSE, echo=FALSE}
-plot_title <- ggtitle("Posterior distributions - vague",
-                      "with medians and 80% intervals")
-mcmc_areas(m.vague.post,
-           pars = c("sdo", "sdp", "beta0", "beta1"),
-           prob = 0.8) + plot_title +
-  geom_vline(aes(xintercept = sdp), col="hotpink") +
-  geom_vline(aes(xintercept = sdo), col="purple") +
-  geom_vline(aes(xintercept = beta0), col="blue") +
-  geom_vline(aes(xintercept = beta1), col="orange") 
-
-mcmc_intervals(m.vague.post,
-           pars = c("sdo", "sdp", "beta0", "beta1"),
-           prob = 0.8) + plot_title +
-  geom_vline(aes(xintercept = sdp), col="hotpink") +
-  geom_vline(aes(xintercept = sdo), col="purple") +
-  geom_vline(aes(xintercept = beta0), col="blue") +
-  geom_vline(aes(xintercept = beta1), col="orange")
-
-
-plot_title <- ggtitle("Posterior distributions - sim informed",
-                      "with medians and 80% intervals")
-mcmc_areas(m.sim.informed.post,
-           pars = c("sdo", "sdp", "beta0", "beta1"),
-           prob = 0.8) + plot_title +
-  geom_vline(aes(xintercept = sdp), col="hotpink") +
-  geom_vline(aes(xintercept = sdo), col="purple") +
-  geom_vline(aes(xintercept = beta0), col="blue") +
-  geom_vline(aes(xintercept = beta1), col="orange") 
-
-mcmc_intervals(m.sim.informed.post,
-           pars = c("sdo", "sdp", "beta0", "beta1"),
-           prob = 0.8) + plot_title +
-  geom_vline(aes(xintercept = sdp), col="hotpink") +
-  geom_vline(aes(xintercept = sdo), col="purple") +
-  geom_vline(aes(xintercept = beta0), col="blue") +
-  geom_vline(aes(xintercept = beta1), col="orange") 
-
-plot_title <- ggtitle("Posterior distributions - biol informed",
-                      "with medians and 80% intervals")
-mcmc_areas(m.informed.post,
-           pars = c("sdo", "sdp", "beta0", "beta1"),
-           prob = 0.8) + plot_title +
-  geom_vline(aes(xintercept = sdp), col="hotpink") +
-  geom_vline(aes(xintercept = sdo), col="purple") +
-  geom_vline(aes(xintercept = beta0), col="blue") +
-  geom_vline(aes(xintercept = beta1), col="orange") 
-
-```
-
 As we have simulated the data, we know the true parameter values. We can compare the estimates from the model with vague priors to the model with biologically informed priors.
 
-Here are the 90% posterior intervals for the four parameters when using the model with the vague priors. 
+Here are the 80% posterior intervals for the four parameters when using the model with the vague priors. 
 
 ```{r}
 mcmc_intervals(m.vague.post,
@@ -333,7 +284,7 @@ mcmc_intervals(m.vague.post,
 
 The simulated values are showed with the vertical lines. We can see that the estimates are poor for all four parameters.
 
-Here are the 90% posterior intervals for the four parameters, this time with the model with biologically informed priors. 
+Here are the 80% posterior intervals for the four parameters, this time with the model with biologically informed priors. 
 
 ```{r}
 mcmc_intervals(m.informed.post,
@@ -350,7 +301,14 @@ mcmc_intervals(m.informed.post,
 
 We can see that the estimates are really close to the true values simulated values.
 
-**Ailene**: if you have a better way to represent this, please go ahead and change it.
+We can compare the point estimates of the carrying capacity.
+
+```{r K}
+mean(beta0.est.vague/-beta1.est.vague)
+mean(beta0.est.informed/-beta1.est.informed)
+```
+
+With the carrying capacity of the biologically informed model far better than the model with vague priors.
 
 # Session info
 
