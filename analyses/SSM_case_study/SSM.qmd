@@ -119,7 +119,7 @@ We can fit this model with vague priors using three chains of length 50000 as fo
 ```{r fit_vague, cache = TRUE}
 m.vague <- stan(file = "ssm_dens_vague.stan",
                 data = dataStan,
-                chains = 3, iter = 50000, seed="123")
+                chains = 4, iter = 2000, seed="123")
 
 ```
 
@@ -162,7 +162,7 @@ It is often recommended to check the model with simulations (Auger-Méthé et al
 ```{r fit_sim_inf, cache = TRUE}
 m.sim.informed <- stan(file = "ssm_dens_sim_informed.stan",
                 data = dataStan,
-                chains = 3, iter = 50000, seed="123")
+                chains = 4, iter = 2000, seed="123")
 
 ```
 
@@ -174,7 +174,7 @@ We further look at the traceplots.
 traceplot(m.sim.informed, pars = c("sdo", "sdp", "beta1", "beta0"))
 ```
 
-The three chains look well mixed.
+The four chains look well mixed.
 
 We can look briefly at the estimates for each parameters.
 
@@ -198,9 +198,9 @@ Researchers often perform studies to assess the accuracy of their transect surve
 
 Researchers also often have information based on other population. Here, we assume that previous work has shown that the mortality of adults is low, especially in conserved areas where there is no harvest, and that the birth rate varies about 5%, and thus set the prior of $\sigma_p$ as $\text{N}(0.05, 0.01)$.
 
-We know the population is increasing and we know based on the birth rate (the species can produce maximum two offspring per year) that it can maximum double each year. Thus, we restrict the value of $\beta_0$ to be between ln(1) (stays the same) and ln(2) (doubles) by using $\text{Uniform}(\text{ln}(1), \text{ln}(2))$.
+We know the population is increasing and we know based on the birth rate (the species can produce maximum two offspring per year) that it can maximum double each year. Thus, we suspect that the value of $\beta_0$ is between ln(1) (stays the same) and ln(2) (doubles) and most likely somewhere in the middle, and we model this prior information with $\text{N}(\text{ln}(2)/2, .2)$.
 
-Researchers also often have access to estimates from other populations of the same species. Here, we assume that we have estimates for the density dependence parameters from the same species that range from -0.007 and -0.003, and thus we use a prior distribution for $\beta_1$ of $\text{Uniform}(-0.007,-0.003)$. See `ssm_dens_biol_informed.stan` for detailed model.
+Researchers also often have access to estimates from other populations of the same species. Here, we assume that we have estimates for the density dependence parameters from the same species that range from -0.007 and -0.003, and thus we use a prior distribution for $\beta_1$ of $\text{N}(-0.005,-0.001)$. See `ssm_dens_biol_informed.stan` for detailed model.
 
 We note that these are just simplified examples of ways to include biological information as priors, other methods and priors could/should be used in many circumstances.
 
@@ -208,10 +208,8 @@ We note that these are just simplified examples of ways to include biological in
 ```{r fit_biol_inf, cache = TRUE}
 m.biol.informed <- stan(file = "ssm_dens_biol_informed.stan",
                 data = dataStan,
-                chains = 3, iter = 50000, seed= "123")
+                chains = 4, iter = 2000, seed= "123", control=list(adapt_delta=0.99))
 ```
-
-**Ailene**: can you help me fix the issue with these warnings. This models clearly fits ok. But can't figure out how to fix it so as to remove these warnings. 
 
 We will look at the traceplots.
 

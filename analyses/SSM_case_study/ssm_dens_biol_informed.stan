@@ -19,8 +19,8 @@ model {
   // Prior distributions
   sdo ~ normal(10, 0.1); // 
   sdp ~ normal(0.05, 0.01); // 
-  beta0 ~ uniform(log(1), log(2));
-  beta1 ~ uniform(-0.007, -0.003);  // Density dependence 
+ beta0 ~ normal(log(2)/2, .2 );
+  beta1 ~ normal(-.005, .001); 
   // Distribution for the first state
   w[1] ~ normal(w0 + beta0 + beta1*exp(w0), sdp);
   // Distributions for all other states
