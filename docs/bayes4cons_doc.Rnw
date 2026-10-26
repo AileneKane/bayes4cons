@@ -168,7 +168,7 @@ Ecology and conservation science have become more quantitative and data-driven f
 \subsection*{Case Study 1: Robust estimates of trends in species or populations of concern}
 \par In some cases, Bayesian approaches can lead to different conclusions than common Fisherian approaches, such as null hypothesis testing \citep{wade2000bayesian}. Consider, for example, sampling five populations of a species across its range---from north to south---to monitor for changes in the population size with climate change. 
  % emw15Nov2025: Do we want to sneak in a sentence about leading edge and trailing edge expectations? I can if we have space...
-After collecting data for ten years, a traditional null hypothesis testing approach to analyzing the data, using the commonly used significance level ($\alpha$) of 0.05 would find changes in only two of the populations---the furthest north population, which appears to be increasing, and the second furthest north population, also increasing. The three other populations are not significantly changing under this approach (Fig. \ref{fig:nht} left). In contrast, a Bayesian approach (using weakly informative priors centered at zero, all code provided in supplement) would likely focus on the full distribution of the modeled estimates (the posteriors), where small differences in the variance do not appear so different  (Fig. \ref{fig:nht} right). Here, a clear trend emerges where trends in population size correlate with position in range---with the most northern population increasing the most and the most southern population decreasing the most. This pattern across the range is the type predicted by climate change and may be missed with a classic Fisherian approach (combining null hypothesis testing with threshold values for `significance'), leading to potential very difference conservation and management decisions. % EMW says: We could also add (1) more details on the simulations (the variance in the underlying model increases going from north to south, which is expected for smaller population sizes), (2) point out 10 years is often more years than we have; though I think there is enough text already. 
+After collecting data for ten years, a traditional null hypothesis testing approach to analyzing the data, using the commonly used significance level ($\alpha$) of 0.05 would find changes in only two of the populations---the furthest north population, which appears to be increasing, and the second furthest north population, also increasing. The three other populations are not significantly changing under this approach (Fig. \ref{fig:nht} left). In contrast, a Bayesian approach (using weakly informative priors centered at zero, all code provided in supplement) would likely focus on the full distribution of the modeled estimates (the posteriors), where small differences in the variance do not appear so different  (Fig. \ref{fig:nht} right). Here, a clear trend emerges where trends in population size correlate with position in range---with the most northern population increasing the most and the most southern population decreasing the most. This pattern across the range is the type predicted by climate change and may be missed with a classic Fisherian approach (combining null hypothesis testing with threshold values for `significance'), leading to potentially very different conservation and management decisions. % EMW says: We could also add (1) more details on the simulations (the variance in the underlying model increases going from north to south, which is expected for smaller population sizes), (2) point out 10 years is often more years than we have; though I think there is enough text already. 
 
 
 \subsection*{Case Study 2: Incorporating and propagating uncertainty}
@@ -190,7 +190,7 @@ After collecting data for ten years, a traditional null hypothesis testing appro
 
 \par 
 \section* {Box 1}
-\subsection{Defining Bayesian Analysis}
+\subsection*{Defining Bayesian Analysis}
 
 Bayesian analysis, including inference and workflow, enable us to combine prior knowledge of a system with available data to quantitatively measure the probability of a model or hypothesis being true. A Bayesian model treats parameters as random variables for which a known probability distribution is defined based on prior knowledge of the parameter uncertainty. By incorporating expert knowledge of ecological processes or species natural history, this modelling approach allows the development of uniquely formulated models for any given data-generating process.\\
 
@@ -240,7 +240,7 @@ Our aim here is not to provide an exhaustive explanation of Bayesian statistics,
 % 
 
 
- \subsection{Resources to Get Started}
+ \subsection*{Resources to Get Started}
 %\par Note that this will be merged in with Box 1.
 %HNE13nov2025: do we want to set these all up to be citations and in the reference list? 
 
