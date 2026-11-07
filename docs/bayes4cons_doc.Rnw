@@ -12,6 +12,7 @@
 \usepackage{authblk}
 \usepackage{gensymb}
 \usepackage{amsmath}
+
 %\usepackage[backend=bibtex]{biblatex}
 %Strongly recommended
  %put your figures in one place
@@ -203,7 +204,42 @@ as defined using data from previous experiments, expert opinions, or literature,
  % emw15Nov2025: Can we sneak in a definition of 'inference'?
 Since the results of Bayesian methods are probabilistic, they allow us to make stronger inferences based on a model's predicted uncertainty. As new data is collected or inferences made, we can revise our model priors and iteratively improve our understanding of the data-generating processes that underlie ecological systems. Model estimates can be further used to perform simulations and more robustly forecast changes under future conditions. 
 
-Our aim here is not to provide an exhaustive explanation of Bayesian statistics, but to provide a brief introduction of core components of a Bayesian model and their relationships. For an in depth discussion of Bayesian statistics, we recommend the \emph{Gentle Introduction to Bayesian statistics} by \cite{van2014gentle}, \emph{Bayesian model selection for ecologists} by \cite{hooten2015guide}, and \emph{Bayesian Inference for ecologists} by \cite{ellison2004}. For further discussion of prior selection for ecological models, see \cite{banner2020priors}.
+Our aim here is not to provide an exhaustive explanation of Bayesian statistics, but to provide a brief introduction of core components of a Bayesian model and their relationships. Below we provide a short list of accessible resources, and encourage researchers new to Bayesian to try new or updated materials as they become available. Additionally, a number of the below recommendations now have their materials online, and include videos of lectures (e.g., see websites by McElreath and Vehtari) for courses that go with the books and can help with learning the material.
+
+\subsection*{\textbf{Journal articles:}}
+\begin{itemize}
+\item \emph{Gentle Introduction to Bayesian statistics} by \cite{van2014gentle}
+\item \emph{Bayesian statistics and modelling} by \cite{vandeSchoot2021}
+\item \emph{A four-step Bayesian workflow for improving ecological science} by \cite{wolkovich2026}
+\item \emph{A guide to Bayesian model selection for ecologists} by \cite{hooten2015guide}
+\item \emph{Bayesian Inference for ecologists} by \cite{ellison2004}
+\item \emph{The use of Bayesian priors in Ecology: The good, the bad and the not great} \cite{banner2020}
+\item \emph{Visualization in Bayesian Workflow} by \cite{gabry2019}
+\end{itemize}
+
+\subsection*{\textbf{Introductory textbooks:}}
+
+\begin{itemize}
+\item \emph{Statistical Rethinking} by \cite{McElreathSR}, and includes \href{http://xcelab.net/rm/statistical-rethinking/}{complementary online content}
+\item \emph{Regression and Other Stories} (often referred to as `ROS') by \cite{GelmanROS} (\href{https://avehtari.github.io/ROS-Examples/}{more info here, including ROS online PDF}) 
+\item \emph{Bayesian Models: A statistical primer for ecologists} by \cite{hobbs2015}
+% \item Ecological Forecasting by Dietz
+\item \emph{Applied statistical modelling for ecologists: a practical guide to Bayesian and likelihood inference using R, JAGS, NIMBLE, Stan and TMB} by \cite{Kery2024}
+\item \emph{Bayesian Data Analysis} by \cite{GelmanBDA} (sometimes called `BDA')
+ \end{itemize}
+
+\subsection*{\textbf{Online resources:}}
+
+\begin{itemize}
+\item \href{https://mc-stan.org/learn-stan/case-studies.html}{Stan Case Studies} on Bayesian methodology and Stan programming \citep{stanCaseStudies}
+\item \href{https://betanalpha.github.io/writing/}{Writing and vignettes by Michael Betancourt} on important and diverse concepts in probabilistic modeling \citep{betancourt_writing}
+\end{itemize}
+
+The uptick in the use of Bayesian inference has come alongside new programming languages that have made Bayesian models easier and faster to fit \citep{Carpenter:2017stan}, and we thus focused many of our recommendations on materials that use these newer approaches. Textbooks such as \emph{Statistical Rethinking} \citep{McElreathSR} and \emph{Bayesian Data Analysis} \citep{GelmanBDA} are a major reason for the increasing use of Bayesian inference in ecology and are great reads, with the later being particularly good for those who want to learn from the underlying math and have a resource that covers many approaches. Other texts, like \emph{Regression and Other Stories} \citep{GelmanROS}, starts at the very beginning and builds up almost to multi-level modeling---and is effectively the first half of \emph{Data Analysis Using Regression and Multilevel/Hierarchical Models} by \cite{GelmanHill2007} \href{http://www.stat.columbia.edu/~gelman/arm/}{(more info here)}. The writing and vignettes by Michael Betancourt are better geared towards readers with a math background, as they build up from the mathematical foundations to a number of useful modeling approaches with careful case studies throughout. \\
+
+For many, the best way to start or advance in Bayesian inference is through building community. This may mean starting to learn Bayesian approaches in a reading or model building group, and is how many of us learned---picking a book and finding a group that wants to meet weekly (or twice monthly) to work through the chapter concepts and exercises together, or having a group where each person reports on a model they're working on each time (this works best when not everyone is new to Bayesian inference). It can also be helpful to go through a suite of case studies (e.g., Stan Case Studies \citep{stanCaseStudies} and example models \cite{stanExampleModels}). These communities can be in-person or virtual, and can extend through a suite of virtual forums. Many questions are posted and answered through \href{https://discourse.mc-stan.org/}{The Stan Forums} \citep{stanForum} for example, and the community hosts annual conferences as well. In addition, conferences for statistical ecology societies, Bayesian statistics societies, and for R and Python can often be great places to meet people interested in these approaches.
+
+
 %HNE13nov2025 What's the rationale for removing the items below? They seem helpful? 
 % Inference in frequentist statistics can take many forms, but here we focus on the most dominant incarnation, which entails testing the significance of a null hypothesis given data, measured with a p-value \citep{Zyl2018}. Bayesian analysis can be formulated in a variety of different ways (Lee, 2011). Frequentist methods have previously dominated ecological analyses.
 % \begin{itemize}
@@ -239,40 +275,37 @@ Our aim here is not to provide an exhaustive explanation of Bayesian statistics,
 % \end{itemize}
 % 
 
-
- \subsection*{Resources to Get Started}
-%\par Note that this will be merged in with Box 1.
-%HNE13nov2025: do we want to set these all up to be citations and in the reference list? 
-
-\par Resources on general Bayesian methods: 
-
-Uptick in the use of Bayesian inference has come alongside new programming languages that have made Bayesian models easier and faster to fit \citep{Carpenter:2017stan}, and we thus focus many of our recommendations on materials that use these newer approaches. We provide only a short list, and encourage researchers new to Bayesian to try new or updated materials as they become available. Additionally, a number of the below recommendations now have their materials online, and include videos of lectures (e.g., see websites by McElreath and Vehtari) for courses that go with the books and can help with learning the material. 
-
-\begin{itemize}
-\item Statistical Rethinking by Richard McElreath \url{http://xcelab.net/rm/statistical-rethinking/} is likely a major reason for the increasing use of Bayesian inference in ecology and is a great read.
-\item \emph{Regression and Other Stories} (ROS) by Gelman, Hill \& Vehtari (\href{https://avehtari.github.io/ROS-Examples/}{more info here, including ROS online PDF}) is a great resource for learning Bayesian approaches that starts at the very beginning and builds up almost to multi-level modeling. It is effectively the first half of \emph{Data Analysis Using Regression and Multilevel/Hierarchical Models} by Gelman \& Hill \href{http://www.stat.columbia.edu/~gelman/arm/}{(more info here)} but updated to modern approaches and our current understanding of priors, workflows and more. 
- % emw15Nov2025: I don't know the below but people seem to like them, maybe someone else can add here? 
-\item Bayesian Models: A statistical primer for ecologists by Hobbs \& Hooten
- \item Ecological Forecasting by Dietz
-\item Applied statistical modelling for ecologists: a practical guide to Bayesian and likelihood inference using R, JAGS, NIMBLE, Stan and TMB by Marc K\'ery
-and Kenneth F Kellner
-\item \emph{Bayesian Data Analysis} (sometimes called `BDA') has also popularized Bayesian inference and is a great resource for those who want to learn from the underlying math and have a resource that covers many approaches. 
-\item Michael Betancourt has most of what will become a book important concepts in probabilistic modeling  \href{https://betanalpha.github.io/writing/}{online}. Great for readers with a math background, it builds up from the mathematical foundations to a number of useful modeling approaches with careful case studies throughout. 
-\item Many of the above resources discuss different versions of a Bayesian workflow, which is also highlighted in several papers  \citep{gelman2020bayesia}
-% Add to above bullet?: Visualization in Bayesian Workflow \url{https://doi.org/10.1111/rssa.12378} % add ref? 
-% Add to above bullet?: A four-step Bayesian workflow for improving ecological science \url{https://doi.org/10.48550/arXiv.2408.02603}
- \end{itemize}
-
-For many, the best way to start or advance in Bayesian inference is through building community. This may mean starting to learn Bayesian approaches in a reading or model building group, and is how many of us learned---picking a book and finding a group that wants to meet weekly (or twice monthly) to work through the chapter concepts and exercises together, or having a group where each person reports on a model they're working on each time (this works best when not everyone is new to Bayesian inference). It can also be helpful to go through a suite of case studies (e.g., \url{https://mc-stan.org/learn-stan/case-studies.html}, \url{https://github.com/stan-dev/example-models}). 
-
-These communities can be in-person or virtual, and can extend through a suite of virtual forums. Many questions are posted and answered through The Stan Forums \url{https://discourse.mc-stan.org/} for example, and the community hosts annual conferences as well. In addition, conferences for statistical ecology societies, Bayesian statistics societies, and for R and Python can often be great places to meet people interested in these approaches. 
-
-\begin{itemize}
- \item  \href{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4158865/}{Gentle Introduction to Bayesian statistics \citep{van2014gentle}}
-
-\item Bayesian statistics and modelling \url{https://doi.org/10.1038/s43586-020-00001-2}
-
- \end{itemize}
+%  \subsection*{Resources to Get Started}
+% %\par Note that this will be merged in with Box 1.
+% %HNE13nov2025: do we want to set these all up to be citations and in the reference list? 
+% 
+% \par Resources on general Bayesian methods: 
+% 
+% Uptick in the use of Bayesian inference has come alongside new programming languages that have made Bayesian models easier and faster to fit \citep{Carpenter:2017stan}, and we thus focus many of our recommendations on materials that use these newer approaches. We provide only a short list, and encourage researchers new to Bayesian to try new or updated materials as they become available. Additionally, a number of the below recommendations now have their materials online, and include videos of lectures (e.g., see websites by McElreath and Vehtari) for courses that go with the books and can help with learning the material. 
+% 
+% \begin{itemize}
+% \item Statistical Rethinking by Richard McElreath \url{http://xcelab.net/rm/statistical-rethinking/} is likely a major reason for the increasing use of Bayesian inference in ecology and is a great read.
+% \item \emph{Regression and Other Stories} (ROS) by Gelman, Hill \& Vehtari (\href{https://avehtari.github.io/ROS-Examples/}{more info here, including ROS online PDF}) is a great resource for learning Bayesian approaches that starts at the very beginning and builds up almost to multi-level modeling. It is effectively the first half of \emph{Data Analysis Using Regression and Multilevel/Hierarchical Models} by Gelman \& Hill \href{http://www.stat.columbia.edu/~gelman/arm/}{(more info here)} but updated to modern approaches and our current understanding of priors, workflows and more. 
+%  % emw15Nov2025: I don't know the below but people seem to like them, maybe someone else can add here? 
+% \item Bayesian Models: A statistical primer for ecologists by Hobbs \& Hooten
+%  \item Ecological Forecasting by Dietz
+% \item Applied statistical modelling for ecologists: a practical guide to Bayesian and likelihood inference using R, JAGS, NIMBLE, Stan and TMB by Marc K\'ery
+% and Kenneth F Kellner
+% \item \emph{Bayesian Data Analysis} (sometimes called `BDA') has also popularized Bayesian inference and is a great resource for those who want to learn from the underlying math and have a resource that covers many approaches. 
+% \item Michael Betancourt has most of what will become a book important concepts in probabilistic modeling  \href{https://betanalpha.github.io/writing/}{online}. Great for readers with a math background, it builds up from the mathematical foundations to a number of useful modeling approaches with careful case studies throughout. 
+% \item Many of the above resources discuss different versions of a Bayesian workflow, which is also highlighted in several papers  \citep{gelman2020bayesia}
+% % Add to above bullet?: Visualization in Bayesian Workflow \url{https://doi.org/10.1111/rssa.12378} % add ref? 
+% % Add to above bullet?: A four-step Bayesian workflow for improving ecological science \url{https://doi.org/10.48550/arXiv.2408.02603}
+%  \end{itemize}
+% 
+% For many, the best way to start or advance in Bayesian inference is through building community. This may mean starting to learn Bayesian approaches in a reading or model building group, and is how many of us learned---picking a book and finding a group that wants to meet weekly (or twice monthly) to work through the chapter concepts and exercises together, or having a group where each person reports on a model they're working on each time (this works best when not everyone is new to Bayesian inference). It can also be helpful to go through a suite of case studies (e.g., \url{https://mc-stan.org/learn-stan/case-studies.html}, \url{https://github.com/stan-dev/example-models}). 
+% 
+% These communities can be in-person or virtual, and can extend through a suite of virtual forums. Many questions are posted and answered through The Stan Forums \url{https://discourse.mc-stan.org/} for example, and the community hosts annual conferences as well. In addition, conferences for statistical ecology societies, Bayesian statistics societies, and for R and Python can often be great places to meet people interested in these approaches. 
+% 
+% 
+% \item Bayesian statistics and modelling \url{https://doi.org/10.1038/s43586-020-00001-2}
+% 
+%  \end{itemize}
 %\par Bayesian case studies: % emw15Nov2025: I integrated above, see what you think. 
 %\begin{itemize}
 %\item Stan Case Studies \url{https://mc-stan.org/learn-stan/case-studies.html}
