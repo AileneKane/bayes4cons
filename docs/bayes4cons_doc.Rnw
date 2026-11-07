@@ -213,7 +213,7 @@ Our aim here is not to provide an exhaustive explanation of Bayesian statistics,
 \item \emph{A four-step Bayesian workflow for improving ecological science} by \cite{wolkovich2026}
 \item \emph{A guide to Bayesian model selection for ecologists} by \cite{hooten2015guide}
 \item \emph{Bayesian Inference for ecologists} by \cite{ellison2004}
-\item \emph{The use of Bayesian priors in Ecology: The good, the bad and the not great} \cite{banner2020}
+% \item \emph{The use of Bayesian priors in Ecology: The good, the bad and the not great} \cite{banner2020}
 \item \emph{Visualization in Bayesian Workflow} by \cite{gabry2019}
 \end{itemize}
 
