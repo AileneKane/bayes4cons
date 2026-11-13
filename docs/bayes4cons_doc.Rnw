@@ -12,6 +12,7 @@
 \usepackage{authblk}
 \usepackage{gensymb}
 \usepackage{amsmath}
+\usepackage[table]{xcolor}
 
 %\usepackage[backend=bibtex]{biblatex}
 %Strongly recommended
@@ -346,7 +347,8 @@ For many, the best way to start or advance in Bayesian inference is through buil
 \begin{figure}[h]
 \centering
  \includegraphics{../figs/conservation.pdf}
- \caption{\textbf{Proportion papers using Bayes in XX major conservation journals since 2000}}
+ \caption{\textbf{Figure 1: The fraction of papers mentioning or using Bayesian methods has increased steadily over the past two decades. Lines here show the fraction of articles from a subset of articles (described below) that match at least one of our Bayesian keywords (see Table 1) with different lines corresponding to different journals, as indicated in the legend, and black line showing the fraction across all journals (a larger sample than those shown individually here; see Table 2). To find articles, we queried Web of Science \citep{WebOfScience} for all articles published between the years 2000 and 2023, in the journals listed in Table 2.% “The American Naturalist,” “Biodiversity and Conservation,” “Biological Conservation,” “Conservation Biology,” “Ecological Applications,” “Ecological Monographs,” “Ecology,” “Ecology Letters,” “Forest Ecology and Management,” “Global Change Biology,” “Global Ecology and Conservation,” “Journal of Animal Ecology,” “Journal of Applied Ecology,” “Journal of Ecology,” “Marine Ecology Progress Series,” “Oecologia,” and “Oikos” 
+We then used Zotero \citep{Ooms2024} to automatically retrieve full PDFs (which is only partially effective) and then used the pdftools package in R \citep{Ooms2024} to import and convert the PDFs into strings. We next searched imported articles for keywords that indicate the articles may contain statistical analyses (see Table 1 for a full list of search patterns), removing articles that did not match any keywords. Based on visual inspection, removed articles were generally descriptive and, indeed, did not include statistical analyses. This process ultimately yielded 34,079 articles (see Table 2 for a breakdown by journal).}}
  \label{fig:consbaystrend}
  \end{figure}
 
@@ -366,6 +368,93 @@ For many, the best way to start or advance in Bayesian inference is through buil
  \end{figure}
  
  
+ \definecolor{Gray}{gray}{0.95}
+\begin{table}[h]
+  \centering
+  \caption{Text patterns.}
+    \begin{tabular}{|l|l|p{0.3\linewidth}|p{0.3\linewidth}|}
+    \hline
+      \cellcolor{Gray}Paradigm
+      & \cellcolor{Gray}Pattern
+      & \cellcolor{Gray}Number of articles identified
+      & \cellcolor{Gray}Number of articles identified only by this keyword\\
+      \hline
+      & \texttt{'bayes'} & X & X\\
+      & \texttt{' brms '} & & \\
+      & \texttt{' winbugs '} & & \\
+      & \texttt{' openbugs '} & & \\
+      & \texttt{' jags '} & & \\
+      & \texttt{' rstan '} & & \\
+      & \texttt{' pystan '} & & \\
+      Bayesian & \texttt{' cmdstan '} & & \\
+      & \texttt{' credible interval '} & & \\
+      & \texttt{'hpd'} & & \\
+      & \texttt{'maximum a posteriori'} & & \\
+      & \texttt{'mcmc'} & & \\
+      & \texttt{'prior distribution'} & & \\
+      & \texttt{'posterior distribution'} & & \\
+      & \texttt{'posterior density} & & \\
+      \hline
+      & \texttt{'p-value'} & & \\
+      & \texttt{' p value'} & & \\
+      & \texttt{'p<'} & & \\
+      & \texttt{'p <'} & & \\
+      & \texttt{'p='} & & \\
+      & \texttt{'p ='} & & \\
+      & \texttt{'p>'} & & \\
+      & \texttt{'p >'} & & \\
+      & \texttt{'anova '} & & \\
+      & \texttt{'bonferroni'} & & \\
+      & \texttt{'likelihood ratio'} & & \\
+      & \texttt{'mantel test'} & & \\
+      Frequentist & \texttt{'parametric'} & & \\
+      & \texttt{'chi-square'} & & \\
+      & \texttt{'chi square'} & & \\
+      & \texttt{'f-statistic'} & & \\
+      & \texttt{' f statistic'} & & \\
+      & \texttt{' glm '} & & \\
+      & \texttt{'regression'} & & \\
+      & \texttt{'t-test'} & & \\
+      & \texttt{'test statistic'} & & \\
+      & \texttt{'spearman'} & & \\
+      & \texttt{'null hypothesis'} & & \\
+      & \texttt{'confidence interval'} & & \\
+      & \texttt{'lme4'} & & \\
+    \hline
+  \end{tabular}
+\label{tab:keywords}
+\end{table}
+\clearpage
+
+\definecolor{Gray}{gray}{0.95}
+\begin{table}[h]
+  \centering
+  \caption{Journal titles and article counts.}
+    \begin{tabular}{|l|l|}
+    \hline
+      \cellcolor{Gray}Journal & \cellcolor{Gray}Article count\\
+      \hline
+      \textit{The American Naturalist} & 930\\
+      \textit{Biodiversity and Conservation} & 3274\\
+      \textit{Biological Conservation} & 954\\
+      \textit{Conservation Biology} & 878\\
+      \textit{Ecological Applications} & 1022\\
+      \textit{Ecological Monographs} & 226\\
+      \textit{Ecology} & 1978\\
+      \textit{Ecology Letters} & 951\\
+      \textit{Forest Ecology and Management} & 1071\\
+      \textit{Global Change Biology} & 1936\\
+      \textit{Global Ecology and Conservation} & 431\\
+      \textit{Journal of Animal Ecology} & 982\\
+      \textit{Journal of Applied Ecology} & 967\\
+      \textit{Journal of Ecology} & 1005\\
+      \textit{Marine Ecology Progress Series} & 10132\\
+      \textit{Oecologia} & 6585\\
+      \textit{Oikos} & 757\\
+    \hline
+  \end{tabular}
+\label{tab:article-counts}
+\end{table}
 
 %%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%
