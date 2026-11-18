@@ -12,6 +12,8 @@
 \usepackage{authblk}
 \usepackage{gensymb}
 \usepackage{amsmath}
+\usepackage[table]{xcolor}
+
 %\usepackage[backend=bibtex]{biblatex}
 %Strongly recommended
  %put your figures in one place
@@ -94,35 +96,29 @@
 %\linenumbers
 
 \section*{Abstract} 
-% emw15Nov2025: see re-write of some long sentences below led me to cut 'to address the biodiversity crisis in the era of climate change' -- see if you can sneak it elsewhere? Maybe as a new sentence after the first one? %HNE16nov2025: added phrase in last sentence, and split last sentence into two sentences. Not sure if it works or not? Overall, I like that the abstract is short. 
-
-Conservation science has been called a `crisis discipline' in which practitioners, like medical doctors, often need to act quickly to sustain the long-term health of nature, but without complete knowledge. Bayesian data analysis provides a framework to support evidence-based conservation science, but has not been fully integrated into conservation policy and practice globally. We highlight features of Bayesian data analysis that are well-suited to help practitioners who may be unfamiliar with Bayesian methods, including the iterative workflow process, flexible modelling frameworks, and integration of uncertainty. We also review recent trends in the use of Bayesian approaches across subfields of conservation science and share resources to facilitate wider implementation of these methods. By highlighting the utility of Bayesian data analytical approaches, we hope to accelerate their adoption to address the biodiversity crisis in the era of climate change. We contend that these methods can lead to more rigorous evidence-based research and, ultimately, improved conservation outcomes. 
+Conservation science has been called a `crisis discipline' in which practitioners need to act quickly to sustain the long-term health of natural systems, often without complete knowledge. Bayesian data analysis provides a framework to support evidence-based conservation science, but has not been fully integrated into conservation policy and practice globally. We highlight features of Bayesian data analysis that are well-suited to help conservation practitioners who may be unfamiliar with Bayesian methods, including the iterative workflow process, flexible modelling frameworks, and integration of uncertainty. We also review recent trends in the use of Bayesian approaches across subfields of conservation science and share resources to facilitate wider implementation of these methods. By highlighting the utility of Bayesian data analytical approaches, we hope to accelerate their adoption to address the biodiversity crisis in the era of climate change. We contend that these methods can lead to more rigorous evidence-based research and, ultimately, improved conservation outcomes. 
 \newpage
 \section* {Introduction}
 
-Conservation science is an interdisciplinary field focused on protecting and managing biodiversity and natural ecosystems, both to sustain the long-term health of nature and to benefit human well-being \citep{kareiva2012conservation}. At its start, conservation science often focused on spatial analyses to identify priority areas to establish parks and preserves intended to protect threatened species and communities \citep{bocking2020science}. 
-% emw15Nov2025: Can we simplify below sentence? I am also not sure what 'preserve establishment' means 
-%HNE16Nov2025: shortend and simplified below sentence. 
-Today, climate change has added new feedbacks and complexity to these analyses, since protecting today's habitats from development or other land use changes does not guarantee suitable conditions in a future warmer world. In addition, climate change both affects biodiversity \citep[e.g., by causing extinctions][]{urban2024climate} and is affected by biodiversity conservation \citep[e.g., nature-based climate solutions or `natural climate solutions'][]{griscom2017natural}. Integrating approaches to bolster adaptation and resilience to climate change, as well as greenhouse gas mitigation, are critical components of planning and implementing conservation in the era of climate change.
-
-% emw15Nov2025: Any chance you could cut some of the previous paragraph and fit this point into the first paragraph also?
-\par Robust and usable conservation science under climate change is needed at scales ranging from local to global. For example, preserve managers seek guidance about how to best steward natural resources for climate resilience \citep{Nadeau2015}, and  international climate policymakers rely on scientific data and publications for systematic observation of climate systems and impacts to people \cite{ipcc2007}. 
+Conservation science is an interdisciplinary field focused on protecting and managing biodiversity and natural ecosystems, both to sustain the long-term health of nature and to benefit human well-being \citep{kareiva2012conservation}. At its start, conservation science often focused on spatial analyses to identify priority areas to establish protected areas\citep{bocking2020science}; today, climate change has added new feedbacks and complexity to these analyses, since protecting habitats from development or other land use changes does not guarantee suitable conditions in a future warmer world. In addition, climate change both affects biodiversity \citep[e.g., by causing extinctions][]{urban2024climate} and is affected by biodiversity conservation \citep[e.g., nature-based climate solutions or `natural climate solutions'][]{griscom2017natural}. We need robust and usable conservation science that integrates approaches to bolster adaptation and resilience to climate change at scales ranging from local to global. For example, preserve managers seek guidance about how to best steward natural resources for climate resilience \citep{Nadeau2015}, and  international climate policymakers rely on scientific data and publications for systematic observation of climate systems and impacts to people \cite{ipcc2007}. 
 
 % emw15Nov2025: too many sentences in the main text are identical to abstract for me -- I like the ones you've picked, I just think they need to be less identical. 
-\par As `crisis discipline' practitioners, conservation biologists, like medical doctors, often need to act rapidly and without complete knowledge \citep{soule1985conservation}. Rather than relying only on personal experience or word of mouth in such situations, as was frequently done in the past, medical and conservation practitioners alike increasingly rely on evidence that has been systematically accumulated through meta-analyses and other syntheses \citep{kareiva2012conservation}. Developing the evidence base for urgent climate and biodiversity problems often requires synthesizing multiple data sources and incomplete datasets, given the complex ecological systems in which many conservation science problems are grounded. A critical part of building this evidence base is ensuring reproducibility and transparency, including clear communication of uncertainty \citep{ellis2024principles,ipcc2007}. 
+%AKE1Dec2025: I will check this and revise as needed, after all edits have been incorporated to main text.
+\par As `crisis discipline' practitioners, conservation managers, like medical doctors, often need to act rapidly and without complete knowledge \citep{soule1985conservation}. Rather than relying only on personal experience or word of mouth in such situations, as was frequently done in the past, medical and conservation practitioners alike increasingly rely on evidence that has been systematically accumulated through meta-analyses and other syntheses \citep{kareiva2012conservation}. Developing the evidence base for urgent climate and biodiversity problems often requires synthesizing multiple data sources and incomplete datasets, given the complex ecological systems in which many conservation science problems are grounded. A critical part of building this evidence base is ensuring reproducibility and transparency, including clear communication of uncertainty \citep{ellis2024principles,ipcc2007}. 
 
-\par Addressing conservation problems requires information beyond ecology; social, cultural, political and economic data, in addition to biological and physical information, are needed to provide the evidence base upon which decisions can be made \citep{Bennett2017}. Focal populations of threatened species are often small, and ecological and social data are often non-normal, `unbalanced' and nested within hierarchical or non-hierarchical groupings that are non-independent (e.g., species or other groupings related to evolutionary history/genetics, spatial clustering such as plots or sites, or temporal clustering such as day or year). These qualities challenge many traditional, commonly used statistical approaches (e.g., analysis of variance). Further, conservation evidence comes in many forms, including from quantitative studies of people and nature, community knowledge \citep{Brook2008LEK}, expert knowledge \citep{Martin2012}, Indigenous knowledge \citep[e.g.,][]{gryba2023indigenous}, and others. Conservation decision-making requires integrating these multiple sources of information to provide an evidence base for decision-making \citep{stern2022interweaving}. 
+\par Addressing conservation problems requires information beyond ecology, too; social, cultural, political and economic data, in addition to biological and physical information, are needed to provide the evidence base upon which decisions can be made \citep{Bennett2017}. Focal populations of threatened species are often small, and ecological and social data are often non-normal, `unbalanced' and nested within hierarchical or non-hierarchical groupings that are non-independent (e.g., species or other groupings related to evolutionary history/genetics, spatial clustering such as plots or sites, or temporal clustering such as day or year). These qualities challenge many traditional, commonly used statistical approaches (e.g., analysis of variance). Further, conservation evidence comes in many forms, including from quantitative studies of people and nature, community knowledge \citep{Brook2008LEK}, expert knowledge \citep{Martin2012}, Indigenous knowledge \citep[e.g.,][]{gryba2023indigenous}, and others. Conservation decision-making requires integrating these multiple sources of information to provide an evidence base for decision-making \citep{stern2022interweaving}. 
 
 \par Bayesian data analysis provides a framework and suite of approaches that support these needs of conservation science in the 21st century. Bayesian approaches facilitate synthesis of multiple sources of data to update probabilities of focal outcomes of interest after examining new data (i.e., a `prior', which is a probability distribution that represents the modeler's pre-existing beliefs or knowledge about a model parameter before any new data is considered, see Box 1). Bayesian methods are well-suited to decision making, as they move beyond strict null-hypothesis testing to provide a quantitative measure of the probability of a hypothesis being true given the available data. Some fields within conservation biology and natural resource management have adopted Bayesian methods (e.g., wildlife mark and recapture models or occupancy models \citep{Kery2011}, fisheries \citep{Doll2018}), but they have yet to be widely used across conservation biology and have not been integrated into many globally significant policy and management practices. 
 
-% emw15Nov2025: can you make the first sentence stronger? Maybe: Here, we highlight the major features of Bayesian approaches that could aid conservation science and show how practitioners who are new these approaches can get started. I also think you could cut 1-2 sentences from this paragraph. 
-Here,  we highlight the features of Bayesian approaches that are well-suited to conservation science for practitioners who may be unfamiliar with Bayesian methods. We first review some benefits of using Bayesian methods to address conservation science questions, focusing on three key features: the iterative workflow process, flexible modelling frameworks, and integration of uncertainty. We also share resources that we hope will make Bayesian methods more approachable to those who have not used them before, including example code and analyses through three case studies relevant to current conservation problems, and a list of resources to get started with these methods. Even if readers do not use Bayesian approaches themselves, we hope they will better understand why and how they can be beneficial. We hope to accelerate more widespread adoption of and comfort with Bayesian data analytical approaches, as the time is right for integration into conservation science, policy, and practice. 
+Here, we highlight the major features of Bayesian approaches that could aid conservation science and show how practitioners who are new to these approaches can get started. We first review some benefits of using Bayesian methods to address conservation science questions, focusing on three key features: the iterative workflow process, flexible modelling frameworks, and integration of uncertainty. We also share resources that we hope will make Bayesian methods more approachable to those who have not used them before.%, including example code and analyses through three case studies relevant to current conservation problems, and a list of resources to get started with these methods. Even if readers do not use Bayesian approaches themselves, we hope they will better understand why and how they can be beneficial. 
+We hope to accelerate more widespread adoption of and comfort with Bayesian data analytical approaches, as the time is right for integration into conservation science, policy, and practice. 
 
 \section* {Benefits of Bayesian Modelling for Conservation Science}
 \subsection*{Iterative workflows for adaptive management}
 \par As conservation scientists implement interventions in variable and dynamic ecosystems that often exhibit unexpected behaviors \citep{Levin2012,Gross2013}, the practice of adaptive management has become common \citep{holling1978adaptive} (Fig. \ref{fig:workflow}). Cycles of adaptive management include stages of \underline{assessing} threats and conservation goals, \underline{planning} strategies, implementation, and monitoring, \underline{implementing} those plans, \underline{analyzing} results of initial implementation, \underline{adapting} implementation based on these analyses, and \underline{sharing learning} from the process. This cycle of iteration continues until the end of the project, ideally when conservation goals are met, and the intention is for this evidence-based approach to lead to improved conservation outcomes (https://www.conservationbydesign.org/). % emw15Nov2025: If we need to save space, it seems like much of the text with the underlining in this paragraph and the next could be integrated into the figure and its caption. Either way, it might be helpful to show on figure 1 the original place that modeling shows up and clearly contrast it with the alternative using Bayesian approaches. 
+%AKE1Dec2025: I like this idea, as well as your point about making the changes more clear on figure 1. For now, I have added some text to the legend to better highlight the changes, but kept the text with underlining in the main text. 
 
-\par Bayesian modeling's workflows also follow an iterative process, and provide opportunities to integrate model development much earlier into the adaptive management cycle. Major training resources for adaptive management often place data analysis late in the cycle, as visually represented in the Conservation by Design diagram shown in (Fig. \ref{fig:workflow}). This is a potentially probelmatic practice because problems with study design, data collection practices, or other issues may not be identified until after it is too late to make changes. We believe that integrating the modelling workflow throughout the cycle would lead to valuable insights earlier in process, result in more robust conservation science and, perhaps, then better outcomes after implementation. Model development can occur in the \underline{assessing} stage, and be tested with simulated data in the \underline{planning} stage. Data collection occurs as part of monitoring during the \underline{implementing} stage and then models are run with empirical data as part of the \underline{analyzing} stage. Model checking and revising occurs during \underline{adapting} stages and then \underline{sharing learning} about modelling as well as conservation implementation occurs in parallel.  
+\par Bayesian modeling's workflows also follow an iterative process, and provide opportunities to integrate model development much earlier into the adaptive management cycle. Major training resources for adaptive management often place data analysis late in the cycle, as visually represented in the Conservation by Design diagram shown in (Fig. \ref{fig:workflow}). This is a potentially dangerous practice because problems with study design, data collection practices, or other issues may not be identified until after it is too late to make changes. We believe that integrating the modelling workflow throughout the cycle would lead to valuable insights earlier in process, result in more robust conservation science and, perhaps, then better outcomes after implementation. Model development can occur in the \underline{assessing} stage, and be tested with simulated data in the \underline{planning} stage. Data collection occurs as part of monitoring during the \underline{implementing} stage and then models are run with empirical data as part of the \underline{analyzing} stage. Model checking and revising occurs during \underline{adapting} stages and then \underline{sharing learning} about modelling as well as conservation implementation occurs in parallel.  
 
 \subsection*{Flexible frameworks for complex data}
 %dlOct17: I think this could be where we integrate case study 3, as an illustration of how expert knowledge can help make better priors and predictions
@@ -134,7 +130,7 @@ Bayesian methods are also better than frequentist methods at accommodating the s
 % Or shift to ...
 % Bayesian methods thus can help move beyond `null hypothesis' frameworks and a focus on p-values, which have long dominated research in conservation biology \citep[as in ecology and related biological fields, e.g., ecotoxicaology][]{erickson2020moving}, but are  becoming less prevalent given they can lead to incorrect decisions \citep{halsey2019reign}. 
 %HNE16nov2025: I like Lizzie's change to one sentence ("shift to", above). I think this info shoudl be kept, but fine to shorten. 
-\par The flexibility of Bayesian methods is also well-suited to conservation planning because they facilitate comparison of support for a variety of hypotheses or interventions \citep{Zyl2018}.  Bayesian methods thus can help move beyond `null hypothesis' frameworks and a focus on p-values, which have long dominated research in conservation biology, as in ecology and related biological fields \citep[e.g., ecotoxicaology][]{erickson2020moving}, but can lead to incorrect decisions. Because of their problems, p-value-focused conventions are becoming less prevalent, but many biologists are unsure of alternative ways to analyse and interpret their data \citep{halsey2019reign}. Bayesian approaches and workflows offer an alternative framework, facilitating, for example, assessments of which interventions will result in greater conservation gains \citep{prato2005bayesian}, whether the current versus alternative management practices produce similar results \citep{gallistel2009importance}, and whether a population has passed a particular threshold, such as declining `rapidly' versus `moderately', as defined by a particular probability \citep{brooks2008quantifying}. The flexibility and power of Bayesian modelling require training to implement, as well as thoughtful specification and careful interpretation. We believe this is not unique to Bayesian modelling; rather it is applicable to all statistical tools and approaches.
+\par The flexibility of Bayesian methods is also well-suited to conservation planning because they facilitate comparison of support for a variety of hypotheses or interventions \citep{Zyl2018}. Bayesian methods thus can help move beyond `null hypothesis' frameworks and a focus on p-values, which have long dominated research in conservation biology \citep[as in ecology and related biological fields, e.g., ecotoxicaology][]{erickson2020moving}, but are  becoming less prevalent given they can lead to incorrect decisions \citep{halsey2019reign}. Bayesian approaches and workflows offer an alternative framework, facilitating, for example, assessments of which interventions will result in greater conservation gains \citep{prato2005bayesian}, whether the current versus alternative management practices produce similar results \citep{gallistel2009importance}, and whether a population has passed a particular threshold, such as declining `rapidly' versus `moderately', as defined by a particular probability \citep{brooks2008quantifying}. The flexibility and power of Bayesian modelling require training to implement, as well as thoughtful specification and careful interpretation. We believe this is not unique to Bayesian modelling; rather it is applicable to all statistical tools and approaches.
 %dlOct18 Above is where I would introduce case study 1 to illustrate how p-values vs Bayesian can lead to different conclusions 
 
 %\subsection*{Moving beyond null hypothesis testing and $\alpha <0.05$ } %Yet frequentist statistical frameworks rarely provide information necessary to adequately inform adaptive management \citep{prato2005bayesian}.  Specifically, frequentist statistics' incapacity to compare support for a variety of hypotheses \citep[including a `null' hypothesis;][]{Zyl2018} prevents this method from informing what interventions will most likely bring about conservation gains \citep{prato2005bayesian}. For example, in its submission process, leading conservation journal \textit{Conservation Biology} requires that authors recognize that, `8. ensured you have not misinterpreted statistical nonsignificance as no effect if a frequentist approach was used (absence of evidence is not evidence of absence)?'
@@ -174,7 +170,7 @@ Ecology and conservation science have become more quantitative and data-driven f
 \subsection*{Case Study 1: Robust estimates of trends in species or populations of concern}
 \par In some cases, Bayesian approaches can lead to different conclusions than common Fisherian approaches, such as null hypothesis testing \citep{wade2000bayesian}. Consider, for example, sampling five populations of a species across its range---from north to south---to monitor for changes in the population size with climate change. 
  % emw15Nov2025: Do we want to sneak in a sentence about leading edge and trailing edge expectations? I can if we have space...
-After collecting data for ten years, a traditional null hypothesis testing approach to analyzing the data, using the commonly used significance level ($\alpha$) of 0.05 would find changes in only two of the populations---the furthest north population, which appears to be increasing, and the second furthest north population, also increasing. The three other populations are not significantly changing under this approach (Fig. \ref{fig:nht} left). In contrast, a Bayesian approach (using weakly informative priors centered at zero, all code provided in supplement) would likely focus on the full distribution of the modeled estimates (the posteriors), where small differences in the variance do not appear so different  (Fig. \ref{fig:nht} right). Here, a clear trend emerges where trends in population size correlate with position in range---with the most northern population increasing the most and the most southern population decreasing the most. This pattern across the range is the type predicted by climate change and may be missed with a classic Fisherian approach (combining null hypothesis testing with threshold values for `significance'), leading to potential very difference conservation and management decisions. % EMW says: We could also add (1) more details on the simulations (the variance in the underlying model increases going from north to south, which is expected for smaller population sizes), (2) point out 10 years is often more years than we have; though I think there is enough text already. 
+After collecting data for ten years, a traditional null hypothesis testing approach to analyzing the data, using the commonly used significance level ($\alpha$) of 0.05 would find changes in only two of the populations---the furthest north population, which appears to be increasing, and the second furthest north population, also increasing. The three other populations are not significantly changing under this approach (Fig. \ref{fig:nht} left). In contrast, a Bayesian approach (using weakly informative priors centered at zero, all code provided in supplement) would likely focus on the full distribution of the modeled estimates (the posteriors), where small differences in the variance do not appear so different  (Fig. \ref{fig:nht} right). Here, a clear trend emerges where trends in population size correlate with position in range---with the most northern population increasing the most and the most southern population decreasing the most. This pattern across the range is the type predicted by climate change and may be missed with a classic Fisherian approach (combining null hypothesis testing with threshold values for `significance'), leading to potentially very different conservation and management decisions. % EMW says: We could also add (1) more details on the simulations (the variance in the underlying model increases going from north to south, which is expected for smaller population sizes), (2) point out 10 years is often more years than we have; though I think there is enough text already. 
 
 
 \subsection*{Case Study 2: Incorporating and propagating uncertainty}
@@ -196,7 +192,7 @@ After collecting data for ten years, a traditional null hypothesis testing appro
 
 \par 
 \section* {Box 1}
-\subsection{Defining Bayesian Analysis}
+\subsection*{Defining Bayesian Analysis}
 
 Bayesian analysis, including inference and workflow, enable us to combine prior knowledge of a system with available data to quantitatively measure the probability of a model or hypothesis being true. A Bayesian model treats parameters as random variables for which a known probability distribution is defined based on prior knowledge of the parameter uncertainty. By incorporating expert knowledge of ecological processes or species natural history, this modelling approach allows the development of uniquely formulated models for any given data-generating process.\\
 
@@ -209,7 +205,42 @@ as defined using data from previous experiments, expert opinions, or literature,
  % emw15Nov2025: Can we sneak in a definition of 'inference'?
 Since the results of Bayesian methods are probabilistic, they allow us to make stronger inferences based on a model's predicted uncertainty. As new data is collected or inferences made, we can revise our model priors and iteratively improve our understanding of the data-generating processes that underlie ecological systems. Model estimates can be further used to perform simulations and more robustly forecast changes under future conditions. 
 
-Our aim here is not to provide an exhaustive explanation of Bayesian statistics, but to provide a brief introduction of core components of a Bayesian model and their relationships. For an in depth discussion of Bayesian statistics, we recommend the \emph{Gentle Introduction to Bayesian statistics} by \cite{van2014gentle}, \emph{Bayesian model selection for ecologists} by \cite{hooten2015guide}, and \emph{Bayesian Inference for ecologists} by \cite{ellison2004}. For further discussion of prior selection for ecological models, see \cite{banner2020priors}.
+Our aim here is not to provide an exhaustive explanation of Bayesian statistics, but to provide a brief introduction of core components of a Bayesian model and their relationships. Below we provide a short list of accessible resources, and encourage researchers new to Bayesian to try new or updated materials as they become available. Additionally, a number of the below recommendations now have their materials online, and include videos of lectures (e.g., see websites by McElreath and Vehtari) for courses that go with the books and can help with learning the material.
+
+\subsection*{\textbf{Journal articles:}}
+\begin{itemize}
+\item \emph{Gentle Introduction to Bayesian statistics} by \cite{van2014gentle}
+\item \emph{Bayesian statistics and modelling} by \cite{vandeSchoot2021}
+\item \emph{A four-step Bayesian workflow for improving ecological science} by \cite{wolkovich2026}
+\item \emph{A guide to Bayesian model selection for ecologists} by \cite{hooten2015guide}
+\item \emph{Bayesian Inference for ecologists} by \cite{ellison2004}
+% \item \emph{The use of Bayesian priors in Ecology: The good, the bad and the not great} \cite{banner2020}
+\item \emph{Visualization in Bayesian Workflow} by \cite{gabry2019}
+\end{itemize}
+
+\subsection*{\textbf{Introductory textbooks:}}
+
+\begin{itemize}
+\item \emph{Statistical Rethinking} by \cite{McElreathSR}, and includes \href{http://xcelab.net/rm/statistical-rethinking/}{complementary online content}
+\item \emph{Regression and Other Stories} (often referred to as `ROS') by \cite{GelmanROS} (\href{https://avehtari.github.io/ROS-Examples/}{more info here, including ROS online PDF}) 
+\item \emph{Bayesian Models: A statistical primer for ecologists} by \cite{hobbs2015}
+% \item Ecological Forecasting by Dietz
+\item \emph{Applied statistical modelling for ecologists: a practical guide to Bayesian and likelihood inference using R, JAGS, NIMBLE, Stan and TMB} by \cite{Kery2024}
+\item \emph{Bayesian Data Analysis} by \cite{GelmanBDA} (sometimes called `BDA')
+ \end{itemize}
+
+\subsection*{\textbf{Online resources:}}
+
+\begin{itemize}
+\item \href{https://mc-stan.org/learn-stan/case-studies.html}{Stan Case Studies} on Bayesian methodology and Stan programming \citep{stanCaseStudies}
+\item \href{https://betanalpha.github.io/writing/}{Writing and vignettes by Michael Betancourt} on important and diverse concepts in probabilistic modeling \citep{betancourt_writing}
+\end{itemize}
+
+The uptick in the use of Bayesian inference has come alongside new programming languages that have made Bayesian models easier and faster to fit \citep{Carpenter:2017stan}, and we thus focused many of our recommendations on materials that use these newer approaches. Textbooks such as \emph{Statistical Rethinking} \citep{McElreathSR} and \emph{Bayesian Data Analysis} \citep{GelmanBDA} are a major reason for the increasing use of Bayesian inference in ecology and are great reads, with the later being particularly good for those who want to learn from the underlying math and have a resource that covers many approaches. Other texts, like \emph{Regression and Other Stories} \citep{GelmanROS}, starts at the very beginning and builds up almost to multi-level modeling---and is effectively the first half of \emph{Data Analysis Using Regression and Multilevel/Hierarchical Models} by \cite{GelmanHill2007} \href{http://www.stat.columbia.edu/~gelman/arm/}{(more info here)}. The writing and vignettes by Michael Betancourt are better geared towards readers with a math background, as they build up from the mathematical foundations to a number of useful modeling approaches with careful case studies throughout. \\
+
+For many, the best way to start or advance in Bayesian inference is through building community. This may mean starting to learn Bayesian approaches in a reading or model building group, and is how many of us learned---picking a book and finding a group that wants to meet weekly (or twice monthly) to work through the chapter concepts and exercises together, or having a group where each person reports on a model they're working on each time (this works best when not everyone is new to Bayesian inference). It can also be helpful to go through a suite of case studies (e.g., Stan Case Studies \citep{stanCaseStudies} and example models \cite{stanExampleModels}). These communities can be in-person or virtual, and can extend through a suite of virtual forums. Many questions are posted and answered through \href{https://discourse.mc-stan.org/}{The Stan Forums} \citep{stanForum} for example, and the community hosts annual conferences as well. In addition, conferences for statistical ecology societies, Bayesian statistics societies, and for R and Python can often be great places to meet people interested in these approaches.
+
+
 %HNE13nov2025 What's the rationale for removing the items below? They seem helpful? 
 % Inference in frequentist statistics can take many forms, but here we focus on the most dominant incarnation, which entails testing the significance of a null hypothesis given data, measured with a p-value \citep{Zyl2018}. Bayesian analysis can be formulated in a variety of different ways (Lee, 2011). Frequentist methods have previously dominated ecological analyses.
 % \begin{itemize}
@@ -245,40 +276,37 @@ Our aim here is not to provide an exhaustive explanation of Bayesian statistics,
 % \end{itemize}
 % 
 
-
- \subsection{Resources to Get Started}
-%\par Note that this will be merged in with Box 1.
-%HNE13nov2025: do we want to set these all up to be citations and in the reference list? 
-
-\par Resources on general Bayesian methods: 
-
-Uptick in the use of Bayesian inference has come alongside new programming languages that have made Bayesian models easier and faster to fit \citep{Carpenter:2017stan}, and we thus focus many of our recommendations on materials that use these newer approaches. We provide only a short list, and encourage researchers new to Bayesian to try new or updated materials as they become available. Additionally, a number of the below recommendations now have their materials online, and include videos of lectures (e.g., see websites by McElreath and Vehtari) for courses that go with the books and can help with learning the material. 
-
-\begin{itemize}
-\item Statistical Rethinking by Richard McElreath \url{http://xcelab.net/rm/statistical-rethinking/} is likely a major reason for the increasing use of Bayesian inference in ecology and is a great read.
-\item \emph{Regression and Other Stories} (ROS) by Gelman, Hill \& Vehtari (\href{https://avehtari.github.io/ROS-Examples/}{more info here, including ROS online PDF}) is a great resource for learning Bayesian approaches that starts at the very beginning and builds up almost to multi-level modeling. It is effectively the first half of \emph{Data Analysis Using Regression and Multilevel/Hierarchical Models} by Gelman \& Hill \href{http://www.stat.columbia.edu/~gelman/arm/}{(more info here)} but updated to modern approaches and our current understanding of priors, workflows and more. 
- % emw15Nov2025: I don't know the below but people seem to like them, maybe someone else can add here? 
-\item Bayesian Models: A statistical primer for ecologists by Hobbs \& Hooten
- \item Ecological Forecasting by Dietz
-\item Applied statistical modelling for ecologists: a practical guide to Bayesian and likelihood inference using R, JAGS, NIMBLE, Stan and TMB by Marc K\'ery
-and Kenneth F Kellner
-\item \emph{Bayesian Data Analysis} (sometimes called `BDA') has also popularized Bayesian inference and is a great resource for those who want to learn from the underlying math and have a resource that covers many approaches. 
-\item Michael Betancourt has most of what will become a book important concepts in probabilistic modeling  \href{https://betanalpha.github.io/writing/}{online}. Great for readers with a math background, it builds up from the mathematical foundations to a number of useful modeling approaches with careful case studies throughout. 
-\item Many of the above resources discuss different versions of a Bayesian workflow, which is also highlighted in several papers  \citep{gelman2020bayesia}
-% Add to above bullet?: Visualization in Bayesian Workflow \url{https://doi.org/10.1111/rssa.12378} % add ref? 
-% Add to above bullet?: A four-step Bayesian workflow for improving ecological science \url{https://doi.org/10.48550/arXiv.2408.02603}
- \end{itemize}
-
-For many, the best way to start or advance in Bayesian inference is through building community. This may mean starting to learn Bayesian approaches in a reading or model building group, and is how many of us learned---picking a book and finding a group that wants to meet weekly (or twice monthly) to work through the chapter concepts and exercises together, or having a group where each person reports on a model they're working on each time (this works best when not everyone is new to Bayesian inference). It can also be helpful to go through a suite of case studies (e.g., \url{https://mc-stan.org/learn-stan/case-studies.html}, \url{https://github.com/stan-dev/example-models}). 
-
-These communities can be in-person or virtual, and can extend through a suite of virtual forums. Many questions are posted and answered through The Stan Forums \url{https://discourse.mc-stan.org/} for example, and the community hosts annual conferences as well. In addition, conferences for statistical ecology societies, Bayesian statistics societies, and for R and Python can often be great places to meet people interested in these approaches. 
-
-\begin{itemize}
- \item  \href{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4158865/}{Gentle Introduction to Bayesian statistics \citep{van2014gentle}}
-
-\item Bayesian statistics and modelling \url{https://doi.org/10.1038/s43586-020-00001-2}
-
- \end{itemize}
+%  \subsection*{Resources to Get Started}
+% %\par Note that this will be merged in with Box 1.
+% %HNE13nov2025: do we want to set these all up to be citations and in the reference list? 
+% 
+% \par Resources on general Bayesian methods: 
+% 
+% Uptick in the use of Bayesian inference has come alongside new programming languages that have made Bayesian models easier and faster to fit \citep{Carpenter:2017stan}, and we thus focus many of our recommendations on materials that use these newer approaches. We provide only a short list, and encourage researchers new to Bayesian to try new or updated materials as they become available. Additionally, a number of the below recommendations now have their materials online, and include videos of lectures (e.g., see websites by McElreath and Vehtari) for courses that go with the books and can help with learning the material. 
+% 
+% \begin{itemize}
+% \item Statistical Rethinking by Richard McElreath \url{http://xcelab.net/rm/statistical-rethinking/} is likely a major reason for the increasing use of Bayesian inference in ecology and is a great read.
+% \item \emph{Regression and Other Stories} (ROS) by Gelman, Hill \& Vehtari (\href{https://avehtari.github.io/ROS-Examples/}{more info here, including ROS online PDF}) is a great resource for learning Bayesian approaches that starts at the very beginning and builds up almost to multi-level modeling. It is effectively the first half of \emph{Data Analysis Using Regression and Multilevel/Hierarchical Models} by Gelman \& Hill \href{http://www.stat.columbia.edu/~gelman/arm/}{(more info here)} but updated to modern approaches and our current understanding of priors, workflows and more. 
+%  % emw15Nov2025: I don't know the below but people seem to like them, maybe someone else can add here? 
+% \item Bayesian Models: A statistical primer for ecologists by Hobbs \& Hooten
+%  \item Ecological Forecasting by Dietz
+% \item Applied statistical modelling for ecologists: a practical guide to Bayesian and likelihood inference using R, JAGS, NIMBLE, Stan and TMB by Marc K\'ery
+% and Kenneth F Kellner
+% \item \emph{Bayesian Data Analysis} (sometimes called `BDA') has also popularized Bayesian inference and is a great resource for those who want to learn from the underlying math and have a resource that covers many approaches. 
+% \item Michael Betancourt has most of what will become a book important concepts in probabilistic modeling  \href{https://betanalpha.github.io/writing/}{online}. Great for readers with a math background, it builds up from the mathematical foundations to a number of useful modeling approaches with careful case studies throughout. 
+% \item Many of the above resources discuss different versions of a Bayesian workflow, which is also highlighted in several papers  \citep{gelman2020bayesia}
+% % Add to above bullet?: Visualization in Bayesian Workflow \url{https://doi.org/10.1111/rssa.12378} % add ref? 
+% % Add to above bullet?: A four-step Bayesian workflow for improving ecological science \url{https://doi.org/10.48550/arXiv.2408.02603}
+%  \end{itemize}
+% 
+% For many, the best way to start or advance in Bayesian inference is through building community. This may mean starting to learn Bayesian approaches in a reading or model building group, and is how many of us learned---picking a book and finding a group that wants to meet weekly (or twice monthly) to work through the chapter concepts and exercises together, or having a group where each person reports on a model they're working on each time (this works best when not everyone is new to Bayesian inference). It can also be helpful to go through a suite of case studies (e.g., \url{https://mc-stan.org/learn-stan/case-studies.html}, \url{https://github.com/stan-dev/example-models}). 
+% 
+% These communities can be in-person or virtual, and can extend through a suite of virtual forums. Many questions are posted and answered through The Stan Forums \url{https://discourse.mc-stan.org/} for example, and the community hosts annual conferences as well. In addition, conferences for statistical ecology societies, Bayesian statistics societies, and for R and Python can often be great places to meet people interested in these approaches. 
+% 
+% 
+% \item Bayesian statistics and modelling \url{https://doi.org/10.1038/s43586-020-00001-2}
+% 
+%  \end{itemize}
 %\par Bayesian case studies: % emw15Nov2025: I integrated above, see what you think. 
 %\begin{itemize}
 %\item Stan Case Studies \url{https://mc-stan.org/learn-stan/case-studies.html}
@@ -310,8 +338,8 @@ These communities can be in-person or virtual, and can extend through a suite of
  \begin{figure}[h]
 \centering
  
-  \includegraphics[width=0.75\textwidth]{../figs/CS_revised.pdf}
- \caption{\textbf{The iterative nature of Bayesian workflows aligns well with cycles of adaptive management in conservation}. Integrating analytical approaches through cyclical stages of conservation planning and implementation-- rather than only in one later stage-- is likely to lead to better planning and implementation outcomes.} 
+  \includegraphics[width=0.75\textwidth]{../figs/CS_revised_2panels.pdf}
+ \caption{\textbf{The iterative nature of Bayesian workflows aligns well with cycles of adaptive management in conservation}, such as this diagram from The Nature Conservancy's Conservation by Design program (A, with text in black). Note, however, that this cycle, which reflects standard approaches and views in conservation, includes data analysis only in later stages of the cycle (Stage 4). We advocate for integrating steps from a Bayesian modelling workflow throughout the cycle (text in purple, B). Integrating analytical approaches through all cyclical stages of conservation planning and implementation-- rather than only in Stage 4, `Analyze and Adapt'-- is likely to lead to better planning and implementation outcomes.} 
  \label{fig:workflow}
  \end{figure}
 
@@ -319,7 +347,8 @@ These communities can be in-person or virtual, and can extend through a suite of
 \begin{figure}[h]
 \centering
  \includegraphics{../figs/conservation.pdf}
- \caption{\textbf{Proportion papers using Bayes in XX major conservation journals since 2000}}
+ \caption{\textbf{Figure 1: The fraction of papers mentioning or using Bayesian methods has increased steadily over the past two decades. Lines here show the fraction of articles from a subset of articles (described below) that match at least one of our Bayesian keywords (see Table 1) with different lines corresponding to different journals, as indicated in the legend, and black line showing the fraction across all journals (a larger sample than those shown individually here; see Table 2). To find articles, we queried Web of Science \citep{WebOfScience} for all articles published between the years 2000 and 2023, in the journals listed in Table 2.% “The American Naturalist,” “Biodiversity and Conservation,” “Biological Conservation,” “Conservation Biology,” “Ecological Applications,” “Ecological Monographs,” “Ecology,” “Ecology Letters,” “Forest Ecology and Management,” “Global Change Biology,” “Global Ecology and Conservation,” “Journal of Animal Ecology,” “Journal of Applied Ecology,” “Journal of Ecology,” “Marine Ecology Progress Series,” “Oecologia,” and “Oikos” 
+We then used Zotero \citep{Ooms2024} to automatically retrieve full PDFs (which is only partially effective) and then used the pdftools package in R \citep{Ooms2024} to import and convert the PDFs into strings. We next searched imported articles for keywords that indicate the articles may contain statistical analyses (see Table 1 for a full list of search patterns), removing articles that did not match any keywords. Based on visual inspection, removed articles were generally descriptive and, indeed, did not include statistical analyses. This process ultimately yielded 34,079 articles (see Table 2 for a breakdown by journal).}}
  \label{fig:consbaystrend}
  \end{figure}
 
@@ -339,6 +368,93 @@ These communities can be in-person or virtual, and can extend through a suite of
  \end{figure}
  
  
+ \definecolor{Gray}{gray}{0.95}
+\begin{table}[h]
+  \centering
+  \caption{Text patterns.}
+    \begin{tabular}{|l|l|p{0.3\linewidth}|p{0.3\linewidth}|}
+    \hline
+      \cellcolor{Gray}Paradigm
+      & \cellcolor{Gray}Pattern
+      & \cellcolor{Gray}Number of articles identified
+      & \cellcolor{Gray}Number of articles identified only by this keyword\\
+      \hline
+      & \texttt{'bayes'} & X & X\\
+      & \texttt{' brms '} & & \\
+      & \texttt{' winbugs '} & & \\
+      & \texttt{' openbugs '} & & \\
+      & \texttt{' jags '} & & \\
+      & \texttt{' rstan '} & & \\
+      & \texttt{' pystan '} & & \\
+      Bayesian & \texttt{' cmdstan '} & & \\
+      & \texttt{' credible interval '} & & \\
+      & \texttt{'hpd'} & & \\
+      & \texttt{'maximum a posteriori'} & & \\
+      & \texttt{'mcmc'} & & \\
+      & \texttt{'prior distribution'} & & \\
+      & \texttt{'posterior distribution'} & & \\
+      & \texttt{'posterior density} & & \\
+      \hline
+      & \texttt{'p-value'} & & \\
+      & \texttt{' p value'} & & \\
+      & \texttt{'p<'} & & \\
+      & \texttt{'p <'} & & \\
+      & \texttt{'p='} & & \\
+      & \texttt{'p ='} & & \\
+      & \texttt{'p>'} & & \\
+      & \texttt{'p >'} & & \\
+      & \texttt{'anova '} & & \\
+      & \texttt{'bonferroni'} & & \\
+      & \texttt{'likelihood ratio'} & & \\
+      & \texttt{'mantel test'} & & \\
+      Frequentist & \texttt{'parametric'} & & \\
+      & \texttt{'chi-square'} & & \\
+      & \texttt{'chi square'} & & \\
+      & \texttt{'f-statistic'} & & \\
+      & \texttt{' f statistic'} & & \\
+      & \texttt{' glm '} & & \\
+      & \texttt{'regression'} & & \\
+      & \texttt{'t-test'} & & \\
+      & \texttt{'test statistic'} & & \\
+      & \texttt{'spearman'} & & \\
+      & \texttt{'null hypothesis'} & & \\
+      & \texttt{'confidence interval'} & & \\
+      & \texttt{'lme4'} & & \\
+    \hline
+  \end{tabular}
+\label{tab:keywords}
+\end{table}
+\clearpage
+
+\definecolor{Gray}{gray}{0.95}
+\begin{table}[h]
+  \centering
+  \caption{Journal titles and article counts.}
+    \begin{tabular}{|l|l|}
+    \hline
+      \cellcolor{Gray}Journal & \cellcolor{Gray}Article count\\
+      \hline
+      \textit{The American Naturalist} & 930\\
+      \textit{Biodiversity and Conservation} & 3274\\
+      \textit{Biological Conservation} & 954\\
+      \textit{Conservation Biology} & 878\\
+      \textit{Ecological Applications} & 1022\\
+      \textit{Ecological Monographs} & 226\\
+      \textit{Ecology} & 1978\\
+      \textit{Ecology Letters} & 951\\
+      \textit{Forest Ecology and Management} & 1071\\
+      \textit{Global Change Biology} & 1936\\
+      \textit{Global Ecology and Conservation} & 431\\
+      \textit{Journal of Animal Ecology} & 982\\
+      \textit{Journal of Applied Ecology} & 967\\
+      \textit{Journal of Ecology} & 1005\\
+      \textit{Marine Ecology Progress Series} & 10132\\
+      \textit{Oecologia} & 6585\\
+      \textit{Oikos} & 757\\
+    \hline
+  \end{tabular}
+\label{tab:article-counts}
+\end{table}
 
 %%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%

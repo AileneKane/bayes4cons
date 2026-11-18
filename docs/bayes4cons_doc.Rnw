@@ -338,8 +338,8 @@ For many, the best way to start or advance in Bayesian inference is through buil
  \begin{figure}[h]
 \centering
  
-  \includegraphics[width=0.75\textwidth]{../figs/CS_revised.pdf}
- \caption{\textbf{The iterative nature of Bayesian workflows aligns well with cycles of adaptive management in conservation}. Here we update a standard Conservation by Design adaptive management diagram(with text in black) by adding steps from a Bayesian modelling workflow throughout the cycle (text in purple). Integrating analytical approaches through all cyclical stages of conservation planning and implementation-- rather than only in Stage 4, `Analyze and Adapt'-- is likely to lead to better planning and implementation outcomes.} 
+  \includegraphics[width=0.75\textwidth]{../figs/CS_revised_2panels.pdf}
+ \caption{\textbf{The iterative nature of Bayesian workflows aligns well with cycles of adaptive management in conservation}, such as this diagram from The Nature Conservancy's Conservation by Design program (A, with text in black). Note, however, that this cycle, which reflects standard approaches and views in conservation, includes data analysis only in later stages of the cycle (Stage 4). We advocate for integrating steps from a Bayesian modelling workflow throughout the cycle (text in purple, B). Integrating analytical approaches through all cyclical stages of conservation planning and implementation-- rather than only in Stage 4, `Analyze and Adapt'-- is likely to lead to better planning and implementation outcomes.} 
  \label{fig:workflow}
  \end{figure}
 
