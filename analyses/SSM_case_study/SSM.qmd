@@ -121,7 +121,7 @@ m.vague <- stan(file = "ssm_sim_vague.stan",
                 data = dataStan,
                 chains = 4, seed="123",
                 iter = 6000, warmup = 5000, 
-                control = list(adapt_delta = 0.999, max_treedepth = 12))
+                control = list(adapt_delta = 0.99, max_treedepth = 12))
 
 
 ```
