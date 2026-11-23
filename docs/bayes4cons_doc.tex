@@ -60,23 +60,26 @@
 \author[6]{M. Auger-M\'eth\'e}
 \author[3]{Leithen M'Gonigle}
 \author[7]{X. Wang}
-\author[7]{E.M. Wolkovich}
+\author[7,8,9]{E.M. Wolkovich}
 
 
 \affil[1]{The Nature Conservancy, Seattle, Washington, USA}
 \affil[2]{The Nature Conservancy, Boulder, Colorado, USA}
+\affil[3]{Department of Biological Sciences, Simon Fraser University, Burnaby, British Columbia, Canada}
 \affil[4]{Department of Zoology, University of British Columbia, Vancouver, British Columbia, Canada}
 \affil[5]{Hakai Institute, Campbell River, British Columbia, Canada}
 \affil[6]{Department of Statistics and Institute for the Oceans and Fisheries The University of British Columbia}
-\affil[3]{SFU}
-\affil[7]{UBC Forestry}
+\affil[7] {Institute for the Oceans and Fisheries, University of British Columbia, Vancouver V6T 1Z4, British Columbia, Canada}
+\affil[8]{Department of Forest and Conservation, Faculty of Forestry, University of British Columbia, Vancouver, British Columbia Canada.}
+\affil[9] {Arnold Arboretum of Harvard University, Boston, Massachusetts, USA}
+\affil[10] {Organismic \& Evolutionary Biology, Harvard University, Cambridge, Massachusetts, USA}
 
 
 \affil[a]{Corresponding author; email: ailene.ettinger@tnc.org; mailing address: 74 Wall Street. Seattle, WA 98121, USA }
 
 \date{\today}
 \maketitle 
-\textbf{Author contributions}: All authors conceived of this manuscript, which began through conversations at a Bayesian Generative Modelling Symposium at University of British Columbia in 2024 designed by EMW with funding from UBC's Grants for Catalyzing Research Clusters: Biodiversity Research; AKE led the writing of the manuscript, HNE, EMW, DL, and AKE made figures; all authors contributed portions of text, and revised the manuscript.
+\textbf{Author contributions}: All authors conceived of this manuscript, which began through conversations at a Bayesian Generative Modelling Symposium at University of British Columbia in 2024 designed by EMW with funding from UBC's Grants for Catalyzing Research Clusters: Biodiversity Research; AKE led the writing of the manuscript, HNE, EMW, DL, and AKE made figures; XW, EMW, DL, MAM, and AKE wrote case studies; all authors contributed portions of text, and revised the manuscript.
 
 \textbf{Data Accessibility} All data and code are included as supplemental materials and available on GitHub
 
@@ -124,8 +127,8 @@ We hope to accelerate more widespread adoption of and comfort with Bayesian data
 
 \subsection*{Flexible frameworks for complex data}
 %dlOct17: I think this could be where we integrate case study 3, as an illustration of how expert knowledge can help make better priors and predictions
-%MAM says: I would stay away from "infinite" , but also could maybe simplify to "and expand further when the user ..."
-\par Bayesian modelling approaches are well-suited to address the complexity and incomplete nature of many conservation datasets, given their flexibility and power to provide robust estimates under a wide range of conditions (e.g., Case Study 1). Bayesian models can be specified to include a wide range of data distributions via ready-to-use packages in programs like R (e.g., `brms'; \citep{R,brms}), and expanded to infinite  model specifications. Multiple sources and types of data can be amalgamated into Bayesian Belief Networks \citep{marcot2001using,newton2007bayesian}, and extant information can be used to inform `prior distributions' used in Bayesian modelling \citep{o2008informed,mcneish2016using}. (For more on what `prior distributions' or `priors' are, see Box 1.) 
+
+\par Bayesian modelling approaches are well-suited to address the complexity and incomplete nature of many conservation datasets, given their flexibility and power to provide robust estimates under a wide range of conditions (e.g., Case Study 1). Bayesian models can be specified to include a wide range of data distributions via ready-to-use packages in programs like R (e.g., `brms'; \citep{R,brms}), and expand further with user specifications. Multiple sources and types of data can be amalgamated into Bayesian Belief Networks \citep{marcot2001using,newton2007bayesian}, and extant information can be used to inform `prior distributions' used in Bayesian modelling \citep{o2008informed,mcneish2016using}. (For more on what `prior distributions' or `priors' are, see Box 1.) 
 %MAM says: This feels redundant, can you condense? (I was not sure what part this comment pertians to)
 As such, Bayesian methods can enable, social, biological, and physical data to be used to inform conservation decisions. Though care must always be taken when analyzing small samples, Bayesian methods are better suited to accommodating the low population sizes that are often at high risk of extinction and thus are often a focus of conservation \citep{stinchcombe2002influence}. 
 
@@ -191,7 +194,7 @@ Here, a clear pattern emerges where trends in population size correlate with pos
 %DLJuly30: I think case study 3 makes the most sense as a vignette---there is a lot of ecology for the background and to explain what the priors are. As a reader, I would want an explanation for what the warnings mean and how they inform the process. I also think if our goal is to emphasize prior selection, we need to be more explicit in explaining what the vague priors are and what kinds of knowledge was needed to develop informative priors.
 
 \par 
-\section* {Box 1}
+\section* {Box 1. Resources to Get Started}
 \subsection*{Defining Bayesian Analysis}
 
 Bayesian analysis, including inference and workflow, enable us to combine prior knowledge of a system with available data to quantitatively measure the probability of a model or hypothesis being true. A Bayesian model treats parameters as random variables for which a known probability distribution is defined based on prior knowledge of the parameter uncertainty. By incorporating expert knowledge of ecological processes or species natural history, this modelling approach allows the development of uniquely formulated models for any given data-generating process.\\
@@ -236,100 +239,9 @@ Our aim here is not to provide an exhaustive explanation of Bayesian statistics,
 \item \href{https://betanalpha.github.io/writing/}{Writing and vignettes by Michael Betancourt} on important and diverse concepts in probabilistic modeling \citep{betancourt_writing}
 \end{itemize}
 
-The uptick in the use of Bayesian inference has come alongside new programming languages that have made Bayesian models easier and faster to fit \citep{Carpenter:2017stan}, and we thus focused many of our recommendations on materials that use these newer approaches. Textbooks such as \emph{Statistical Rethinking} \citep{McElreathSR} and \emph{Bayesian Data Analysis} \citep{GelmanBDA} are a major reason for the increasing use of Bayesian inference in ecology and are great reads, with the later being particularly good for those who want to learn from the underlying math and have a resource that covers many approaches. Other texts, like \emph{Regression and Other Stories} \citep{GelmanROS}, starts at the very beginning and builds up almost to multi-level modeling---and is effectively the first half of \emph{Data Analysis Using Regression and Multilevel/Hierarchical Models} by \cite{GelmanHill2007} \href{http://www.stat.columbia.edu/~gelman/arm/}{(more info here)}. The writing and vignettes by Michael Betancourt are better geared towards readers with a math background, as they build up from the mathematical foundations to a number of useful modeling approaches with careful case studies throughout. \\
+The uptick in the use of Bayesian inference has come alongside new programming languages that have made Bayesian models easier and faster to fit \citep{Carpenter:2017stan}, and we thus focused many of our recommendations on materials that use these newer approaches. Textbooks such as \emph{Statistical Rethinking} \citep{McElreathSR} and \emph{Bayesian Data Analysis} \citep{GelmanBDA} are a major reason for the increasing use of Bayesian inference in ecology and are great reads, with the later being particularly good for those who want to learn from the underlying math and have a resource that covers many approaches. Other texts, like \emph{Regression and Other Stories} \citep{GelmanROS}, starts at the very beginning and builds up almost to multi-level modeling---and is effectively the first half of \emph{Data Analysis Using Regression and Multilevel/Hierarchical Models} by \cite{GelmanHill2007} \href{http://www.stat.columbia.edu/~gelman/arm/}{(more info here)}. The writing and vignettes by Michael Betancourt are better geared towards readers with a math background, as they build up from the mathematical foundations to a number of useful modeling approaches with careful case studies throughout. Large language models like Claude, ChatGPT, or Gemini, can be useful tools to help learn new coding languages and write Bayesian models, especially when used as a syntax translator or debugging partner in developing models.\\
 
 For many, the best way to start or advance in Bayesian inference is through building community. This may mean starting to learn Bayesian approaches in a reading or model building group, and is how many of us learned---picking a book and finding a group that wants to meet weekly (or twice monthly) to work through the chapter concepts and exercises together, or having a group where each person reports on a model they're working on each time (this works best when not everyone is new to Bayesian inference). It can also be helpful to go through a suite of case studies (e.g., Stan Case Studies \citep{stanCaseStudies} and example models \cite{stanExampleModels}). These communities can be in-person or virtual, and can extend through a suite of virtual forums. Many questions are posted and answered through \href{https://discourse.mc-stan.org/}{The Stan Forums} \citep{stanForum} for example, and the community hosts annual conferences as well. In addition, conferences for statistical ecology societies, Bayesian statistics societies, and for R and Python can often be great places to meet people interested in these approaches.
-
-
-%HNE13nov2025 What's the rationale for removing the items below? They seem helpful? 
-% Inference in frequentist statistics can take many forms, but here we focus on the most dominant incarnation, which entails testing the significance of a null hypothesis given data, measured with a p-value \citep{Zyl2018}. Bayesian analysis can be formulated in a variety of different ways (Lee, 2011). Frequentist methods have previously dominated ecological analyses.
-% \begin{itemize}
-% \item Frequentist methods—that rely on the frequency of an event's occurrence in a sample dataset given a particular hypothesis to estimate its probability.
-% \item Bayesian methods—provides a quantitative measure of the probability that a hypothesis is true using available data
-% \item Frequentist methods—only make use of the sample data
-% \item Bayesian methods—bring prior knowledge together with the sample data
-% \item Frequentist methods—parameters  are considered to be estimates of fixed
-% \item Bayesian methods—model parameters are treated as random variables
-% \item Frequentist methods—cares about p-value, significance, confidence interval
-% \item Bayesian methods—cares about credible interval, prior, posterior
-% \end{itemize}
-% Bayesian methods use Bayes' Theorem (eqn. 1) to combine our prior knowledge of a system with the available data to estimate the probability of an event. 
-% Does not assume that parameters are the fixed or true quantities
-% Since inferences are probabilistic—can perform simulations using the density distributions of their parameters and make stronger inference of models predictive uncertainty
-% P(A|B) = f(B|A)(A)/P(B)
-% \par Three components:
-% \begin{itemize}
-% \item Posterior distribution (P(A|B)): used to update the prior using the likelihood
-% \item Likelihood ( f(B|A)): function of how likely te response variable is given the data
-% \item Prior ((A)): pre-existing information about the hypothesis—data from pilot studies or previous experiments, knowledge from experts or the literature—reflect the uncertainty within the system
-% \end{itemize}
-% \par Bayesian modeling is an iterative process: analyses may start with insufficient knowledge and data but use experiments to inform priors, and uses model checking to test key assumptions and our understanding of the data generating process.
-% \par General Bayesian workflow (Fig. \ref{fig:workflow})
-% \begin{itemize}
-% \item Simulate data based on priors and initial model specification 
-% \item Collect data
-% \item Model construction and testing
-% \item Prior predictive checks→Fit model to data
-% \item Posterior predictive checks
-% \item Summarize posteriors
-% \item Report results to targeted audiences
-% \end{itemize}
-% 
-
-%  \subsection*{Resources to Get Started}
-% %\par Note that this will be merged in with Box 1.
-% %HNE13nov2025: do we want to set these all up to be citations and in the reference list? 
-% 
-% \par Resources on general Bayesian methods: 
-% 
-% Uptick in the use of Bayesian inference has come alongside new programming languages that have made Bayesian models easier and faster to fit \citep{Carpenter:2017stan}, and we thus focus many of our recommendations on materials that use these newer approaches. We provide only a short list, and encourage researchers new to Bayesian to try new or updated materials as they become available. Additionally, a number of the below recommendations now have their materials online, and include videos of lectures (e.g., see websites by McElreath and Vehtari) for courses that go with the books and can help with learning the material. 
-% 
-% \begin{itemize}
-% \item Statistical Rethinking by Richard McElreath \url{http://xcelab.net/rm/statistical-rethinking/} is likely a major reason for the increasing use of Bayesian inference in ecology and is a great read.
-% \item \emph{Regression and Other Stories} (ROS) by Gelman, Hill \& Vehtari (\href{https://avehtari.github.io/ROS-Examples/}{more info here, including ROS online PDF}) is a great resource for learning Bayesian approaches that starts at the very beginning and builds up almost to multi-level modeling. It is effectively the first half of \emph{Data Analysis Using Regression and Multilevel/Hierarchical Models} by Gelman \& Hill \href{http://www.stat.columbia.edu/~gelman/arm/}{(more info here)} but updated to modern approaches and our current understanding of priors, workflows and more. 
-%  % emw15Nov2025: I don't know the below but people seem to like them, maybe someone else can add here? 
-% \item Bayesian Models: A statistical primer for ecologists by Hobbs \& Hooten
-%  \item Ecological Forecasting by Dietz
-% \item Applied statistical modelling for ecologists: a practical guide to Bayesian and likelihood inference using R, JAGS, NIMBLE, Stan and TMB by Marc K\'ery
-% and Kenneth F Kellner
-% \item \emph{Bayesian Data Analysis} (sometimes called `BDA') has also popularized Bayesian inference and is a great resource for those who want to learn from the underlying math and have a resource that covers many approaches. 
-% \item Michael Betancourt has most of what will become a book important concepts in probabilistic modeling  \href{https://betanalpha.github.io/writing/}{online}. Great for readers with a math background, it builds up from the mathematical foundations to a number of useful modeling approaches with careful case studies throughout. 
-% \item Many of the above resources discuss different versions of a Bayesian workflow, which is also highlighted in several papers  \citep{gelman2020bayesia}
-% % Add to above bullet?: Visualization in Bayesian Workflow \url{https://doi.org/10.1111/rssa.12378} % add ref? 
-% % Add to above bullet?: A four-step Bayesian workflow for improving ecological science \url{https://doi.org/10.48550/arXiv.2408.02603}
-%  \end{itemize}
-% 
-% For many, the best way to start or advance in Bayesian inference is through building community. This may mean starting to learn Bayesian approaches in a reading or model building group, and is how many of us learned---picking a book and finding a group that wants to meet weekly (or twice monthly) to work through the chapter concepts and exercises together, or having a group where each person reports on a model they're working on each time (this works best when not everyone is new to Bayesian inference). It can also be helpful to go through a suite of case studies (e.g., \url{https://mc-stan.org/learn-stan/case-studies.html}, \url{https://github.com/stan-dev/example-models}). 
-% 
-% These communities can be in-person or virtual, and can extend through a suite of virtual forums. Many questions are posted and answered through The Stan Forums \url{https://discourse.mc-stan.org/} for example, and the community hosts annual conferences as well. In addition, conferences for statistical ecology societies, Bayesian statistics societies, and for R and Python can often be great places to meet people interested in these approaches. 
-% 
-% 
-% \item Bayesian statistics and modelling \url{https://doi.org/10.1038/s43586-020-00001-2}
-% 
-%  \end{itemize}
-%\par Bayesian case studies: % emw15Nov2025: I integrated above, see what you think. 
-%\begin{itemize}
-%\item Stan Case Studies \url{https://mc-stan.org/learn-stan/case-studies.html}
-%\item Stan Example Models \url{https://github.com/stan-dev/example-models} 
-%\end{itemize}
-
-% \par Resources on priors: % emw15Nov2025: Skip?
-% \begin{itemize}
-% \item Banner et al. 2020 \url{https://doi.org/10.1111/2041-210X.13407}
-%\item Northrup \& Gerber 2018. \url{https://doi.org/10.1371/journal.pone.0192819}
-%\item Stan Prior Recommendations \url{https://github.com/stan-dev/stan/wiki/Prior-Choice-Recommendations}
-% \end{itemize}
-
-% \par Bayesian model simulation, validation, and checking:
-% \begin{itemize}
-% \item \href{https://esajournals.onlinelibrary.wiley.com/doi/10.1002/ecm.1314}{A guide to Bayesian model checking for ecologists \citep{conn2018guide}} % emw15Nov2025: I personally dislike this paper -- be sure to read it before you cite it... or maybe we skip this sub-category entirely?
-% \item 
-%  \href{https://doi.org/10.1890/14-0661.1}{Bayesian model selection for ecologists. \citep{hooten2015guide}}
-%\item Beginning exercise in simulating data \url{https://bios2.github.io/biodiversity_modelling_2021/exercise_questions.html}
-%\end{itemize}
-
-%xwNov1: I think maybe we can make this box more informative by relating resources we included here to the sections we have in the paper. 
-%13nov2025: I reordered -- how does that look? 
 
 
 \bibliography{conslib.bib}
@@ -346,8 +258,8 @@ For many, the best way to start or advance in Bayesian inference is through buil
 
 \begin{figure}[h]
 \centering
- \includegraphics{../figs/conservation.pdf}
- \caption{\textbf{Figure 1: The fraction of papers mentioning or using Bayesian methods has increased steadily over the past two decades. Lines here show the fraction of articles from a subset of articles (described below) that match at least one of our Bayesian keywords (see Table 1) with different lines corresponding to different journals, as indicated in the legend, and black line showing the fraction across all journals (a larger sample than those shown individually here; see Table 2). To find articles, we queried Web of Science \citep{WebOfScience} for all articles published between the years 2000 and 2023, in the journals listed in Table 2.% “The American Naturalist,” “Biodiversity and Conservation,” “Biological Conservation,” “Conservation Biology,” “Ecological Applications,” “Ecological Monographs,” “Ecology,” “Ecology Letters,” “Forest Ecology and Management,” “Global Change Biology,” “Global Ecology and Conservation,” “Journal of Animal Ecology,” “Journal of Applied Ecology,” “Journal of Ecology,” “Marine Ecology Progress Series,” “Oecologia,” and “Oikos” 
+ \includegraphics{../figs/conservationViridis.pdf}
+ \caption{\textbf{The fraction of papers mentioning or using Bayesian methods has increased steadily over the past two decades. Lines here show the fraction of articles from a subset of articles (described below) that match at least one of our Bayesian keywords (see Table \ref{tab:keywords}) with different lines corresponding to different journals, as indicated in the legend, and black line showing the fraction across all journals (a larger sample than those shown individually here; see Table \ref{tab:article-counts}). To find articles, we queried Web of Science \citep{WebOfScience} for all articles published between the years 2000 and 2023, in the journals listed in Table 2.% “The American Naturalist,” “Biodiversity and Conservation,” “Biological Conservation,” “Conservation Biology,” “Ecological Applications,” “Ecological Monographs,” “Ecology,” “Ecology Letters,” “Forest Ecology and Management,” “Global Change Biology,” “Global Ecology and Conservation,” “Journal of Animal Ecology,” “Journal of Applied Ecology,” “Journal of Ecology,” “Marine Ecology Progress Series,” “Oecologia,” and “Oikos” 
 We then used Zotero \citep{Ooms2024} to automatically retrieve full PDFs (which is only partially effective) and then used the pdftools package in R \citep{Ooms2024} to import and convert the PDFs into strings. We next searched imported articles for keywords that indicate the articles may contain statistical analyses (see Table 1 for a full list of search patterns), removing articles that did not match any keywords. Based on visual inspection, removed articles were generally descriptive and, indeed, did not include statistical analyses. This process ultimately yielded 34,079 articles (see Table 2 for a breakdown by journal).}}
  \label{fig:consbaystrend}
  \end{figure}
@@ -356,7 +268,7 @@ We then used Zotero \citep{Ooms2024} to automatically retrieve full PDFs (which 
 %DLJuly30: Still needs an explanation that dashed lines are included for populations with significant growth over time and that in b the points depict the mean change in abundance for each population's posterior estimates and the bars the 90\% uncertainty interval. 
 \begin{figure}
 \includegraphics[width=1\textwidth]{../bayesvfisherbox/figures/nhtBoxLayeredMeans.pdf}
-\caption{Trends in population size over time (left) analyzed using linear regression, with either a traditional Fisherian approach using null hypothesis testing (using an $\alpha$ of 0.05 to reject the null hypothesis of a slope of zero) versus a Bayesian approach, which focuses on the posterior distribution (right).}
+\caption{Trends in population size over time (left) analyzed using linear regression, with either a traditional Fisherian approach using null hypothesis testing (using an $\alpha$ of 0.05 to reject the null hypothesis of a slope of zero) versus a Bayesian approach, which focuses on the posterior distribution (right). Here the dashed lines represent populations with considerable growth over time. b) Points depict the mean change in abundance for each population posterior estimate and with bars depicting the 90\% uncertainity interval.}
 \label{fig:nht}
 \end{figure}
   %DLJuly30: I would jitter the points to better see the two sets of error
@@ -372,65 +284,35 @@ We then used Zotero \citep{Ooms2024} to automatically retrieve full PDFs (which 
  \definecolor{Gray}{gray}{0.95}
 \begin{table}[h]
   \centering
-  \caption{Text patterns.}
-    \begin{tabular}{|l|l|p{0.3\linewidth}|p{0.3\linewidth}|}
+    \caption{We used broad search terms pertaining to Bayesain statitstics and packages to query the Web of Science database and quantify the fraction of papers mentioning or applying Bayesian methods in key conservation journals over time.}
+    \begin{tabular}{|l|}
     \hline
-      \cellcolor{Gray}Paradigm
-      & \cellcolor{Gray}Pattern
-      & \cellcolor{Gray}Number of articles identified
-      & \cellcolor{Gray}Number of articles identified only by this keyword\\
+      \cellcolor{Gray}Keyword\\
       \hline
-      & \texttt{'bayes'} & X & X\\
-      & \texttt{' brms '} & & \\
-      & \texttt{' winbugs '} & & \\
-      & \texttt{' openbugs '} & & \\
-      & \texttt{' jags '} & & \\
-      & \texttt{' rstan '} & & \\
-      & \texttt{' pystan '} & & \\
-      Bayesian & \texttt{' cmdstan '} & & \\
-      & \texttt{' credible interval '} & & \\
-      & \texttt{'hpd'} & & \\
-      & \texttt{'maximum a posteriori'} & & \\
-      & \texttt{'mcmc'} & & \\
-      & \texttt{'prior distribution'} & & \\
-      & \texttt{'posterior distribution'} & & \\
-      & \texttt{'posterior density} & & \\
-      \hline
-      & \texttt{'p-value'} & & \\
-      & \texttt{' p value'} & & \\
-      & \texttt{'p<'} & & \\
-      & \texttt{'p <'} & & \\
-      & \texttt{'p='} & & \\
-      & \texttt{'p ='} & & \\
-      & \texttt{'p>'} & & \\
-      & \texttt{'p >'} & & \\
-      & \texttt{'anova '} & & \\
-      & \texttt{'bonferroni'} & & \\
-      & \texttt{'likelihood ratio'} & & \\
-      & \texttt{'mantel test'} & & \\
-      Frequentist & \texttt{'parametric'} & & \\
-      & \texttt{'chi-square'} & & \\
-      & \texttt{'chi square'} & & \\
-      & \texttt{'f-statistic'} & & \\
-      & \texttt{' f statistic'} & & \\
-      & \texttt{' glm '} & & \\
-      & \texttt{'regression'} & & \\
-      & \texttt{'t-test'} & & \\
-      & \texttt{'test statistic'} & & \\
-      & \texttt{'spearman'} & & \\
-      & \texttt{'null hypothesis'} & & \\
-      & \texttt{'confidence interval'} & & \\
-      & \texttt{'lme4'} & & \\
-    \hline
+       \texttt{`bayes'} \\
+       \texttt{`brms'} \\
+       \texttt{`winbugs'} \\
+       \texttt{`openbugs'} \\
+       \texttt{`jags'} \\
+       \texttt{`rstan'} \\
+       \texttt{`pystan'} \\
+       \texttt{`cmdstan'} \\
+       \texttt{`credible interval'} \\
+       \texttt{`hpd'} \\
+       \texttt{`maximum a posteriori'} \\
+       \texttt{`mcmc'} \\
+       \texttt{`prior distribution'} \\
+       \texttt{`posterior distribution'} \\
+       \texttt{`posterior density'} \\
+       \hline
   \end{tabular}
 \label{tab:keywords}
 \end{table}
-\clearpage
 
 \definecolor{Gray}{gray}{0.95}
 \begin{table}[h]
   \centering
-  \caption{Journal titles and article counts.}
+  \caption{We identified 17 journals in which conservation reserach is commonly published and quantified the number of articles in which Bayesian methods were discussed or applied. Given here are the total number of articles published between the years 2000 and 2023 for each journal across all years.}
     \begin{tabular}{|l|l|}
     \hline
       \cellcolor{Gray}Journal & \cellcolor{Gray}Article count\\
