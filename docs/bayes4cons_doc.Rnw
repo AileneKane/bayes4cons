@@ -60,23 +60,26 @@
 \author[6]{M. Auger-M\'eth\'e}
 \author[3]{Leithen M'Gonigle}
 \author[7]{X. Wang}
-\author[7]{E.M. Wolkovich}
+\author[7,8,9]{E.M. Wolkovich}
 
 
 \affil[1]{The Nature Conservancy, Seattle, Washington, USA}
 \affil[2]{The Nature Conservancy, Boulder, Colorado, USA}
+\affil[3]{Department of Biological Sciences, Simon Fraser University, Burnaby, British Columbia, Canada}
 \affil[4]{Department of Zoology, University of British Columbia, Vancouver, British Columbia, Canada}
 \affil[5]{Hakai Institute, Campbell River, British Columbia, Canada}
 \affil[6]{Department of Statistics and Institute for the Oceans and Fisheries The University of British Columbia}
-\affil[3]{SFU}
-\affil[7]{UBC Forestry}
+\affil[7] {Institute for the Oceans and Fisheries, University of British Columbia, Vancouver V6T 1Z4, British Columbia, Canada}
+\affil[8]{Department of Forest and Conservation, Faculty of Forestry, University of British Columbia, Vancouver, British Columbia Canada.}
+\affil[9] {Arnold Arboretum of Harvard University, Boston, Massachusetts, USA}
+\affil[10] {Organismic \& Evolutionary Biology, Harvard University, Cambridge, Massachusetts, USA}
 
 
 \affil[a]{Corresponding author; email: ailene.ettinger@tnc.org; mailing address: 74 Wall Street. Seattle, WA 98121, USA }
 
 \date{\today}
 \maketitle 
-\textbf{Author contributions}: All authors conceived of this manuscript, which began through conversations at a Bayesian Generative Modelling Symposium at University of British Columbia in 2024 designed by EMW with funding from UBC's Grants for Catalyzing Research Clusters: Biodiversity Research; AKE led the writing of the manuscript, HNE, EMW, DL, and AKE made figures; all authors contributed portions of text, and revised the manuscript.
+\textbf{Author contributions}: All authors conceived of this manuscript, which began through conversations at a Bayesian Generative Modelling Symposium at University of British Columbia in 2024 designed by EMW with funding from UBC's Grants for Catalyzing Research Clusters: Biodiversity Research; AKE led the writing of the manuscript, HNE, EMW, DL, and AKE made figures; XW, EMW, DL, MAM, and AKE wrote case studies; all authors contributed portions of text, and revised the manuscript.
 
 \textbf{Data Accessibility} All data and code are included as supplemental materials and available on GitHub
 
@@ -346,8 +349,8 @@ For many, the best way to start or advance in Bayesian inference is through buil
 
 \begin{figure}[h]
 \centering
- \includegraphics{../figs/conservation.pdf}
- \caption{\textbf{Figure 1: The fraction of papers mentioning or using Bayesian methods has increased steadily over the past two decades. Lines here show the fraction of articles from a subset of articles (described below) that match at least one of our Bayesian keywords (see Table 1) with different lines corresponding to different journals, as indicated in the legend, and black line showing the fraction across all journals (a larger sample than those shown individually here; see Table 2). To find articles, we queried Web of Science \citep{WebOfScience} for all articles published between the years 2000 and 2023, in the journals listed in Table 2.% “The American Naturalist,” “Biodiversity and Conservation,” “Biological Conservation,” “Conservation Biology,” “Ecological Applications,” “Ecological Monographs,” “Ecology,” “Ecology Letters,” “Forest Ecology and Management,” “Global Change Biology,” “Global Ecology and Conservation,” “Journal of Animal Ecology,” “Journal of Applied Ecology,” “Journal of Ecology,” “Marine Ecology Progress Series,” “Oecologia,” and “Oikos” 
+ \includegraphics{../figs/conservationViridis.pdf}
+ \caption{\textbf{The fraction of papers mentioning or using Bayesian methods has increased steadily over the past two decades. Lines here show the fraction of articles from a subset of articles (described below) that match at least one of our Bayesian keywords (see Table \ref{tab:keywords}) with different lines corresponding to different journals, as indicated in the legend, and black line showing the fraction across all journals (a larger sample than those shown individually here; see Table \ref{tab:article-counts}). To find articles, we queried Web of Science \citep{WebOfScience} for all articles published between the years 2000 and 2023, in the journals listed in Table 2.% “The American Naturalist,” “Biodiversity and Conservation,” “Biological Conservation,” “Conservation Biology,” “Ecological Applications,” “Ecological Monographs,” “Ecology,” “Ecology Letters,” “Forest Ecology and Management,” “Global Change Biology,” “Global Ecology and Conservation,” “Journal of Animal Ecology,” “Journal of Applied Ecology,” “Journal of Ecology,” “Marine Ecology Progress Series,” “Oecologia,” and “Oikos” 
 We then used Zotero \citep{Ooms2024} to automatically retrieve full PDFs (which is only partially effective) and then used the pdftools package in R \citep{Ooms2024} to import and convert the PDFs into strings. We next searched imported articles for keywords that indicate the articles may contain statistical analyses (see Table 1 for a full list of search patterns), removing articles that did not match any keywords. Based on visual inspection, removed articles were generally descriptive and, indeed, did not include statistical analyses. This process ultimately yielded 34,079 articles (see Table 2 for a breakdown by journal).}}
  \label{fig:consbaystrend}
  \end{figure}
@@ -356,7 +359,7 @@ We then used Zotero \citep{Ooms2024} to automatically retrieve full PDFs (which 
 %DLJuly30: Still needs an explanation that dashed lines are included for populations with significant growth over time and that in b the points depict the mean change in abundance for each population's posterior estimates and the bars the 90\% uncertainty interval. 
 \begin{figure}
 \includegraphics[width=1\textwidth]{../bayesvfisherbox/figures/nhtBoxLayeredMeans.pdf}
-\caption{Trends in population size over time (left) analyzed using linear regression, with either a traditional Fisherian approach using null hypothesis testing (using an $\alpha$ of 0.05 to reject the null hypothesis of a slope of zero) versus a Bayesian approach, which focuses on the posterior distribution (right).}
+\caption{Trends in population size over time (left) analyzed using linear regression, with either a traditional Fisherian approach using null hypothesis testing (using an $\alpha$ of 0.05 to reject the null hypothesis of a slope of zero) versus a Bayesian approach, which focuses on the posterior distribution (right). Here the dashed lines represent populations with considerable growth over time. b) Points depict the mean change in abundance for each population posterior estimate and with bars depicting the 90\% uncertainity interval.}
 \label{fig:nht}
 \end{figure}
   %DLJuly30: I would jitter the points to better see the two sets of error
@@ -372,65 +375,35 @@ We then used Zotero \citep{Ooms2024} to automatically retrieve full PDFs (which 
  \definecolor{Gray}{gray}{0.95}
 \begin{table}[h]
   \centering
-  \caption{Text patterns.}
-    \begin{tabular}{|l|l|p{0.3\linewidth}|p{0.3\linewidth}|}
+    \caption{We used broad search terms pertaining to Bayesain statitstics and packages to query the Web of Science database and quantify the fraction of papers mentioning or applying Bayesian methods in key conservation journals over time.}
+    \begin{tabular}{|l|}
     \hline
-      \cellcolor{Gray}Paradigm
-      & \cellcolor{Gray}Pattern
-      & \cellcolor{Gray}Number of articles identified
-      & \cellcolor{Gray}Number of articles identified only by this keyword\\
+      \cellcolor{Gray}Keyword\\
       \hline
-      & \texttt{'bayes'} & X & X\\
-      & \texttt{' brms '} & & \\
-      & \texttt{' winbugs '} & & \\
-      & \texttt{' openbugs '} & & \\
-      & \texttt{' jags '} & & \\
-      & \texttt{' rstan '} & & \\
-      & \texttt{' pystan '} & & \\
-      Bayesian & \texttt{' cmdstan '} & & \\
-      & \texttt{' credible interval '} & & \\
-      & \texttt{'hpd'} & & \\
-      & \texttt{'maximum a posteriori'} & & \\
-      & \texttt{'mcmc'} & & \\
-      & \texttt{'prior distribution'} & & \\
-      & \texttt{'posterior distribution'} & & \\
-      & \texttt{'posterior density} & & \\
-      \hline
-      & \texttt{'p-value'} & & \\
-      & \texttt{' p value'} & & \\
-      & \texttt{'p<'} & & \\
-      & \texttt{'p <'} & & \\
-      & \texttt{'p='} & & \\
-      & \texttt{'p ='} & & \\
-      & \texttt{'p>'} & & \\
-      & \texttt{'p >'} & & \\
-      & \texttt{'anova '} & & \\
-      & \texttt{'bonferroni'} & & \\
-      & \texttt{'likelihood ratio'} & & \\
-      & \texttt{'mantel test'} & & \\
-      Frequentist & \texttt{'parametric'} & & \\
-      & \texttt{'chi-square'} & & \\
-      & \texttt{'chi square'} & & \\
-      & \texttt{'f-statistic'} & & \\
-      & \texttt{' f statistic'} & & \\
-      & \texttt{' glm '} & & \\
-      & \texttt{'regression'} & & \\
-      & \texttt{'t-test'} & & \\
-      & \texttt{'test statistic'} & & \\
-      & \texttt{'spearman'} & & \\
-      & \texttt{'null hypothesis'} & & \\
-      & \texttt{'confidence interval'} & & \\
-      & \texttt{'lme4'} & & \\
-    \hline
+       \texttt{`bayes'} \\
+       \texttt{`brms'} \\
+       \texttt{`winbugs'} \\
+       \texttt{`openbugs'} \\
+       \texttt{`jags'} \\
+       \texttt{`rstan'} \\
+       \texttt{`pystan'} \\
+       \texttt{`cmdstan'} \\
+       \texttt{`credible interval'} \\
+       \texttt{`hpd'} \\
+       \texttt{`maximum a posteriori'} \\
+       \texttt{`mcmc'} \\
+       \texttt{`prior distribution'} \\
+       \texttt{`posterior distribution'} \\
+       \texttt{`posterior density'} \\
+       \hline
   \end{tabular}
 \label{tab:keywords}
 \end{table}
-\clearpage
 
 \definecolor{Gray}{gray}{0.95}
 \begin{table}[h]
   \centering
-  \caption{Journal titles and article counts.}
+  \caption{We identified 17 journals in which conservation reserach is commonly published and quantified the number of articles in which Bayesian methods were discussed or applied. Given here are the total number of articles published between the years 2000 and 2023 for each journal across all years.}
     \begin{tabular}{|l|l|}
     \hline
       \cellcolor{Gray}Journal & \cellcolor{Gray}Article count\\
