@@ -1,0 +1,229 @@
+---
+title: "Supporting Information: Ettinger et al. Adaptive conservation science using Bayesian methods - Case Study 1"
+authors: "Deirdre Loughnan, Xiaomao Wang, E M Wolkovich"
+format: pdf
+editor: visual
+---
+
+\emph{This case study was developed primarily by D.Loughnan, X.Wang and E.Wolkovich with the input of the full manuscript author team.}
+
+We simulate data using a simple linear function with noise, assuming the sampling of five populations within its distributional range, from north to south for 10 years. The following code performs data analysis and visualization using both the traditional Fisherian approach and the Bayesian approach. For the Fisherian approach, we use an `lm` model in R and plot the p-values for different populations, indicating whether the increase or decrease is statistically significant. For the Bayesian approach, we use Stan code with priors and plot the posterior distribution.
+
+```{r echo=T, message=F}
+# Use all cores to run the stan model
+options(mc.cores = parallel::detectCores())
+
+# Install dependencies
+require(rstan)
+require(lme4)
+require(shinystan)
+require(viridis)
+```
+
+```{r}
+
+# We set the seed so the results will be consistent
+set.seed(1546)
+
+# To identify the parameter values that would simulate data that 
+# fits our needs, we use a simple linear function and add noise.
+simulate_population <- function(a, b, t, noise_sd) {
+  y <- numeric(t)
+  time <- 1:t
+  y <- a*time + b + rnorm(t, 0, noise_sd)
+    # y is the population at a certain time
+    # a is the increasing/decreasing rate
+    # b is the starting population size
+    # time is the x (independent) variable 
+    # noise_sd is the standard deviation of the normally-distributed noise 
+  model <- lm(y ~ time)
+  # Extract the slop estimate and p-value (coefficient of time)
+  estimated_slope <- coef(model)["time"]
+  pval <- coef(summary(lm(y ~ time)))[["time", "Pr(>|t|)"]]
+  return(c(estimated_slope, pval))
+}
+
+# Using the above function, we identified the below parameter 
+# values that fit our data simulation needs: 
+a <- c(-2000, -1400,  600, 1400 , 2000)
+t <- 10
+time <- 1:t
+b <- seq(40000, 101000, by = 10000)
+noise_sd <- c(7000, 6600, 6200, 5800, 5400, 5000,4600)
+
+# simulate data to be used in both Fisherian and Bayesian analyses below
+output <- data.frame(iter = seq(1:(length(a)*length(time))), 
+                     pop = rep(1:length(a), each = length(time)), 
+                     year = rep(1:t, times = length(a)))
+output$pred <- NA  
+
+abund <- vector()
+for(i in 1:length(a)){
+  y <- numeric(t)
+  time <- 1:t
+  y <- a[i]*time + b[i] + rnorm(t, 0, noise_sd[i])
+  abund <- rbind(abund, y)
+}
+
+abund <- data.frame(reshape2::melt(t(abund)))
+output$pred <- abund$value
+```
+
+## Traditional Fisherian approach
+
+With traditional Fisherian approach, we use `lm` to model the data and then we plot the estimates and p-values.
+
+```{r include= TRUE}
+#| fig-width: 7
+#| fig-height: 5
+#| out-width: "80%"
+# Set color palette for plots
+popID <- unique(output$pop)
+colors <- c("#f7cb44ff", "#f68f46ff", "#de7065ff", 
+            "#a65c85ff","#593d9cff","purple4", "navy")
+
+par(mfrow = c(1, 1), mar = c(5.1, 4.5, 4.1, 2.1))
+# Abundance over time with regression lines
+marks <- c(0, expression('5e'^4*''), 
+           expression('1e'^5*''), 
+           expression('1.4e'^5*''))
+ticks <- c(0, 50000, 100000, 150000)
+
+plot(1, type = "n", 
+     ylab = "Abundance", 
+     xlab = "Year", 
+     xlim = c(0, 11),
+     ylim = c(0, 250000), 
+     cex.lab = 1.5, 
+     frame.plot = FALSE, 
+     xaxs = "i", yaxs = "i", 
+     yaxt = "n")
+
+# Customize axes
+axis(side = 1, at = seq(-3000, 3000, by = 1), cex.axis = 1)
+axis(side = 2, at = ticks, labels = marks, cex.axis = 1)
+
+# Plot data points for each population
+for(i in 1:length(unique(output$pop))) {
+  temp <- subset(output, pop == popID[i])
+  points(temp$year, temp$pred, col = colors[i], pch = 19)
+}
+
+# Add regression lines for selected populations
+abline(lm(pred ~ year, subset(output, pop == popID[5])), 
+       lty = 4, col = colors[5], lwd = 1.5)
+
+abline(lm(pred ~ year, subset(output, pop == popID[4])), 
+       lty = 4, col = colors[4], lwd = 1.5)
+
+# Add legend
+legend("topright", legend = c(expression('Farthest north (p = 3.4e'^-4*')'),
+                              expression('North (p = 0.01)'),
+                              expression('Middle (p = 0.36)'),
+                              expression('South (p = 0.15)'),
+                              expression('Farthest south (p = 0.08)')),
+       lty = c(1, 1, 1, 1, 1), 
+       lwd = 4, bty = "n", 
+       col = c("#593d9cff","#a65c85ff", "#de7065ff", "#f68f46ff","#f7cb44ff"),
+       cex = 1, pt.cex = 2.5)
+```
+
+## Bayesian approach
+
+With the Bayesian approach, we use the same simulated data but use Stan to analyze it instead of `lm` and include partial pooling by group. Here's the Stan code:
+
+```{r engine = 'cat', engine.opts = list(file = "partialPoolSimMdl.stan", lang = "stan")}
+data {
+  int<lower=0> N; //No. obs
+  int<lower=0> Ngrp; //No. in group---population or species
+  array[N] int group; // Group type
+  vector[N] year;
+  array[N] real ypred; //response
+}
+
+parameters {
+  array[Ngrp] real a;
+  array[Ngrp] real b; 
+  real mu_a; 
+  real<lower=0> sigma_a;
+  real mu_b; 
+  real<lower=0> sigma_b; 
+  real<lower=0> sigma_y; 
+  
+}
+
+model {
+
+array[N] real mu_y; 
+
+for(i in 1:N){
+     mu_y[i] = a[group[i]] + b[group[i]] * year[i];
+  }
+  
+a ~ normal(mu_a, sigma_a);
+b ~ normal(mu_b, sigma_b);
+
+//Priors
+mu_a ~ normal(188, 50); 
+sigma_a ~ normal(0,50);
+mu_b ~ normal(0,10); 
+sigma_b ~ normal(0,10); 
+sigma_y ~ normal(0,10); 
+
+ypred ~ normal(mu_y, sigma_y);
+}
+
+```
+
+```{r echo=T, results='hide'}
+str(output)
+output$pop <- as.factor(output$pop)
+
+datalistGrp <- with(output,
+                    list( N = nrow(output),
+                          Ngrp = length(unique(output$pop)),
+                          group = as.numeric(as.factor(output$pop)),
+                          ypred = output$pred,
+                          year = output$year ))
+```
+
+```{r message = FALSE}
+mdlPop <- stan("partialPoolSimMdl.stan",
+               data = datalistGrp)
+
+sum <- summary(mdlPop)$summary
+
+intercept <- sum[grep("a\\[", rownames(sum)), "mean"]
+slopes <- sum[grep("b\\[", rownames(sum)), "mean"]
+
+# Posterior distribution
+post <- rstan::extract(mdlPop)
+```
+
+### Visualization
+
+```{r echo = FALSE}
+
+par(mfrow = c(1, 1), mar = c(5.1, 4.5, 4.1, 2.1))
+
+# Histogram of change in abundance with uncertainty intervals
+plot(1, type = "n", xlab = "Change in abundance", ylab = "Frequency", xlim = c(-2500, 2500), ylim = c(0, 1500), cex.lab = 1.5, frame.plot = FALSE)
+
+# Plot histograms for each population's posterior distribution
+for(i in 1:length(unique(output$pop))) {
+  hist(post$b[,i], add = TRUE, col = colors[i])
+  axis(side = 1, at = seq(-3000, 3000, by = 1000), cex.axis = 1)
+  axis(side = 2, at = seq(-1000000, 1000000, by = 1000), cex.axis = 1)
+
+# Add mean and uncertainty intervals
+  points(x = mean(post$b[,i]), y = 1300, col = colors[i], pch = 19)
+  arrows(x0 = (quantile(post$b[,i], 0.05)), y0 = 1300, x1 = (quantile(post$b[,i], 0.95)), y1 = 1300, code = 3, length = 0, col = colors[i], lwd = 2)
+}
+```
+
+### Session Info
+
+```{r}
+sessionInfo() 
+
+```
